@@ -6,14 +6,14 @@ const ProductCard = () => {
     <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
     {/* añadir en la parte de arriba de la card una foto pequeña en la derecha */}
     <div className="flex items-center justify-between px-5 py-3">
-      <span className="text-sm font-light text-gray-600 dark:text-gray-400">User Diego Carvajal</span>
+      <span className="text-sm font-light text-gray-600 dark:text-gray-400">Diego Carvajal</span>
       {/* imagen  de perfil*/}
       <img className="w-8 h-8 rounded-full" src={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} alt="avatar" />
     </div>
 
 
       <a href="/">
-        <img className="p-8 rounded-t-lg"  src={process.env.PUBLIC_URL + '../img/Cards/contructor.jpg'} alt="product image s" />
+        <img className="p-8 rounded-t-lg"  src={process.env.PUBLIC_URL + '../img/Cards/contructor.jpg'} alt="product imagen" />
       </a>
       <div className="px-5 pb-5">
         <a href="/">

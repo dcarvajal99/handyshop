@@ -3,7 +3,7 @@ import { Dropdown, Navbar, Avatar } from 'flowbite-react';
 
 export default function NavbarWithDropdown() {
     return (
-        <Navbar fluid rounded>
+        <Navbar fluid rounded >
             <Navbar.Brand href="https://flowbite-react.com">
                 <img
                     alt="HandyShop Logo"
@@ -25,13 +25,10 @@ export default function NavbarWithDropdown() {
                         </span>
                     </Dropdown.Header>
                     <Dropdown.Item>
-                        Dashboard
+                        Favoritos
                     </Dropdown.Item>
                     <Dropdown.Item>
-                        Settings
-                    </Dropdown.Item>
-                    <Dropdown.Item>
-                        Earnings
+                        Subir Servicios
                     </Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item>
@@ -47,7 +44,7 @@ export default function NavbarWithDropdown() {
                     </p>
                 </Navbar.Link>
                 <Navbar.Link href="#">
-                    About
+                    ¿Quienes Somos?
                 </Navbar.Link>
                 <Navbar.Link href="#">
                     Services

@@ -1,13 +1,20 @@
 import React from 'react';
 import NavbarWithDropdown from '../components/Navbar';
 import CarouselMain from '../components/CarouselMain';
-import ProductCard from '../components/Cards/Card';
+import ContainerCards from '../components/cards/ContainerCards';
+import FooterApp from '../components/Footer';
+import PaginationApp from '../components/PaginationApp';
+import Filtros from '../components/filtros/EstiloFiltro';
+
 const Main = () => {
     return (
         <>
-        <NavbarWithDropdown />
+        <NavbarWithDropdown/>
         <CarouselMain />
-        <ProductCard/>
+        <Filtros/>
+        <ContainerCards/>
+        <PaginationApp/>
+        <FooterApp/>
         </>
     )
 }
