@@ -6,7 +6,6 @@ const Main = () => {
     return (
         <>
         <NavbarWithDropdown />
-
         <CarouselMain />
         <ProductCard/>
         </>
