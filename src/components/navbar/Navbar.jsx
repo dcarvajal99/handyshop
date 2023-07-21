@@ -1,19 +1,26 @@
 import React from 'react';
 import { Dropdown, Navbar, Avatar } from 'flowbite-react';
+import { NavLink } from 'react-router-dom';
 
 export default function NavbarWithDropdown() {
+    const [active, setActive] = React.useState(false);
+
     return (
         <Navbar fluid rounded >
-            <Navbar.Brand href="https://flowbite-react.com">
-                <img
-                    alt="HandyShop Logo"
-                    className="mr-3 h-6 sm:h-9"
-                    src="/favicon.svg"
-                />
-                <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-                    HandyShop
-                </span>
+            <Navbar.Brand  >
+
+                    <img
+                        alt="HandyShop Logo"
+                        className="mr-3 h-6 sm:h-9"
+                        src="/favicon.svg"
+                    />
             </Navbar.Brand>
+                {/* <NavLink to="/">
+                    <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+                        HandyShop
+                    </span>
+                </NavLink> */}
+            
             <div className="flex md:order-2">
                 <Dropdown inline label={<Avatar alt="User settings" img={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} rounded />} >
                     <Dropdown.Header>
@@ -25,10 +32,14 @@ export default function NavbarWithDropdown() {
                         </span>
                     </Dropdown.Header>
                     <Dropdown.Item>
-                        Favoritos
+                        <NavLink to="/favoritos">
+                            Favoritos
+                        </NavLink>
                     </Dropdown.Item>
                     <Dropdown.Item>
-                        Subir Servicios
+                        <NavLink to="/subir-servicios">
+                            Subir Servicios
+                        </NavLink>
                     </Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item>
@@ -38,21 +49,21 @@ export default function NavbarWithDropdown() {
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>
-                <Navbar.Link active href="#">
+                <NavLink to="/">
                     <p>
                         Home
                     </p>
-                </Navbar.Link>
-                <Navbar.Link href="#">
+                </NavLink>
+                <NavLink to="/quienes-somos">
                     ¿Quienes Somos?
-                </Navbar.Link>
-                <Navbar.Link href="#">
+                </NavLink>
+                <Navbar.Link>
                     Services
                 </Navbar.Link>
-                <Navbar.Link href="#">
+                <Navbar.Link>
                     Pricing
                 </Navbar.Link>
-                <Navbar.Link href="#">
+                <Navbar.Link>
                     Contact
                 </Navbar.Link>
             </Navbar.Collapse>
