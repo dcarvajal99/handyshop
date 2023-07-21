@@ -1,9 +1,7 @@
 import React from 'react';
-import NavbarWithDropdown from '../components/Navbar';
-import CarouselMain from '../components/CarouselMain';
-import ContainerCards from '../components/cards/ContainerCards';
-import FooterApp from '../components/Footer';
-import PaginationApp from '../components/PaginationApp';
+import CarouselMain from '../components/carousel/CarouselMain';
+import ContainerCards from '../components/Cards/ContainerCards';
+import PaginationApp from '../components/Pagination/PaginationApp';
 import Filtros from '../components/filtros/EstiloFiltro';
 
 
