@@ -1,0 +1,13 @@
+{
+    "usuario": [
+      {
+        "id": 1,
+        "nombre": "Juan",
+        "apellido": "Pérez",
+        "correo": "juan@example.com",
+        "ubicacion": "Ciudad de México",
+        "contraseña": "contraseña1"
+      }
+    ]
+  }
+  

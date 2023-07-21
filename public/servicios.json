@@ -1,0 +1,88 @@
+{
+  "servicios": [
+    {
+      "id": 1,
+      "servicio": "Asesora de casa",
+      "descripcion": "Asesora para labores del hogar, limpieza y organización.",
+      "monto": 40000,
+      "ubicacion": "Santiago, Chile"
+    },
+    {
+      "id": 2,
+      "servicio": "Electricista",
+      "descripcion": "Servicios de reparación y mantenimiento eléctrico.",
+      "monto": 55000,
+      "ubicacion": "Valparaíso, Chile"
+    },
+    {
+      "id": 3,
+      "servicio": "Técnico de Aire Acondicionado",
+      "descripcion": "Instalación, mantenimiento y reparación de sistemas de aire acondicionado.",
+      "monto": 60000,
+      "ubicacion": "Concepción, Chile"
+    },
+    {
+      "id": 4,
+      "servicio": "Fontanero",
+      "descripcion": "Reparación y mantenimiento de tuberías y sistemas de agua.",
+      "monto": 45000,
+      "ubicacion": "Antofagasta, Chile"
+    },
+    {
+      "id": 5,
+      "servicio": "Pintor",
+      "descripcion": "Servicios de pintura para interiores y exteriores.",
+      "monto": 35000,
+      "ubicacion": "Puerto Montt, Chile"
+    },
+    {
+      "id": 6,
+      "servicio": "Jardinero",
+      "descripcion": "Cuidado y mantenimiento de jardines y áreas verdes.",
+      "monto": 30000,
+      "ubicacion": "La Serena, Chile"
+    },
+    {
+      "id": 7,
+      "servicio": "Carpintero",
+      "descripcion": "Trabajos de carpintería y muebles a medida.",
+      "monto": 50000,
+      "ubicacion": "Iquique, Chile"
+    },
+    {
+      "id": 8,
+      "servicio": "Limpieza de Alfombras",
+      "descripcion": "Limpieza profesional de alfombras y tapetes.",
+      "monto": 40000,
+      "ubicacion": "Valdivia, Chile"
+    },
+    {
+      "id": 9,
+      "servicio": "Servicio de Plomería",
+      "descripcion": "Reparación y mantenimiento de sistemas de plomería.",
+      "monto": 55000,
+      "ubicacion": "Viña del Mar, Chile"
+    },
+    {
+      "id": 10,
+      "servicio": "Mudanzas",
+      "descripcion": "Servicio de mudanzas locales y nacionales.",
+      "monto": 60000,
+      "ubicacion": "Rancagua, Chile"
+    },
+    {
+      "id": 11,
+      "servicio": "Personal de Seguridad",
+      "descripcion": "Servicio de seguridad para el hogar y eventos.",
+      "monto": 45000,
+      "ubicacion": "Arica, Chile"
+    },
+    {
+      "id": 12,
+      "servicio": "Instalador de Cámaras de Seguridad",
+      "descripcion": "Instalación y configuración de sistemas de cámaras de seguridad.",
+      "monto": 55000,
+      "ubicacion": "Punta Arenas, Chile"
+    }
+  ]
+}
