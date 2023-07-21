@@ -1,10 +1,10 @@
 import React from "react";
-
+import DetailsServices from "../components/detailsServices/DetailsServices";
 const Favoritos = () => {
     return (
-        <div>
-        <h1>Favoritos</h1>
-        </div>
+        <>
+        <DetailsServices/>
+        </>
     );
     }
 
