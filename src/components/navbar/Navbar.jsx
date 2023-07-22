@@ -9,6 +9,7 @@ export default function NavbarWithDropdown() {
      const { usuarios } = useContext(Context);
     /* let usuarios = undefined; */
     return (
+        
         <Navbar fluid rounded >
             <Navbar.Brand  >
 
@@ -18,13 +19,17 @@ export default function NavbarWithDropdown() {
                     src={process.env.PUBLIC_URL + '../img/logo/logo.gif'}
                 />
             </Navbar.Brand>
+            
             {/* <NavLink to="/">
                     <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
                         HandyShop
                     </span>
                 </NavLink> */}
+                <button type="submit" className=" px-5 py-2.5 sm:mt-6 text-sm font-medium text-center text-dark bg-gray-400 rounded-lg focus:ring-4 focus:ring-primary-200">
+                    Agregar Servicio
+                </button>
             {usuarios.nombre ?
-                <div className="flex md:order-2">
+                <div className="flex md:order-1">
                     <Dropdown inline label={<Avatar alt="User settings" img={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} rounded />} >
                         <Dropdown.Header>
                             <span className="block text-sm">
