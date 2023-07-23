@@ -11,6 +11,7 @@ const LittleCard = () => {
     const handleClick = (id) => {
         navigate(`/details/${id}`);
     };
+    
 
     return (
         <>
