@@ -6,6 +6,8 @@ import Context from '../../context/ContextProvider';
 
 export default function NavbarWithDropdown() {
      const { usuarios } = useContext(Context);
+
+     let temporal = undefined;
     /* let usuarios = undefined; */
     return (
         <Navbar fluid rounded >
@@ -20,6 +22,7 @@ export default function NavbarWithDropdown() {
                     <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
                         HandyShop
                     </span>
+
                 </NavLink> }
                     {/* ...otros contenidos de la aplicación... */}
             {usuarios.nombre?
