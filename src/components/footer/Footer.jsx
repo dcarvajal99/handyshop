@@ -1,39 +1,45 @@
 import { BsDribbble, BsFacebook, BsGithub, BsInstagram, BsTwitter } from 'react-icons/bs';
 import { Footer } from 'flowbite-react';
 
-const FooterApp = () =>{
+const FooterApp = () => {
     return (
         <Footer container>
             <div className="w-full">
                 <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
                     <div>
                         <Footer.Brand
-                            alt="Flowbite Logo"
-                            href="https://flowbite.com"
-                            name="Flowbite"
-                            src="https://flowbite.com/docs/images/logo.svg"
+                            alt="Logo"
+                            href="#"
+                            name="HS"
+                            src={process.env.PUBLIC_URL + '../img/logo/logo.gif'}
                         />
                     </div>
                     <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
                         <div>
-                            <Footer.Title title="about" />
+                            <Footer.Title title="Nosotros" />
                             <Footer.LinkGroup col>
                                 <Footer.Link href="#">
-                                    Flowbite
+                                    HandyShop
                                 </Footer.Link>
                                 <Footer.Link href="#">
-                                    Tailwind CSS
+                                    Nosotros
                                 </Footer.Link>
                             </Footer.LinkGroup>
                         </div>
                         <div>
-                            <Footer.Title title="Follow us" />
+                            <Footer.Title title="Centro de ayuda" />
                             <Footer.LinkGroup col>
                                 <Footer.Link href="#">
-                                    Github
+                                    Ayuda
                                 </Footer.Link>
                                 <Footer.Link href="#">
-                                    Discord
+                                    Soporte
+                                </Footer.Link>
+                                <Footer.Link href="#">
+                                    Contacto corporativo
+                                </Footer.Link>
+                                <Footer.Link href="#">
+                                    Trabaja con nosotros
                                 </Footer.Link>
                             </Footer.LinkGroup>
                         </div>
@@ -41,10 +47,16 @@ const FooterApp = () =>{
                             <Footer.Title title="Legal" />
                             <Footer.LinkGroup col>
                                 <Footer.Link href="#">
-                                    Privacy Policy
+                                    Políticas de privacidad
                                 </Footer.Link>
                                 <Footer.Link href="#">
-                                    Terms & Conditions
+                                    Terminos y Condiciones
+                                </Footer.Link>
+                                <Footer.Link href="#">
+                                    Consejos de seguridad
+                                </Footer.Link>
+                                <Footer.Link href="#">
+                                    Reglas
                                 </Footer.Link>
                             </Footer.LinkGroup>
                         </div>
@@ -53,9 +65,9 @@ const FooterApp = () =>{
                 <Footer.Divider />
                 <div className="w-full sm:flex sm:items-center sm:justify-between">
                     <Footer.Copyright
-                        by="Flowbite™"
+                        by="HandyShop™"
                         href="#"
-                        year={2022}
+                        year={new Date().getFullYear()}
                     />
                     <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
                         <Footer.Icon

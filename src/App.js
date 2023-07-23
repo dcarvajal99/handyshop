@@ -8,6 +8,8 @@ import { ContextProvider } from "./context/ContextProvider";
 import FooterApp from "./components/footer/Footer";
 import ServiceDetail from "./views/ServiceDetail";
 import Carrito from "./views/Carrito";
+import RegisterUsers from "./views/RegisterUsers";
+import FormElements from "./components/Users/FormElements";
 
 
 function App() {
@@ -19,10 +21,14 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/favoritos" element={<Favoritos />} />
           <Route path="*" element={<h1>Not Found</h1>} />
+          <Route path="/quienes-somos" element={<QuienesSomos />} />
+          <Route path="/subir-servicios" element={<SubirServicios />} />
           <Route path="/subir-servicios" element={<SubirServicios />} />
           <Route path="/quienes-somos" element={<QuienesSomos />} />
           <Route path="/service-detail" element={<ServiceDetail />} />
           <Route path="/carrito" element={<Carrito />} />
+          <Route path="/register-users" element={<RegisterUsers />} />
+          <Route path="/form-elements" element={<FormElements />} />
         </Routes>
         <FooterApp />
       </ContextProvider>
