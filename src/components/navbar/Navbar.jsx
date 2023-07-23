@@ -7,6 +7,8 @@ import Context from '../../context/ContextProvider';
 export default function NavbarWithDropdown() {
     const [active, setActive] = React.useState(false);
      const { usuarios } = useContext(Context);
+
+     let temporal = undefined;
     /* let usuarios = undefined; */
     return (
         <Navbar fluid rounded >
@@ -23,7 +25,7 @@ export default function NavbarWithDropdown() {
                         HandyShop
                     </span>
                 </NavLink> */}
-            {usuarios.nombre ?
+            {temporal ?
                 <div className="flex md:order-2">
                     <Dropdown inline label={<Avatar alt="User settings" img={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} rounded />} >
                         <Dropdown.Header>
@@ -68,7 +70,7 @@ export default function NavbarWithDropdown() {
                     ¿Quienes Somos?
                 </NavLink>
                 {
-                    usuarios.nombre === undefined ?
+                    temporal === undefined ?
                         <NavLink to="/login">
                             Login
                         </NavLink>

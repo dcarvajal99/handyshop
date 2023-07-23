@@ -4,6 +4,7 @@ import ContainerCards from '../components/cards/ContainerCards';
 import PaginationApp from '../components/pagination/PaginationApp';
 import Filtros from '../components/filtros/EstiloFiltro';
 
+
 const Main = () => {
     return (
         <>

@@ -15,7 +15,7 @@ function App() {
         <NavbarWithDropdown />
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/favoritos/:id" element={<Favoritos />} />
+          <Route path="/favoritos" element={<Favoritos />} />
           <Route path="*" element={<h1>Not Found</h1>} />
           <Route path="/subir-servicios" element={<SubirServicios />} />
           <Route path="/quienes-somos" element={<QuienesSomos />} />
