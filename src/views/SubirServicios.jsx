@@ -19,8 +19,8 @@ const SubirServicios = () => {
                             placeholder="Type product name"
                             required
                         />
-                        </div>
-                        <div className="w-full">
+                    </div>
+                    <div className="w-full">
                             <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Price
                             </label>
@@ -32,8 +32,8 @@ const SubirServicios = () => {
                             placeholder="$0"
                             required
                         />
-                        </div>
-                        <div>
+                    </div>
+                    <div>
                         <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Categoria
                         </label>
@@ -43,23 +43,36 @@ const SubirServicios = () => {
                             <option value="PC">Constucción</option>
                             <option value="GA">Electricidad</option>
                         </select>
+                    </div>
+                    <div>
+                            <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Ubicación:
+                            </label>
+                            <select id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <option selected>Seleccionar Ubicacacón:</option>
+                                <option value="TV">Región de Arica y Parinacota</option>
+                                <option value="PC">Región de Tarapacá</option>
+                                <option value="GA">Región de Antofagasta</option>
+                            </select>
+                    </div>
+                    <div className="w-full">
+                            <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Phone
+                            </label>
+                            <input
+                                type="number"
+                                name="price"
+                                id="price"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="(9)99-99-99-99"
+                                required
+                            />
                         </div>
-                        <div>
-                        <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                            Ubicación:
-                        </label>
-                        <select id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option selected>Seleccionar Ubicacacón:</option>
-                            <option value="TV">Región de Arica y Parinacota</option>
-                            <option value="PC">Región de Tarapacá</option>
-                            <option value="GA">Región de Antofagasta</option>
-                        </select>
-                        </div>
-                        <div className="col-span-full">
+                    <div className="col-span-full">
                             <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
                                 Subir Foto
                             </label>
-                            <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                            <div className="mt-2 flex justify-center rounded-lg border border-gray-500 border-gray-900/25 px-6 py-10">
                                 <div className="text-center">
                                     <svg className="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                         <path fillRule="evenodd"
