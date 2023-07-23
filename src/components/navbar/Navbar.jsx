@@ -18,14 +18,8 @@ export default function NavbarWithDropdown() {
                     src={process.env.PUBLIC_URL + '../img/logo/logo.gif'}
                 />
             </Navbar.Brand>
-            { <NavLink to="/">
-                    <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-                        HandyShop
-                    </span>
-
-                </NavLink> }
                     {/* ...otros contenidos de la aplicación... */}
-            {usuarios.nombre?
+            {temporal?
                 <div className="flex md:order-1">
                     <Dropdown inline label={<Avatar alt="User settings" img={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} rounded />} >
                         <Dropdown.Header>
@@ -66,25 +60,20 @@ export default function NavbarWithDropdown() {
                 <NavLink to="/quienes-somos">
                     ¿Quienes Somos?
                 </NavLink>
-                    {usuarios.nombre === undefined ?
-                        <NavLink to="/login">
-                            Login
+                    {temporal === undefined ?
+                    <>
+                        <NavLink to="/register-users">
+                        Crear Cuenta
                         </NavLink>
+                        <NavLink to="/form-elements">
+                        Iniciar sesión
+                        </NavLink>
+
+                    </>
                         :
                         <></>
                     }
             </Navbar.Collapse>
-            <div >
-                <NavLink to="/register-users">
-                    <button type="button" class="text-white bg-green-700 font-medium mr-2 rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600">Crear Cuenta</button>
-                </NavLink>
-                <NavLink to="/form-elements">
-                    <button type="button" class="text-white bg-green-700 font-medium mr-2 rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600">Iniciar Seción</button>
-                </NavLink>
-                
-            </div>
-
-            
-        </Navbar>
+ </Navbar>
     )
 }
