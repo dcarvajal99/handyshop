@@ -25,7 +25,7 @@ function App() {
           <Route path="/subir-servicios" element={<SubirServicios />} />
           <Route path="/subir-servicios" element={<SubirServicios />} />
           <Route path="/quienes-somos" element={<QuienesSomos />} />
-          <Route path="/service-detail" element={<ServiceDetail />} />
+          <Route path="/service-detail/:id" element={<ServiceDetail />} />
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/register-users" element={<RegisterUsers />} />
           <Route path="/form-elements" element={<FormElements />} />
