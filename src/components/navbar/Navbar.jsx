@@ -54,7 +54,7 @@ export default function NavbarWithDropdown() {
             <Navbar.Collapse>
                 <NavLink to="/">
                     <p>
-                        Home
+                        Inicio
                     </p>
                 </NavLink>
                 <NavLink to="/quienes-somos">
