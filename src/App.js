@@ -10,6 +10,7 @@ import ServiceDetail from "./views/ServiceDetail";
 import Carrito from "./views/Carrito";
 import RegisterUsers from "./views/RegisterUsers";
 import FormElements from "./components/Users/FormElements";
+import ContratoExitoso from "./components/contratoExitoso/ContratoExitoso";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/register-users" element={<RegisterUsers />} />
           <Route path="/form-elements" element={<FormElements />} />
+          <Route path="/contratoexitoso" element={<ContratoExitoso />} />
         </Routes>
         <FooterApp />
       </ContextProvider>
