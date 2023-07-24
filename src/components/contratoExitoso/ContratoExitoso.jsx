@@ -1,33 +1,54 @@
 import React from "react";
-import { Card } from "flowbite-react";
+import { Card, Button } from "flowbite-react";
+import { useContext } from "react";
+import Context from "../../context/ContextProvider";
+import CartTotal from "../cart/CartTotal";
+
 
 const ContratoExitoso = () => {
+
+    const { cart } = useContext(Context)
+
     return (
         <div className="flex items-center justify-center h-screen">
-        {/*<div className="flex items-center justify-center h-screen" >{/*className="w-full h-screen flex items-center justify-center w-32 h-32 bg-gray-300 "*/}
-            {/*<div className="p-5 border border-solid border-gray-500" >{/*className="p-5 border border-solid border-gray-500"*/}
-                {/*<h1>contrato firmado con exito</h1>
-                    <ul>
-                        <li>numero de contrato: 999</li>
-                        <li>numero de boleta: 999</li>
-                    </ul>
-                    <h3>le enviaremos un correo con los siguentes datos</h3>
-                    <ul>
-                        <li>nombre del profesional</li>
-                        <li>telefono</li>
-
-                    </ul>
+            <div className="w-60 h-96 bg-gray-300 flex items-center justify-center flex-col">
+                <Card className="p-4 border">
+                    <div className="text-center">
+                        <h1 className="text-2xl font-bold">Factura de compra</h1>
+                        <p className="text-gray-600">Fecha: 20 de julio de 2023</p>
+                    </div>
+                    <div className="mt-4">
+                        {/* Aquí utilizamos el mapeo para mostrar los productos del carrito */}
+                        {cart.map((servicio) => (
+                            <div key={servicio.id}>
+                                <div className="flex justify-between">
+                                    <span>{servicio.servicio}</span>
+                                    <span>${servicio.monto}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="flex justify-between mt-4">
+                        {/* Aquí puedes colocar el componente CartTotal */}
+                        <span className="font-bold">
+                            <CartTotal />
+                        </span>
+                    </div>
+                    <div className="flex justify-end mt-4">
+                        <Button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                            Imprimir factura
+                        </Button>
+                    </div>
+                </Card>
+                <div className="mt-auto">
+                    <h6 className="text-xl font-bold text-gray-900 dark:text-white">
+                        Gracias por Preferirnos
+                    </h6>
+                    <p className="text-gray-700 dark:text-gray-400">
+                        Enviaremos un Correo con los detalles de su Servicio
+                    </p>
                 </div>
-            </div>*/}
-            <Card className=" flex items-center justify-center" href="#">
-                <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    <p>Contrato con exito 😊</p>
-                </h5>
-                <p className="font-normal text-gray-700 dark:text-gray-400">
-                    <p>Enviamos un correo con los datos del profesional</p>
-                    <p>Gracias por preferirnos 👍</p>
-                </p>
-            </Card>
+            </div>
         </div>
     )
 }

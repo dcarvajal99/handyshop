@@ -5,7 +5,9 @@ import ContratoExitoso from "../components/contratoExitoso/ContratoExitoso";
 const Favoritos = () => {
     return (
         <>
-       
+       <ContratoExitoso />
+       <DetailsServices />
+       <Cart />
         </>
     );
     }

@@ -8,7 +8,9 @@ const ContextProvider = ({ children }) => {
 
     const { id } = useParams();
     const [servicios, setServicios] = useState([]);
+    const [servicioDetails, setServicioDetails] = useState(null); 
     const [usuarios, setUsuarios] = useState({});
+    const [cart, setCart] = useState([]);
 
     // Funciones para obtener los datos
     const obtenerUsuario = async () => {
@@ -32,7 +34,7 @@ const ContextProvider = ({ children }) => {
     console.log(usuarios.nombre);
     console.log(servicios);
     return (
-        <Context.Provider value={{ usuarios, servicios }}>
+        <Context.Provider value={{ usuarios, servicios, servicioDetails, setServicioDetails, cart, setCart }}>
             {children}
         </Context.Provider>
     );
