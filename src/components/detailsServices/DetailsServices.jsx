@@ -5,11 +5,10 @@ import { Link } from 'react-router-dom';
 
 export default function DetailsServices() {
     const { id } = useParams();
-    const { servicios, cart, setCart } = useContext(Context);
+    const { servicios, cart, setCart, userLogin } = useContext(Context);
     const servicio = servicios.find((servicio) => servicio.id === parseInt(id));
 
-
-
+    
     const ImagenUrl = 'https://www.oikos.com.co/constructora/images/website/Noticias_2019_/funciones-de-los-constructores.jpg';
 
     if (!servicio) {
@@ -69,26 +68,29 @@ export default function DetailsServices() {
                 </div>
 
                 <div className="flex justify-between">
+                    {userLogin && (
+                        <Link to="/favoritos">
+                            <button
+                                //onClick={() => clickAddToCart()} // Añade el servicio al carrito al hacer clic en el botón
+                                className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                            >
+                                Favoritos ❤️
+                            </button>
+                        </Link>
+                    )}
                     <Link to="/carrito">
-                        <button
-                            //onClick={() => clickAddToCart()} // Añade el servicio al carrito al hacer clic en el botón
-                            className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        >
-                            Favoritos ❤️
-                        </button>
                         <button
                             onClick={() => anadirProducto(servicio)} // Añade el servicio al carrito al hacer clic en el botón
                             className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-4"
                         >
                             Añadir 🛒
                         </button>
-                        {/*<button
+                    </Link>
+                    {/*<button
                             onClick={() => clickRemoveToCart(servicio.id)} // Añade el servicio al carrito al hacer clic en el botón
                             className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-4"
                         >
-                            sacar 🛒
-    </button>*/}
-                    </Link>
+                            sacar 🛒</button>*/}
                 </div>
             </div>
         </div>
