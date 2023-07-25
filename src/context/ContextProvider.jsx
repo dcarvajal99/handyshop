@@ -8,9 +8,10 @@ const ContextProvider = ({ children }) => {
 
     const { id } = useParams();
     const [servicios, setServicios] = useState([]);
-    const [servicioDetails, setServicioDetails] = useState(null); 
+    const [servicioDetails, setServicioDetails] = useState(null);
     const [usuarios, setUsuarios] = useState({});
     const [cart, setCart] = useState([]);
+    const [userLogin, setUserLogin] = useState(false)
 
     // Funciones para obtener los datos
     const obtenerUsuario = async () => {
@@ -25,6 +26,13 @@ const ContextProvider = ({ children }) => {
         setServicios(dataServicios.servicios);
     };
 
+    const login = () => {
+        setUserLogin(true);
+    };
+
+    const logout = () => {
+        setUserLogin(false)
+    }
     // Llamar a las funciones para obtener los datos en el montaje del componente
     useEffect(() => {
         obtenerUsuario();
@@ -34,7 +42,18 @@ const ContextProvider = ({ children }) => {
     console.log(usuarios.nombre);
     console.log(servicios);
     return (
-        <Context.Provider value={{ usuarios, servicios, servicioDetails, setServicioDetails, cart, setCart }}>
+        <Context.Provider value={{
+            usuarios,
+            servicios,
+            servicioDetails,
+            setServicioDetails,
+            cart,
+            setCart,
+            userLogin,
+            setUserLogin,
+            login,
+            logout
+        }}>
             {children}
         </Context.Provider>
     );
