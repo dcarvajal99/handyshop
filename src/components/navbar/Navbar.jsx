@@ -5,10 +5,11 @@ import { useContext } from 'react';
 import Context from '../../context/ContextProvider';
 
 export default function NavbarWithDropdown() {
-     const { usuarios } = useContext(Context);
+    const { usuarios } = useContext(Context);
 
-     let temporal = undefined;
-    /* let usuarios = undefined; */
+    let temporal = undefined;
+  /*   let temporal = usuarios.nombre; */
+
     return (
         <Navbar fluid rounded >
             <Navbar.Brand  >
@@ -18,16 +19,18 @@ export default function NavbarWithDropdown() {
                     src={process.env.PUBLIC_URL + '../img/logo/logo.gif'}
                 />
             </Navbar.Brand>
-                    {/* ...otros contenidos de la aplicación... */}
-            {temporal?
+            {/* ...otros contenidos de la aplicación... */}
+            {temporal  === undefined ?
+                <></>
+                :
                 <div className="flex md:order-1">
                     <Dropdown inline label={<Avatar alt="User settings" img={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} rounded />} >
                         <Dropdown.Header>
                             <span className="block text-sm">
-                                UserTest
+                                {usuarios.nombre} {usuarios.apellido}
                             </span>
                             <span className="block truncate text-sm font-medium">
-                                test@test.cl
+                                {usuarios.email}
                             </span>
                         </Dropdown.Header>
                         <Dropdown.Item>
@@ -47,8 +50,6 @@ export default function NavbarWithDropdown() {
                     </Dropdown>
                     <Navbar.Toggle />
                 </div>
-                :
-                <></>
             }
 
             <Navbar.Collapse>
@@ -60,20 +61,20 @@ export default function NavbarWithDropdown() {
                 <NavLink to="/quienes-somos">
                     ¿Quienes Somos?
                 </NavLink>
-                    {temporal === undefined ?
+                {temporal === undefined ?
                     <>
                         <NavLink to="/register-users">
-                        Crear Cuenta
+                            Crear Cuenta
                         </NavLink>
                         <NavLink to="/form-elements">
-                        Iniciar sesión
+                            Iniciar sesión
                         </NavLink>
 
                     </>
-                        :
-                        <></>
-                    }
+                    :
+                    <></>
+                }
             </Navbar.Collapse>
- </Navbar>
+        </Navbar>
     )
 }
