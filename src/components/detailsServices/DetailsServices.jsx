@@ -2,13 +2,16 @@ import { useContext } from 'react';
 import Context from '../../context/ContextProvider';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { Card, Button } from 'flowbite-react';
 
 export default function DetailsServices() {
     const { id } = useParams();
-    const { servicios, cart, setCart } = useContext(Context);
+    const { servicios, anadirProducto } = useContext(Context);
     const servicio = servicios.find((servicio) => servicio.id === parseInt(id));
 
+    /*const userLogin = false; o true const userLogin = true;*/
 
+    const userLogin = false;
 
     const ImagenUrl = 'https://www.oikos.com.co/constructora/images/website/Noticias_2019_/funciones-de-los-constructores.jpg';
 
@@ -16,10 +19,7 @@ export default function DetailsServices() {
         return <p>Servicio no encontrado</p>;
     }
 
-    const anadirProducto = (servicio) => {
-        console.log(servicio)
-        setCart([...cart, servicio])
-    }
+    
 
     /*const clickAddToCart = (id) => {
         console.log("ID del servicio a añadir al carrito:", id);
@@ -55,43 +55,48 @@ export default function DetailsServices() {
 
     return (
         <div className="flex items-center justify-center h-screen">
-            <div className="w-400 h-400 bg-center bg-no-repeat bg-cover">
-                <img src={ImagenUrl} alt="Descripción de la imagen" className="max-w-full max-h-full" />
-            </div>
-            <div className="m-l-2rem m-b-2rem w-50 text-start mx-8 my-2">
-                <h1 className="font-bold">{servicio.servicio}</h1>
-                <div className="list-none pl-0 my-6 border-t border-gray-300">
-                    <p className="font-bold my-6">valor del servicio</p>
-                    <ul>
-                        <h2>${servicio.monto}</h2>
-                        <h2 className="my-4">{servicio.ubicacion}</h2>
-                    </ul>
-                </div>
+            <div>
+                <Card className="max-w-lg overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+                    <div className="px-4 py-2">
+                        <h1 className="text-xl font-bold text-gray-800 uppercase dark:text-white">
+                            {servicio.servicio}
+                        </h1>
+                        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                            {servicio.descripcion}
+                        </p>
+                    </div>
 
-                <div className="flex justify-between">
-                    <Link to="/carrito">
-                        <button
-                            //onClick={() => clickAddToCart()} // Añade el servicio al carrito al hacer clic en el botón
-                            className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        >
-                            Favoritos ❤️
-                        </button>
-                        <button
-                            onClick={() => anadirProducto(servicio)} // Añade el servicio al carrito al hacer clic en el botón
-                            className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-4"
-                        >
-                            Añadir 🛒
-                        </button>
-                        {/*<button
-                            onClick={() => clickRemoveToCart(servicio.id)} // Añade el servicio al carrito al hacer clic en el botón
-                            className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-4"
-                        >
-                            sacar 🛒
-    </button>*/}
-                    </Link>
-                </div>
+                    <img
+                        className="object-cover w-full h-48 mt-2"
+                        src={ImagenUrl}
+                        alt="imagen de servicio"
+                    />
+
+                    <div className="flex items-center flex-col md:flex-row justify-between px-4 py-2 bg-gray-900 mb-4">
+                        <h1 className="text-lg font-bold text-white">${servicio.monto}</h1>
+                        {userLogin && (
+                            <Link to="/favoritos">
+                                <Button
+                                    className="w-24 px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none"
+                                >
+                                    Favoritos ❤️
+                                </Button>
+                            </Link>
+                        )}
+                        <Link to="/carrito">
+                            <Button
+                                onClick={() => anadirProducto(servicio)}
+                                className="w-24 px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none"
+                            >
+                                Añadir 🛒
+                            </Button>
+                        </Link>
+                    </div>
+                </Card>
             </div>
         </div>
+
+
     );
 }
 
