@@ -12,6 +12,8 @@ const ContextProvider = ({ children }) => {
     const [usuarios, setUsuarios] = useState({});
     const [cart, setCart] = useState([]);
     const [userLogin, setUserLogin] = useState(false)
+    const [scrollVisible, setScrollVisible] = useState(false);
+
 
     // Funciones para obtener los datos
     const obtenerUsuario = async () => {
@@ -26,6 +28,13 @@ const ContextProvider = ({ children }) => {
         setServicios(dataServicios.servicios);
     };
 
+    const handleMouseEnter = () => {
+        setScrollVisible(true);
+    };
+
+    const handleMouseLeave = () => {
+        setScrollVisible(false);
+    };
     const login = () => {
         setUserLogin(true);
     };
@@ -33,11 +42,41 @@ const ContextProvider = ({ children }) => {
     const logout = () => {
         setUserLogin(false)
     }
+
+    const total = cart.reduce((acc, ele) => acc + ele.monto, 0);
+
+
+    const anadirProducto = (servicio) => {
+        console.log(servicio)
+        setCart([...cart, servicio])
+    }
+
+    const removerProducto = (id) => {
+        const founId = cart.find((ele) => ele.id === id)
+        const newCart = cart.filter((ele) => {
+            return ele !== founId
+        })
+        setCart(newCart)
+    }
+
+    /* const removerProducto = (id) => {
+       const productoAEliminar = cart.find((producto) => producto.id === id);
+       if (productoAEliminar) {
+           const montoEliminado = productoAEliminar.monto;
+           setCart((prevCart) =>
+               prevCart.filter((producto) => producto.id !== id)
+           );
+           setTotal((prevTotal) => prevTotal - montoEliminado);
+       }
+   };*/
+
+
     // Llamar a las funciones para obtener los datos en el montaje del componente
     useEffect(() => {
         obtenerUsuario();
         obtenerServicios();
     }, []);
+
 
     console.log(usuarios.nombre);
     console.log(servicios);
@@ -49,10 +88,17 @@ const ContextProvider = ({ children }) => {
             setServicioDetails,
             cart,
             setCart,
+            anadirProducto,
+            removerProducto,
+            total,
             userLogin,
             setUserLogin,
             login,
-            logout
+            logout,
+            scrollVisible,
+            setScrollVisible,
+            handleMouseEnter,
+            handleMouseLeave
         }}>
             {children}
         </Context.Provider>
