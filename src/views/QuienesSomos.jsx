@@ -1,5 +1,5 @@
 import React from "react";
-import ContainerLittleCard from "../components/Cards/littlecards/ContainerLittleCards";
+import ContainerLittleCard from "../components/cards/littlecards/ContainerLittleCards";
 const QuienesSomos = () => {
     return (
 
