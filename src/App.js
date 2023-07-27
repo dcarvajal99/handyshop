@@ -6,8 +6,8 @@ import SubirServicios from "./views/SubirServicios";
 import QuienesSomos from "./views/QuienesSomos";
 import { ContextProvider } from "./context/ContextProvider";
 import FooterApp from "./components/footer/Footer";
+import ModelContent from "./components/Modal/ModalContent";
 import RegisterUsers from "./views/RegisterUsers";
-import FormElements from "./components/Users/FormElements";
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
           <Route path="/subir-servicios" element={<SubirServicios />} />
           <Route path="/quienes-somos" element={<QuienesSomos />} />
           <Route path="/register-users" element={<RegisterUsers />} />
-          <Route path="/form-elements" element={<FormElements />} />
+          <Route path="/model-content" element={<ModelContent />} />
         </Routes>
         <FooterApp />
       </ContextProvider>
