@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 
 const Context = createContext();
@@ -13,6 +13,7 @@ const ContextProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
     const [userLogin, setUserLogin] = useState(false)
     const [scrollVisible, setScrollVisible] = useState(false);
+    const [total, setTotal] = useState(0); // Agrega el estado 'total'
 
 
     // Funciones para obtener los datos
@@ -43,40 +44,47 @@ const ContextProvider = ({ children }) => {
         setUserLogin(false)
     }
 
-    const total = cart.reduce((acc, ele) => acc + ele.monto, 0);
+    // Función para calcular el monto total del carrito
+    const calcularTotal = useCallback(() => {
+        const newTotal = cart.reduce((acc, ele) => acc + ele.monto, 0);
+        setTotal(newTotal);
+    }, [cart]);
 
-
+    // Función para añadir un producto al carrito
     const anadirProducto = (servicio) => {
-        console.log(servicio)
-        setCart([...cart, servicio])
-    }
+        console.log(servicio);
+        setCart([...cart, servicio]);
+        calcularTotal(); // Recalcula el total cuando se añade un producto
+    };
 
     const removerProducto = (id) => {
-        const founId = cart.find((ele) => ele.id === id)
-        const newCart = cart.filter((ele) => {
-            return ele !== founId
-        })
-        setCart(newCart)
-    }
+        // Encuentra el índice del producto en el carrito
+        const index = cart.findIndex((producto) => producto.id === id);
 
-    /* const removerProducto = (id) => {
-       const productoAEliminar = cart.find((producto) => producto.id === id);
-       if (productoAEliminar) {
-           const montoEliminado = productoAEliminar.monto;
-           setCart((prevCart) =>
-               prevCart.filter((producto) => producto.id !== id)
-           );
-           setTotal((prevTotal) => prevTotal - montoEliminado);
-       }
-   };*/
+        if (index !== -1) {
+            // Obtiene el monto del producto que se eliminará
+            const montoEliminado = cart[index].monto;
 
+            // Actualiza el carrito eliminando el producto usando el índice
+            const newCart = [...cart];
+            newCart.splice(index, 1);
+            setCart(newCart);
+
+            // Actualiza el total restando el monto del producto eliminado
+            setTotal(total - montoEliminado);
+        }
+    };
 
     // Llamar a las funciones para obtener los datos en el montaje del componente
     useEffect(() => {
         obtenerUsuario();
         obtenerServicios();
+
     }, []);
 
+    useEffect(() => {
+        calcularTotal(); // Calcula el total cuando se monta el componente
+    }, [calcularTotal]);
 
     console.log(usuarios.nombre);
     console.log(servicios);
@@ -91,6 +99,7 @@ const ContextProvider = ({ children }) => {
             anadirProducto,
             removerProducto,
             total,
+            setTotal,
             userLogin,
             setUserLogin,
             login,
@@ -98,7 +107,7 @@ const ContextProvider = ({ children }) => {
             scrollVisible,
             setScrollVisible,
             handleMouseEnter,
-            handleMouseLeave
+            handleMouseLeave,
         }}>
             {children}
         </Context.Provider>
