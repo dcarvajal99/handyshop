@@ -11,7 +11,7 @@ export default function DetailsServices() {
 
     /*const userLogin = false; o true const userLogin = true;*/
 
-   
+  
 
     const ImagenUrl = 'https://www.oikos.com.co/constructora/images/website/Noticias_2019_/funciones-de-los-constructores.jpg';
 
