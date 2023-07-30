@@ -2,7 +2,6 @@ import React from 'react';
 import { useContext } from 'react';
 import Context from '../../../context/ContextProvider';
 import { useNavigate } from 'react-router-dom';
-import LittleCard from './LittleCard';
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";

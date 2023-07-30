@@ -24,7 +24,7 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="Container text-center  mt-10 bg-gray-500">
+      <div className="w-1/3 mx-auto rounded-lg text-center mt-10 bg-green-500">
         <div className="mb-6 text-center items-center">
           <label htmlFor="email" className="block mb-2 text-xl font-medium text-gray-900 dark:text-white pt-5">Your email</label>
             <input
