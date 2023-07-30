@@ -1,13 +1,17 @@
 import React from 'react';
-import NavbarWithDropdown from '../components/Navbar';
-import CarouselMain from '../components/CarouselMain';
-import ProductCard from '../components/Cards/Card';
+import CarouselMain from '../components/carousel/CarouselMain';
+import ContainerCards from '../components/Cards/ContainerCards';
+import PaginationApp from '../components/Pagination/PaginationApp';
+import Filtros from '../components/filtros/EstiloFiltro';
+
+
 const Main = () => {
     return (
         <>
-        <NavbarWithDropdown />
         <CarouselMain />
-        <ProductCard/>
+        <Filtros/>
+        <ContainerCards/>
+        <PaginationApp/>
         </>
     )
 }
