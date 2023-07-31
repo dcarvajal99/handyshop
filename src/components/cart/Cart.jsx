@@ -23,7 +23,9 @@ const Cart = () => {
         } else {
             console.log("Usuario no logueado, mostrando mensaje");
             // Aquí puedes implementar la lógica para mostrar el mensaje o abrir un modal
-            alert("Debes iniciar sesión para contratar.");
+            //alert("Debes iniciar sesión para contratar.");
+            navigate("/form-elements")
+            
         }
     };
 
