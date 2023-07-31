@@ -1,19 +1,15 @@
 import React from 'react';
 import { Dropdown, Navbar, Avatar } from 'flowbite-react';
 import { NavLink } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import Context from '../../context/ContextProvider';
 
 export default function NavbarWithDropdown() {
-     const { usuarios } = useContext(Context);
-     const [openModal, setOpenModal] = useState(false);
+    const { usuarios } = useContext(Context);
 
-     const toggleModal = () => {
-     setOpenModal(!openModal);
-      };
+    /* let temporal = undefined; */
+      let temporal = usuarios.nombre;
 
-     let temporal = undefined;
-    /* let usuarios = undefined; */
     return (
         <Navbar fluid rounded >
             <Navbar.Brand  >
@@ -23,16 +19,18 @@ export default function NavbarWithDropdown() {
                     src={process.env.PUBLIC_URL + '../img/logo/logo.gif'}
                 />
             </Navbar.Brand>
-                    {/* ...otros contenidos de la aplicación... */}
-            {temporal?
+            {/* ...otros contenidos de la aplicación... */}
+            {temporal === undefined ?
+                <></>
+                :
                 <div className="flex md:order-1">
                     <Dropdown inline label={<Avatar alt="User settings" img={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} rounded />} >
                         <Dropdown.Header>
                             <span className="block text-sm">
-                                UserTest
+                                {usuarios.nombre} {usuarios.apellido}
                             </span>
                             <span className="block truncate text-sm font-medium">
-                                test@test.cl
+                                {usuarios.email}
                             </span>
                         </Dropdown.Header>
                         <Dropdown.Item>
@@ -50,12 +48,9 @@ export default function NavbarWithDropdown() {
                             Sign out
                         </Dropdown.Item>
                     </Dropdown>
-                    <Navbar.Toggle />
                 </div>
-                :
-                <></>
             }
-
+            <Navbar.Toggle />
             <Navbar.Collapse>
                 <NavLink to="/">
                     <p>
@@ -65,19 +60,20 @@ export default function NavbarWithDropdown() {
                 <NavLink to="/quienes-somos">
                     ¿Quienes Somos?
                 </NavLink>
-                    {temporal === undefined ?
+                {temporal === undefined ?
                     <>
                         <NavLink to="/register-users">
-                        Crear Cuenta
+                            Crear Cuenta
                         </NavLink>
-                        <NavLink to="/model-content">
-                        <p onClick={toggleModal}>Iniciar Sesión</p> {/* Usamos onClick para llamar a toggleModal */}
+                        <NavLink to="/form-elements">
+                            Iniciar sesión
                         </NavLink>
+
                     </>
-                        :
-                        <></>
-                    }
+                    :
+                    <></>
+                }
             </Navbar.Collapse>
- </Navbar>
+        </Navbar>
     )
 }
