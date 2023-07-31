@@ -29,6 +29,25 @@ const ContextProvider = ({ children }) => {
         setServicios(dataServicios.servicios);
     };
 
+    const calcularCantidadTotal = () => {
+        const cantidadTotal = cart.reduce((acc, ele) => acc + ele.cantidad, 0);
+        return cantidadTotal;
+      };
+    
+      const cantidadTotal = calcularCantidadTotal();
+    
+      useEffect(() => {
+        // Si la cantidad total es cero, oculta el valor
+        if (cantidadTotal === 0) {
+          return setTotal("");
+        }
+    
+        // Si la cantidad total no es cero, actualiza el estado 'total' con el valor calculado
+        setTotal(cantidadTotal);
+      }, [cantidadTotal]);
+    
+
+
     const handleMouseEnter = () => {
         setScrollVisible(true);
     };
@@ -46,7 +65,7 @@ const ContextProvider = ({ children }) => {
 
     // Función para calcular el monto total del carrito
     const calcularTotal = useCallback(() => {
-        const newTotal = cart.reduce((acc, ele) => acc + ele.monto, 0);
+        const newTotal = cart.reduce((acc, ele) => acc + ele.monto * ele.cantidad, 0);
         setTotal(newTotal);
     }, [cart]);
 
@@ -108,6 +127,7 @@ const ContextProvider = ({ children }) => {
             setScrollVisible,
             handleMouseEnter,
             handleMouseLeave,
+            cantidadTotal
         }}>
             {children}
         </Context.Provider>

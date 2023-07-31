@@ -23,13 +23,17 @@ const Cart = () => {
         } else {
             console.log("Usuario no logueado, mostrando mensaje");
             // Aquí puedes implementar la lógica para mostrar el mensaje o abrir un modal
-            alert("Debes iniciar sesión para contratar.");
+            //alert("Debes iniciar sesión para contratar.");
+            navigate("/form-elements")
+            
         }
     };
 
     const ImagenUrl = 'https://www.oikos.com.co/constructora/images/website/Noticias_2019_/funciones-de-los-constructores.jpg';
 
     /*const userLogin = false;  const userLogin = true;*/
+
+    
     
     return (
         <div className="flex items-center justify-center h-screen bg-gray-100">
