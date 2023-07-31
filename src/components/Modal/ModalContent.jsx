@@ -1,0 +1,63 @@
+import React from 'react';
+
+const ModalContent = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed top-0 z-50 p-4 left-0 right-0 bottom-0 flex justify-center items-center bg-opacity-75 bg-black">
+      {/* Contenido del modal */}
+      <div className="bg-white p-6 rounded-lg text-center">
+        <h3 className="m-5 text-xl text-gray-900 dark:text-white">Iniciar Sección:</h3>
+        <form className="space-y-6" action="#">
+          <div>
+            <label
+              htmlFor="email"
+              className="block mb-2 text-xl text-gray-900 dark:text-white"
+            >
+              Ingrese su Email:
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="name@Handyshop.com"
+              required
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="email"
+              className="block mb-2 text-xl text-gray-900 dark:text-white"
+            >
+              Ingrese su Contraseña:
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              className="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="Contraseña"
+              required
+            />
+          </div>
+          <div className="registro">
+            <button className="bg-red-900 hover:bg-red-500 text-2xl text-white px-4 py-3 rounded-lg mb-5" onClick={onClose}>
+              Ingresar
+            </button>
+            <div className="text">
+              <a href="/recover-password" className="text-gray-900 text-sm m-3">
+                ¿Recuperar Contraseña?
+              </a>
+              <a href="/register-users" className="text-gray-900 m-3">
+                ¿No tiene Cuenta?
+              </a></div>
+            </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default ModalContent;
+
