@@ -1,75 +1,82 @@
 import React, { useState } from 'react';
+import { Label } from 'flowbite-react';
 
-const LoginForm = () => {
-  const [email, setEmail] = useState('');
+const ModalContent = ({ email, setEmail, closeModal }) => {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleRememberMeChange = (e) => {
-    setRememberMe(e.target.checked);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes realizar la lógica de envío del formulario
+    // Aquí puedes agregar tu lógica de validación personalizada
+    if (email === '' || password === '') {
+      alert('Por favor, completa todos los campos');
+    } else if (!email.includes('@')) {
+      alert('Por favor, ingresa un correo electrónico válido');
+    } else if (password.length < 6) {
+      alert('La contraseña debe tener al menos 6 caracteres');
+    } else {
+      // Si los campos son válidos, puedes enviar el formulario aquí
+      // Por ejemplo, puedes llamar a una función que procese los datos
+      console.log('Formulario enviado');
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="w-1/3 mx-auto rounded-lg text-center mt-10 bg-green-500">
-        <div className="mb-6 text-center items-center">
-          <label htmlFor="email" className="block mb-2 text-xl font-medium text-gray-900 dark:text-white pt-5">Your email</label>
+    <div className="Modal-overlay p-5 rounded-lg mx-auto bg-gray-600 m-10 relative max-w-sm cursor-pointer">
+      <div className="Modal text-center">
+        <h3 className="text-xl m-5 font-medium text-gray-900 dark:text-white">Iniciar Sección en Nuestra Plataforma</h3>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="email">Your email</Label>
+            </div>
             <input
-              type="email"
               id="email"
-              value={email}
-              onChange={handleEmailChange}
-              className="inline-flex items-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-2rem p-2.5 "
+              type="email"
               placeholder="name@handyshop.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
-            />
-        </div>
-        <div className="mb-6 text-center items-center">
-          <label htmlFor="password" className="block mb-2 text-xl font-medium text-gray-900">Your password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={handlePasswordChange}
-              className="inline-flex items-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-2rem p-2.5 "
-              placeholder="**********"
-              required
-            />
-        </div>
-        <div className="block-flex items-center mb-6">
-          <div className="h-5">
-            <input
-              id="remember"
-                type="checkbox"
-                value={rememberMe}
-                onChange={handleRememberMeChange}
-                className="w-4 h-4 border border-gray-300 rounded bg-gray-50"
-                required
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             />
           </div>
-          <label htmlFor="remember" className="ml-2 text-sm font-medium text-gray-900">Remember me</label>
-        </div>
-        <button type="submit"
-          className="text-white bg-blue-700 font-medium rounded-xl text-xl w-auto p-3 m-5 text-center">
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="password">Your password</Label>
+            </div>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength="6"
+            />
+          </div>
+          <div className="flex justify-between m-5">
+            <div className="flex items-center gap-2">
+              <input
+                id="remember"
+                type="checkbox"
+                checked={rememberMe}
+                onChange={() => setRememberMe(!rememberMe)}
+              />
+              <Label htmlFor="remember">Remember me</Label>
+            </div>
+            <a href="/Modal" className="text-gray-900">
+              Contraseña Perdida?
+            </a>
+          </div>
+          <button
+            type="submit"
+            className="text-white bg-red-900 font-medium rounded-xl text-xl w-auto p-5 m-3 text-center"
+          >
             Submit
-        </button>
+          </button>
+        </form>
       </div>
-    </form>
-    
+    </div>
   );
 };
 
-export default LoginForm;
+export default ModalContent;
