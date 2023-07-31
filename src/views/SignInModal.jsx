@@ -9,7 +9,7 @@ const SignInModal = () => {
 
   return (
     <div>
-      <button onClick={handleToggleModal}>Mostrar Modal</button>
+      <button onClick={handleToggleModal}>Iniciar Sección</button>
       <ModalContent isOpen={isModalOpen} onClose={handleToggleModal} />
     </div>
   );
