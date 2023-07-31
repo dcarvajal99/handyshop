@@ -4,15 +4,15 @@ const ModalContent = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="Modal-overlay p-5 rounded-lg mx-auto bg-gray-600 m-10 relative max-w-sm cursor-pointer">
+    <div className="fixed top-0 z-50 p-4 left-0 right-0 bottom-0 flex justify-center items-center bg-opacity-75 bg-black">
       {/* Contenido del modal */}
       <div className="bg-white p-6 rounded-lg text-center">
-        <h3 className="text-xl m-5 font-medium text-gray-900 dark:text-white">Iniciar Sección:</h3>
+        <h3 className="m-5 text-xl text-gray-900 dark:text-white">Iniciar Sección:</h3>
         <form className="space-y-6" action="#">
           <div>
             <label
               htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-xl text-gray-900 dark:text-white"
             >
               Ingrese su Email:
             </label>
@@ -21,14 +21,14 @@ const ModalContent = ({ isOpen, onClose }) => {
               name="email"
               id="email"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              placeholder="name@company.com"
+              placeholder="name@Handyshop.com"
               required
             />
           </div>
           <div>
             <label
               htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-xl text-gray-900 dark:text-white"
             >
               Ingrese su Contraseña:
             </label>
@@ -36,24 +36,24 @@ const ModalContent = ({ isOpen, onClose }) => {
               type="email"
               name="email"
               id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              placeholder="name@company.com"
+              className="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="Contraseña"
               required
             />
           </div>
           <div className="registro">
-            <a href="/register-users" className="text-gray-900 font-medium ">
-              Recuperar Contraseña?
-            </a>
-            <br />
-            <a href="/register-users" className="text-gray-900 font-medium ">
-              Registrate!!
-            </a>
-          </div>
+            <button className="bg-red-900 hover:bg-red-500 text-2xl text-white px-4 py-3 rounded-lg mb-5" onClick={onClose}>
+              Ingresar
+            </button>
+            <div className="text">
+              <a href="/recover-password" className="text-gray-900 text-sm m-3">
+                ¿Recuperar Contraseña?
+              </a>
+              <a href="/register-users" className="text-gray-900 m-3">
+                ¿No tiene Cuenta?
+              </a></div>
+            </div>
         </form>
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4" onClick={onClose}>
-          Ingresar
-        </button>
       </div>
     </div>
   );
