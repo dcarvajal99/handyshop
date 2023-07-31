@@ -7,8 +7,8 @@ import Context from '../../context/ContextProvider';
 export default function NavbarWithDropdown() {
     const { usuarios } = useContext(Context);
 
-    /* let temporal = undefined; */
-      let temporal = usuarios.nombre;
+    let temporal = undefined;
+    /*let temporal = usuarios.nombre;*/
 
     return (
         <Navbar fluid rounded >
@@ -65,7 +65,7 @@ export default function NavbarWithDropdown() {
                         <NavLink to="/register-users">
                             Crear Cuenta
                         </NavLink>
-                        <NavLink to="/form-elements">
+                        <NavLink to="/modal-content">
                             Iniciar sesión
                         </NavLink>
 

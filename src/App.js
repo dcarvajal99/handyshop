@@ -6,11 +6,10 @@ import SubirServicios from "./views/SubirServicios";
 import QuienesSomos from "./views/QuienesSomos";
 import { ContextProvider } from "./context/ContextProvider";
 import FooterApp from "./components/footer/Footer";
-import ModelContent from "./components/Modal/ModalContent";
+import ModalContent from "./components/Modal/ModalContent";
 import ServiceDetail from "./views/ServiceDetail";
 import Carrito from "./views/Carrito";
 import RegisterUsers from "./views/RegisterUsers";
-import FormElements from "./components/Users/FormElements";
 import ContratoExitoso from "./components/contratoExitoso/ContratoExitoso";
 
 
@@ -30,8 +29,7 @@ function App() {
           <Route path="/service-detail/:id" element={<ServiceDetail />} />
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/register-users" element={<RegisterUsers />} />
-          <Route path="/model-content" element={<ModelContent />} />
-          <Route path="/form-elements" element={<FormElements />} />
+          <Route path="/modal-content" element={<ModalContent />} />
           <Route path="/contratoexitoso" element={<ContratoExitoso />} />
         </Routes>
         <FooterApp />
