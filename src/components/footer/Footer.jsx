@@ -10,7 +10,7 @@ const FooterApp = () => {
                         <Footer.Brand
                             alt="Logo"
                             href="#"
-                            name="HS"
+                            name=""
                             src={process.env.PUBLIC_URL + '../img/logo/logo.gif'}
                         />
                     </div>
