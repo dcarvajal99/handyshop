@@ -11,7 +11,7 @@ export default function DetailsServices() {
 
     /*const userLogin = false; o true const userLogin = true;*/
 
-   
+  
 
     const ImagenUrl = 'https://www.oikos.com.co/constructora/images/website/Noticias_2019_/funciones-de-los-constructores.jpg';
 
@@ -85,22 +85,10 @@ export default function DetailsServices() {
                         <p className="leading-relaxed">
                             {servicio.descripcion}
                         </p>
-                        <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
-                            <div className="flex">
-                                <span className="mr-3">Color</span>
-                                {/* Resto del código para los botones de colores */}
-                            </div>
-                            <div className="flex ml-6 items-center">
-                                <span className="mr-3">Size</span>
-                                <div className="relative">
-                                    {/* Resto del código para el select de tallas */}
-                                </div>
-                            </div>
-                        </div>
                         <div className="flex items-center justify-between">
                             <span className="title-font font-medium text-2xl text-gray-900">${servicio.monto}</span>
                             <div className="flex items-center space-x-4">
-                                <Link to="/carrito">
+                                <Link>
                                     <Button
                                         onClick={() => anadirProducto(servicio)}
                                         className="text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
