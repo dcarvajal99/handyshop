@@ -2,6 +2,7 @@ import React from 'react';
 import { Dropdown, Navbar, Avatar } from 'flowbite-react';
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
+import SignInModal from '../../views/SignInModal';
 import Context from '../../context/ContextProvider';
 
 export default function NavbarWithDropdown() {
@@ -65,10 +66,7 @@ export default function NavbarWithDropdown() {
                         <NavLink to="/register-users">
                             Crear Cuenta
                         </NavLink>
-                        <NavLink to="/sign-in">
-                            Iniciar sesión
-                        </NavLink>
-
+                    <SignInModal />
                     </>
                     :
                     <></>
