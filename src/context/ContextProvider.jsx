@@ -5,7 +5,7 @@ const Context = createContext();
 
 const ContextProvider = ({ children }) => {
 
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const { id } = useParams();
     const [servicios, setServicios] = useState([]);
     const [servicioDetails, setServicioDetails] = useState(null);
@@ -43,6 +43,10 @@ const ContextProvider = ({ children }) => {
     const logout = () => {
         setUserLogin(false)
     }
+
+    const handleToggleModal = () => {
+        setIsModalOpen(!isModalOpen);
+      };
 
     // Función para calcular el monto total del carrito
     const calcularTotal = useCallback(() => {
@@ -108,6 +112,8 @@ const ContextProvider = ({ children }) => {
             setScrollVisible,
             handleMouseEnter,
             handleMouseLeave,
+            isModalOpen, 
+            handleToggleModal
         }}>
             {children}
         </Context.Provider>
