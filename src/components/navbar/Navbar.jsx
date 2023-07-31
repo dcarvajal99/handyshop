@@ -65,7 +65,7 @@ export default function NavbarWithDropdown() {
                         <NavLink to="/register-users">
                             Crear Cuenta
                         </NavLink>
-                        <NavLink to="/modal-content">
+                        <NavLink to="/sign-in">
                             Iniciar sesión
                         </NavLink>
 

@@ -1,78 +1,59 @@
-import React, { useState} from 'react';
-import { Label } from 'flowbite-react';
+import React from 'react';
 
-const ModalContent = ({ email, setEmail, closeModal }) => {
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Aquí puedes agregar tu lógica de validación personalizada
-    if (email === '' || password === '') {
-      alert('Por favor, completa todos los campos');
-    } else if (!email.includes('@')) {
-      alert('Por favor, ingresa un correo electrónico válido');
-    } else if (password.length < 6) {
-      alert('La contraseña debe tener al menos 6 caracteres');
-    } else {
-      
-    }
-  };
+const ModalContent = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
 
   return (
     <div className="Modal-overlay p-5 rounded-lg mx-auto bg-gray-600 m-10 relative max-w-sm cursor-pointer">
-      <div className="Modal text-center">
-        <h3 className="text-xl m-5 font-medium text-gray-900 dark:text-white">Iniciar Sección en Nuestra Plataforma</h3>
-        <form onSubmit={handleSubmit}>
+      {/* Contenido del modal */}
+      <div className="bg-white p-6 rounded-lg text-center">
+        <h3 className="text-xl m-5 font-medium text-gray-900 dark:text-white">Iniciar Sección:</h3>
+        <form className="space-y-6" action="#">
           <div>
-            <div className="mb-2 block">
-              <Label htmlFor="email">Your email</Label>
-            </div>
+            <label
+              htmlFor="email"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Ingrese su Email:
+            </label>
             <input
-              id="email"
               type="email"
-              placeholder="name@handyshop.com"
-              value={email}
-              onChange={(e) => setPassword(e.target.value)}
+              name="email"
+              id="email"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="name@company.com"
               required
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             />
           </div>
           <div>
-            <div className="mb-2 block">
-              <Label htmlFor="password">Your password</Label>
-            </div>
+            <label
+              htmlFor="email"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Ingrese su Contraseña:
+            </label>
             <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type="email"
+              name="email"
+              id="email"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="name@company.com"
               required
-              minLength="6"
             />
           </div>
-          <div className="flex justify-between m-5">
-            <div className="flex items-center gap-2">
-              <input
-                id="remember"
-                type="checkbox"
-                checked={rememberMe}
-                onChange={() => setRememberMe(!rememberMe)}
-              />
-              <Label htmlFor="remember">Remember me</Label>
-            </div>
-            <a href="/Modal" className="text-gray-900">
-              Contraseña Perdida?
+          <div className="registro">
+            <a href="/register-users" className="text-gray-900 font-medium ">
+              Recuperar Contraseña?
+            </a>
+            <br />
+            <a href="/register-users" className="text-gray-900 font-medium ">
+              Registrate!!
             </a>
           </div>
-          <button
-            type="submit"
-            className="text-white bg-red-900 font-medium rounded-xl text-xl w-auto p-5 m-3 text-center"
-          >
-            Submit
-            
-          </button>
         </form>
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4" onClick={onClose}>
+          Ingresar
+        </button>
       </div>
     </div>
   );
