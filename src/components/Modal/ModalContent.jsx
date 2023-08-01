@@ -5,9 +5,18 @@ const ModalContent = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed top-0 z-50 p-4 left-0 right-0 bottom-0 flex justify-center items-center bg-opacity-75 bg-black">
+    {/* boton de cerra modal */}
+      <button
+        type="button"
+        className="absolute top-0 right-0 m-6 text-2xl font-bold text-white"
+        onClick={onClose}
+      >
+        &times;
+      </button>
+      
       {/* Contenido del modal */}
       <div className="bg-white p-6 rounded-lg text-center">
-        <h3 className="m-5 text-xl text-gray-900 dark:text-white">Iniciar Sección:</h3>
+        <h3 className="m-5 text-xl text-gray-900 dark:text-white">Iniciar Sesión:</h3>
         <form className="space-y-6" action="#">
           <div>
             <label

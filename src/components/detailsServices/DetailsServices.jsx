@@ -6,12 +6,12 @@ import { Button } from 'flowbite-react';
 
 export default function DetailsServices() {
     const { id } = useParams();
-    const { servicios, anadirProducto, userLogin } = useContext(Context);
+    const { servicios, anadirProducto,usuariologeadotest } = useContext(Context);
     const servicio = servicios.find((servicio) => servicio.id === parseInt(id));
 
     /*const userLogin = false; o true const userLogin = true;*/
 
-  
+    const userLogin = true;
 
     const ImagenUrl = 'https://www.oikos.com.co/constructora/images/website/Noticias_2019_/funciones-de-los-constructores.jpg';
 
@@ -95,7 +95,7 @@ export default function DetailsServices() {
                                         Añadir 🛒
                                     </Button>
                                 </Link>
-                                {userLogin && (
+                                {usuariologeadotest ? (
                                     <Link to="/favoritos">
                                         <Button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500">
                                             <svg
@@ -110,7 +110,7 @@ export default function DetailsServices() {
                                             </svg>
                                         </Button>
                                     </Link>
-                                )}
+                                ): <></>}
                             </div>
                         </div>
                     </div>
