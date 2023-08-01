@@ -11,10 +11,9 @@ const ContextProvider = ({ children }) => {
     const [servicioDetails, setServicioDetails] = useState(null);
     const [usuarios, setUsuarios] = useState({});
     const [cart, setCart] = useState([]);
-    const [userLogin, setUserLogin] = useState(false)
     const [scrollVisible, setScrollVisible] = useState(false);
     const [total, setTotal] = useState(0); // Agrega el estado 'total'
-
+    const [usuariologeadotest, setUsuariologeadotest] = useState(false);
 
     // Funciones para obtener los datos
     const obtenerUsuario = async () => {
@@ -32,20 +31,20 @@ const ContextProvider = ({ children }) => {
     const calcularCantidadTotal = () => {
         const cantidadTotal = cart.reduce((acc, ele) => acc + ele.cantidad, 0);
         return cantidadTotal;
-      };
-    
-      const cantidadTotal = calcularCantidadTotal();
-    
-      useEffect(() => {
+    };
+
+    const cantidadTotal = calcularCantidadTotal();
+
+    useEffect(() => {
         // Si la cantidad total es cero, oculta el valor
         if (cantidadTotal === 0) {
-          return setTotal("");
+            return setTotal("");
         }
-    
+
         // Si la cantidad total no es cero, actualiza el estado 'total' con el valor calculado
         setTotal(cantidadTotal);
-      }, [cantidadTotal]);
-    
+    }, [cantidadTotal]);
+
 
 
     const handleMouseEnter = () => {
@@ -55,18 +54,11 @@ const ContextProvider = ({ children }) => {
     const handleMouseLeave = () => {
         setScrollVisible(false);
     };
-    const login = () => {
-        setUserLogin(true);
-    };
-
-    const logout = () => {
-        setUserLogin(false)
-    }
 
 
     const handleToggleModal = () => {
         setIsModalOpen(!isModalOpen);
-      };
+    };
 
 
 
@@ -114,6 +106,12 @@ const ContextProvider = ({ children }) => {
         calcularTotal(); // Calcula el total cuando se monta el componente
     }, [calcularTotal]);
 
+
+    const handleClickUsuarioLogeadoTest = () => {
+        setUsuariologeadotest(!usuariologeadotest);
+    }
+
+
     console.log(usuarios.nombre);
     console.log(servicios);
     return (
@@ -128,17 +126,15 @@ const ContextProvider = ({ children }) => {
             removerProducto,
             total,
             setTotal,
-            userLogin,
-            setUserLogin,
-            login,
-            logout,
             scrollVisible,
             setScrollVisible,
             handleMouseEnter,
             handleMouseLeave,
-            isModalOpen, 
-            handleToggleModal
-            cantidadTotal
+            isModalOpen,
+            handleToggleModal,
+            cantidadTotal,
+            usuariologeadotest,
+            handleClickUsuarioLogeadoTest
         }}>
             {children}
         </Context.Provider>

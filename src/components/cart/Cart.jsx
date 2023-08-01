@@ -4,6 +4,7 @@ import CartTotal from "./CartTotal";
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
+import ModalContent from '../Modal/ModalContent';
 
 const Cart = () => {
 
@@ -14,18 +15,21 @@ const Cart = () => {
         scrollVisible,
         handleMouseEnter,
         handleMouseLeave,
+        usuariologeadotest,
+        isModalOpen, 
+        handleToggleModal,
     } = useContext(Context);
 
     const clickRedireccion = () => {
-        if (userLogin) {
+        if (usuariologeadotest) {
             console.log("Usuario logueado, redirigiendo a /contratoexitoso");
             navigate("/contratoexitoso");
         } else {
             console.log("Usuario no logueado, mostrando mensaje");
             // Aquí puedes implementar la lógica para mostrar el mensaje o abrir un modal
             //alert("Debes iniciar sesión para contratar.");
-            navigate("/form-elements")
-            
+            /* navigate("/form-elements") */
+            handleToggleModal();
         }
     };
 
@@ -33,8 +37,8 @@ const Cart = () => {
 
     /*const userLogin = false;  const userLogin = true;*/
 
-    
-    
+
+
     return (
         <div className="flex items-center justify-center h-screen bg-gray-100">
             <div className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 dark:bg-gray-900 dark:text-gray-100">
@@ -80,7 +84,7 @@ const Cart = () => {
                                                 >
                                                     🗑️ remove
                                                 </Button>
-                                                {userLogin && (
+                                                {usuariologeadotest ? (
                                                     <Link>
                                                         <Button to="/favoritos"
                                                             type="button"
@@ -89,7 +93,7 @@ const Cart = () => {
                                                             ❤️ Favoritos
                                                         </Button>
                                                     </Link>
-                                                )}
+                                                ): <></> }
                                             </div>
                                         </div>
                                     </div>
@@ -107,16 +111,17 @@ const Cart = () => {
                     </p>
                 </div>
                 <div className="flex justify-end space-x-4">
-                    {userLogin && (
+                    {usuariologeadotest ? (
                         <Link to="/">
-                            <Button 
+                            <Button
                                 type="button"
                                 className="flex items-center px-2 py-1 space-x-1"
                             >
                                 Volver al inicio
                             </Button>
                         </Link>
-                    )}
+                    ): <></>}
+                    
                     <Button
                         className="w-24 px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none"
                         onClick={clickRedireccion}
@@ -125,8 +130,8 @@ const Cart = () => {
                     </Button>
                 </div>
             </div>
-        </div >
-
+            <ModalContent isOpen={isModalOpen} onClose={handleToggleModal} />
+        </div>
     );
 };
 
