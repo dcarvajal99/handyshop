@@ -9,6 +9,7 @@ import FooterApp from "./components/footer/Footer";
 import ServiceDetail from "./views/ServiceDetail";
 import Carrito from "./views/Carrito";
 import RegisterUsers from "./views/RegisterUsers";
+import FormElements from "./views/FormElements";
 import RecoverPassword from "./views/RecoverPassword";
 import ContratoExitoso from "./components/contratoExitoso/ContratoExitoso";
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/service-detail/:id" element={<ServiceDetail />} />
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/register-users" element={<RegisterUsers />} />
+          <Route path="/form-elements" element={<FormElements />} />
           <Route path="/recover-password" element={<RecoverPassword />} />
           <Route path="/contratoexitoso" element={<ContratoExitoso />} />
         </Routes>
