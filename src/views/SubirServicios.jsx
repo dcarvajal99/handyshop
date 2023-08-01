@@ -2,7 +2,7 @@ import React from "react";
 
 const SubirServicios = () => {
   return (
-    <section className="rounded-lg h-auto max-w-lg mx-auto bg-gray-400 mb-1 m-2">
+    <section className="rounded-lg h-auto max-w-lg mx-auto bg-gray-500 mb-1 m-2">
         <div className="py-2 px-4 max-w-2xl lg:py-5">
         <h2 className="mb-1 text-xl font-bold text-center text-gray-900 dark:text-white">Agregar un Nuevo Servicio:</h2>
             <form action="#">

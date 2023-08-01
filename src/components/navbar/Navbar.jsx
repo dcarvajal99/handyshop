@@ -4,12 +4,15 @@ import { Dropdown, Navbar, Avatar } from 'flowbite-react';
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import Context from '../../context/ContextProvider';
+import CartItem from '../cart/CartItem';
+import { Link } from 'react-router-dom';
 
 export default function NavbarWithDropdown() {
-    const { usuarios } = useContext(Context);
+    const { usuarios, cart } = useContext(Context);
+
 
     /*let temporal = undefined;*/
-    let temporal = usuarios.nombre;
+  let temporal = usuarios.nombre;
 
     return (
         <Navbar fluid rounded >
@@ -21,7 +24,7 @@ export default function NavbarWithDropdown() {
                 />
             </Navbar.Brand>
             {/* ...otros contenidos de la aplicación... */}
-            {temporal  === undefined ?
+            {temporal === undefined ?
                 <></>
                 :
                 <div className="flex md:order-1">
@@ -49,10 +52,9 @@ export default function NavbarWithDropdown() {
                             Sign out
                         </Dropdown.Item>
                     </Dropdown>
-                    <Navbar.Toggle />
                 </div>
             }
-
+            <Navbar.Toggle />
             <Navbar.Collapse>
                 <NavLink to="/">
                     <p>
@@ -62,6 +64,11 @@ export default function NavbarWithDropdown() {
                 <NavLink to="/quienes-somos">
                     ¿Quienes Somos?
                 </NavLink>
+                <Link  to={"/carrito"}>
+                    🛒
+                    <CartItem />
+                    {/*{cart.length > 0 ? <CartItem /> : null}*/}
+                </Link>
                 {temporal === undefined ?
                     <>
                         <NavLink to="/register-users">
