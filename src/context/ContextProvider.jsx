@@ -137,7 +137,7 @@ const ContextProvider = ({ children }) => {
             handleMouseEnter,
             handleMouseLeave,
             isModalOpen, 
-            handleToggleModal
+            handleToggleModal,
             cantidadTotal
         }}>
             {children}
