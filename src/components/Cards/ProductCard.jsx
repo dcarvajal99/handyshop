@@ -2,10 +2,15 @@ import React from 'react';
 import { useContext } from 'react';
 import Context from '../../context/ContextProvider';
 import { useNavigate } from 'react-router-dom';
+import { Button } from 'flowbite-react';
 
 const ProductCard = () => {
 
-  const { usuarios, servicios, setServicioDetails } = useContext(Context);
+  const { usuarios, servicios,
+    setServicioDetails, usuariologeadotest,
+    favoritos, marcarFavorito,
+    handleToggleModal
+  } = useContext(Context);
   const navigate = useNavigate();
 
   const handleClick = (id) => {
@@ -39,12 +44,37 @@ const ProductCard = () => {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-3xl font-bold text-gray-900 dark:text-white">${servicio.monto}</span>
-              <a className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
+              <div className="flex items-center space-x-2">
+                {usuariologeadotest ?
+                  (
+                    <Button
+                      onClick={() => marcarFavorito(servicio.id)}
+                      className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500">
+                      {favoritos.includes(servicio.id) ?
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M10 3.162l-1.545-1.545a5.5 5.5 0 00-7.778 7.778L10 18.94l9.323-9.545a5.5 5.5 0 00-7.778-7.778L10 3.162z" clipRule="evenodd" />
+                        </svg>
+                        :
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M10 3.162l-1.545-1.545a5.5 5.5 0 00-7.778 7.778L10 18.94l9.323-9.545a5.5 5.5 0 00-7.778-7.778L10 3.162z" clipRule="evenodd" />
+                        </svg>
+                      }
+                    </Button>
+                  ) :
+                  (<Button
+                    className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500" onClick={handleToggleModal}>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10 3.162l-1.545-1.545a5.5 5.5 0 00-7.778 7.778L10 18.94l9.323-9.545a5.5 5.5 0 00-7.778-7.778L10 3.162z" clipRule="evenodd" />
+                    </svg>
+                  </Button>
+                  )}
+                <p className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
               focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
               text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
               dark:focus:ring-blue-800"
-              onClick={() => handleClick(servicio.id)}
-              >Más Detalles</a>
+                  onClick={() => handleClick(servicio.id)}
+                >Más Detalles</p>
+              </div>
               {/* <button
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 onClick={() => handleClick(servicio.id)}

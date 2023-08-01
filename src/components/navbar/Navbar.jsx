@@ -21,8 +21,7 @@ export default function NavbarWithDropdown() {
             </Navbar.Brand>
             {/* ...otros contenidos de la aplicación... */}
             {usuariologeadotest ?
-                <></>
-                :
+                
                 <div className="flex md:order-1">
                     <Dropdown inline label={<Avatar alt="User settings" img={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} rounded />} >
                         <Dropdown.Header>
@@ -49,6 +48,7 @@ export default function NavbarWithDropdown() {
                         </Dropdown.Item>
                     </Dropdown>
                 </div>
+                :<></>
             }
             <Navbar.Toggle />
             <Navbar.Collapse>
@@ -58,12 +58,10 @@ export default function NavbarWithDropdown() {
                 <NavLink to="/quienes-somos">
                     ¿Quienes Somos?
                 </NavLink>
-                <Link to={"/carrito"}>
-                    🛒
-                    <CartItem />
-                    {/*{cart.length > 0 ? <CartItem /> : null}*/}
-                </Link>
+                
                 {usuariologeadotest  ?
+                    <></>
+                    :
                     <>
                         <NavLink to="/register-users">
                             Crear Cuenta
@@ -73,10 +71,14 @@ export default function NavbarWithDropdown() {
                             <ModalContent isOpen={isModalOpen} onClose={handleToggleModal} />
                         </div>
                     </>
-                    :
-                    <></>
                 }
+                <Link to={"/carrito"}>
+                    🛒
+                    <CartItem />
+                    {/*{cart.length > 0 ? <CartItem /> : null}*/}
+                </Link>
             </Navbar.Collapse>
+            
         </Navbar>
     )
 }
