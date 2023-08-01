@@ -1,18 +1,40 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Context from "../../context/ContextProvider";
 import CartTotal from "./CartTotal";
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
-
-
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-    const { cart, userLogin, removerProducto, scrollVisible, handleMouseEnter, handleMouseLeave } = useContext(Context);
-    
+
+    const navigate = useNavigate()
+    const { cart,
+        userLogin,
+        removerProducto,
+        scrollVisible,
+        handleMouseEnter,
+        handleMouseLeave,
+    } = useContext(Context);
+
+    const clickRedireccion = () => {
+        if (userLogin) {
+            console.log("Usuario logueado, redirigiendo a /contratoexitoso");
+            navigate("/contratoexitoso");
+        } else {
+            console.log("Usuario no logueado, mostrando mensaje");
+            // Aquí puedes implementar la lógica para mostrar el mensaje o abrir un modal
+            //alert("Debes iniciar sesión para contratar.");
+            navigate("/form-elements")
+            
+        }
+    };
 
     const ImagenUrl = 'https://www.oikos.com.co/constructora/images/website/Noticias_2019_/funciones-de-los-constructores.jpg';
-    /*const userLogin = false; o true const userLogin = true;*/
 
+    /*const userLogin = false;  const userLogin = true;*/
+
+    
+    
     return (
         <div className="flex items-center justify-center h-screen bg-gray-100">
             <div className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 dark:bg-gray-900 dark:text-gray-100">
@@ -48,19 +70,27 @@ const Cart = () => {
                                             </div>
                                         </div>
                                         <div className="flex text-sm divide-x">
-                                            <Button
-                                                onClick={() => removerProducto(servicio.id)}
-                                                type="button"
-                                                className="flex items-center px-2 py-1 pl-0 space-x-1"
-                                            >
-                                                🗑️ remove
-                                            </Button>
-                                            <button
-                                                type="button"
-                                                className="flex items-center px-2 py-1 space-x-1"
-                                            >
-                                                {/* Botón de agregar a favoritos */}
-                                            </button>
+                                            <div className="flex items-center px-2 py-1 pl-0 space-x-1">
+
+
+                                                <Button
+                                                    onClick={() => removerProducto(servicio.id)}
+                                                    type="button"
+                                                    className="flex items-center px-2 py-1 pl-0 space-x-1 "
+                                                >
+                                                    🗑️ remove
+                                                </Button>
+                                                {userLogin && (
+                                                    <Link>
+                                                        <Button to="/favoritos"
+                                                            type="button"
+                                                            className="flex items-center px-2 py-1 space-x-1"
+                                                        >
+                                                            ❤️ Favoritos
+                                                        </Button>
+                                                    </Link>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -77,22 +107,25 @@ const Cart = () => {
                     </p>
                 </div>
                 <div className="flex justify-end space-x-4">
-                    <button
-                        type="button"
-                        className="px-6 py-2 border rounded-md dark:bg-violet-400 dark:text-gray-900 dark:border-violet-400"
+                    {userLogin && (
+                        <Link to="/">
+                            <Button 
+                                type="button"
+                                className="flex items-center px-2 py-1 space-x-1"
+                            >
+                                Volver al inicio
+                            </Button>
+                        </Link>
+                    )}
+                    <Button
+                        className="w-24 px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none"
+                        onClick={clickRedireccion}
                     >
-                        <span className="sr-only sm:not-sr-only">Continue to</span> Checkout
-                    </button>
-                    <Link to="/contratoexitoso">
-                        <Button
-                            className="w-24 px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none"
-                        >
-                            Contratar
-                        </Button>
-                    </Link>
+                        Contratar
+                    </Button>
                 </div>
             </div>
-        </div>
+        </div >
 
     );
 };
