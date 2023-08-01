@@ -5,7 +5,7 @@ const Context = createContext();
 
 const ContextProvider = ({ children }) => {
 
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const { id } = useParams();
     const [servicios, setServicios] = useState([]);
     const [servicioDetails, setServicioDetails] = useState(null);
@@ -63,9 +63,17 @@ const ContextProvider = ({ children }) => {
         setUserLogin(false)
     }
 
+
+    const handleToggleModal = () => {
+        setIsModalOpen(!isModalOpen);
+      };
+
+
+
     // Función para calcular el monto total del carrito
     const calcularTotal = useCallback(() => {
         const newTotal = cart.reduce((acc, ele) => acc + ele.monto * ele.cantidad, 0);
+
         setTotal(newTotal);
     }, [cart]);
 
@@ -79,6 +87,7 @@ const ContextProvider = ({ children }) => {
     const removerProducto = (id) => {
         // Encuentra el índice del producto en el carrito
         const index = cart.findIndex((producto) => producto.id === id);
+
 
         if (index !== -1) {
             // Obtiene el monto del producto que se eliminará
@@ -127,6 +136,8 @@ const ContextProvider = ({ children }) => {
             setScrollVisible,
             handleMouseEnter,
             handleMouseLeave,
+            isModalOpen, 
+            handleToggleModal
             cantidadTotal
         }}>
             {children}
@@ -136,4 +147,3 @@ const ContextProvider = ({ children }) => {
 
 export { ContextProvider };
 export default Context;
-
