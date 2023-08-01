@@ -1,14 +1,14 @@
 import React from 'react';
 import { Dropdown, Navbar, Avatar } from 'flowbite-react';
 import { NavLink } from 'react-router-dom';
-import { useContext} from 'react';
+import { useContext } from 'react';
 import Context from '../../context/ContextProvider';
 import CartItem from '../cart/CartItem';
 import { Link } from 'react-router-dom';
 import ModalContent from '../Modal/ModalContent';
 
 export default function NavbarWithDropdown() {
-    const { usuarios, isModalOpen, handleToggleModal,usuariologeadotest,handleClickUsuarioLogeadoTest } = useContext(Context);
+    const { usuarios, isModalOpen, handleToggleModal, usuariologeadotest, handleClickUsuarioLogeadoTest } = useContext(Context);
 
     return (
         <Navbar fluid rounded >
@@ -20,9 +20,15 @@ export default function NavbarWithDropdown() {
                 />
             </Navbar.Brand>
             {/* ...otros contenidos de la aplicación... */}
+           
             {usuariologeadotest ?
-                
-                <div className="flex md:order-1">
+
+                <div className="flex items-center md:order-2 space-x-5">
+                    <Link to={"/carrito"}>
+                        🛒
+                        <CartItem />
+                        {/*{cart.length > 0 ? <CartItem /> : null}*/}
+                    </Link>
                     <Dropdown inline label={<Avatar alt="User settings" img={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} rounded />} >
                         <Dropdown.Header>
                             <span className="block text-sm">
@@ -32,6 +38,11 @@ export default function NavbarWithDropdown() {
                                 {usuarios.email}
                             </span>
                         </Dropdown.Header>
+                        <Dropdown.Item>
+                            <NavLink to="/micuenta">
+                                Mi cuenta
+                            </NavLink>
+                        </Dropdown.Item>
                         <Dropdown.Item>
                             <NavLink to="/favoritos">
                                 Favoritos
@@ -47,38 +58,39 @@ export default function NavbarWithDropdown() {
                             Sign out
                         </Dropdown.Item>
                     </Dropdown>
+                    <Navbar.Toggle/>
                 </div>
-                :<></>
+                : <><Navbar.Toggle /></>
             }
-            <Navbar.Toggle />
+            
             <Navbar.Collapse>
                 <NavLink to="/">
-                        Inicio
+                     <p>Inicio</p>
                 </NavLink>
                 <NavLink to="/quienes-somos">
-                    ¿Quienes Somos?
+                    <p>¿Quienes Somos?</p>
                 </NavLink>
-                
-                {usuariologeadotest  ?
+
+                {usuariologeadotest ?
                     <></>
                     :
                     <>
                         <NavLink to="/register-users">
-                            Crear Cuenta
+                                Crear Cuenta
                         </NavLink>
                         <div>
                             <button onClick={handleToggleModal}>Iniciar Sesión</button>
                             <ModalContent isOpen={isModalOpen} onClose={handleToggleModal} />
                         </div>
+                        <Link to={"/carrito"}>
+                            🛒
+                            <CartItem />
+                            {/*{cart.length > 0 ? <CartItem /> : null}*/}
+                        </Link>
                     </>
                 }
-                <Link to={"/carrito"}>
-                    🛒
-                    <CartItem />
-                    {/*{cart.length > 0 ? <CartItem /> : null}*/}
-                </Link>
+
             </Navbar.Collapse>
-            
         </Navbar>
     )
 }
