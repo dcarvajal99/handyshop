@@ -8,8 +8,8 @@ import Context from '../../context/ContextProvider';
 export default function NavbarWithDropdown() {
     const { usuarios } = useContext(Context);
 
-    let temporal = undefined;
-  /*   let temporal = usuarios.nombre; */
+    /*let temporal = undefined;*/
+    let temporal = usuarios.nombre;
 
     return (
         <Navbar fluid rounded >
