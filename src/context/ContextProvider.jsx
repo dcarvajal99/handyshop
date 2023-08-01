@@ -135,6 +135,10 @@ const ContextProvider = ({ children }) => {
             cantidadTotal,
             usuariologeadotest,
             handleClickUsuarioLogeadoTest
+            isModalOpen, 
+            handleToggleModal,
+            cantidadTotal
+
         }}>
             {children}
         </Context.Provider>

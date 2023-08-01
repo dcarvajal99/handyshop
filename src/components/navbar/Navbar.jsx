@@ -10,9 +10,6 @@ import ModalContent from '../Modal/ModalContent';
 export default function NavbarWithDropdown() {
     const { usuarios, isModalOpen, handleToggleModal,usuariologeadotest,handleClickUsuarioLogeadoTest } = useContext(Context);
 
-
-    /*   let temporal = usuarios.nombre; */
-
     return (
         <Navbar fluid rounded >
             <Navbar.Brand  >
