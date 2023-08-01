@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ProductFavCard = () => {
 
-  const { usuarios, servicios, setServicioDetails } = useContext(Context);
+  const { usuarios, favoritos,servicios, setServicioDetails } = useContext(Context);
   const navigate = useNavigate();
 
   const handleClick = (id) => {
@@ -13,10 +13,14 @@ const ProductFavCard = () => {
     navigate(`/service-detail/${id}`);
   };
 
+  const serviciosFavoritos = servicios.filter((servicio) =>
+  favoritos.includes(servicio.id)
+);
+
 
   return (
     <>
-      {servicios.map((servicio) => (
+      {serviciosFavoritos.map((servicio) => (
         <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={servicio.id}>
           <div className="flex items-center justify-between px-5 py-3" >
             <span className="text-sm font-light text-gray-600 dark:text-gray-400">{usuarios.nombre} {usuarios.apellido} </span>

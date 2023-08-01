@@ -2,6 +2,7 @@ import React from "react";
 import ContainerFavCards from "../components/Cards/favcards/ContainerFavCards";
 
 const Favoritos = () => {
+ 
     return (
         <>
             <div className="flex flex-col items-center justify-start">
