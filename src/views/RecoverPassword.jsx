@@ -4,8 +4,8 @@ import { Button } from "flowbite-react";
 
 const RecoverPassword = () => {
   return (
-    <form className="h-auto text-center max-w-lg mx-auto rounded-lg bg-gray-600 p-5 mb-10 m-10">
-        <label htmlFor="email" className="mb-2 text-2xl  text-gray-50">
+    <form className="h-auto text-center max-w-lg mx-auto rounded-lg bg-gray-50 p-5 mb-10 m-10">
+        <label htmlFor="email" className="mb-2 text-2xl  text-gray-900">
             Your Email:
         </label>
         <input
@@ -25,7 +25,7 @@ const RecoverPassword = () => {
         <NavLink to="/">
         <Button to="/"
         type="submit"
-        className=" m-5 text-white bg-red-900 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-500 rounded-lg text-lg  sm:w-auto px-5 py-2.5 text-center"
+        className=" m-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-500 rounded-lg text-lg  sm:w-auto px-5 py-2.5 text-center"
       >
         Submit
         </Button>
