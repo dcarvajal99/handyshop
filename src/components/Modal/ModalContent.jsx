@@ -51,7 +51,7 @@ const ModalContent = ({ isOpen, onClose }) => {
             />
           </div>
           <div className="registro">
-            <button className="bg-red-900 hover:bg-red-500 text-2xl text-white px-4 py-3 rounded-lg mb-5" onClick={onClose}>
+            <button className="bg-blue-700 hover:bg-blue-800 text-2xl text-white px-4 py-3 rounded-lg mb-5" onClick={onClose}>
               Ingresar
             </button>
             <div className="text">

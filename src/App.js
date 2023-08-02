@@ -12,7 +12,7 @@ import RegisterUsers from "./views/RegisterUsers";
 import FormElements from "./views/FormElements";
 import RecoverPassword from "./views/RecoverPassword";
 import ContratoExitoso from "./components/contratoExitoso/ContratoExitoso";
-
+import Micuenta from "./views/Micuenta";
 
 
 function App() {
@@ -23,7 +23,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/favoritos" element={<Favoritos />} />
-          <Route path="*" element={<h1>Not Found</h1>} />
           <Route path="/quienes-somos" element={<QuienesSomos />} />
           <Route path="/subir-servicios" element={<SubirServicios />} />
           <Route path="/quienes-somos" element={<QuienesSomos />} />
@@ -33,6 +32,8 @@ function App() {
           <Route path="/form-elements" element={<FormElements />} />
           <Route path="/recover-password" element={<RecoverPassword />} />
           <Route path="/contratoexitoso" element={<ContratoExitoso />} />
+          <Route path="/micuenta" element={<Micuenta />} />
+          <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
         <FooterApp />
       </ContextProvider>
