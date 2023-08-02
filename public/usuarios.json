@@ -5,8 +5,9 @@
         "nombre": "Juan",
         "apellido": "Pérez",
         "correo": "juan@example.com",
-        "ubicacion": "Ciudad de México",
-        "contraseña": "contraseña1"
+        "direccion": "Calle 1, Renca",
+        "contraseña": "contraseña1",
+        "telefono": "12345678"
       }
     ]
   }
