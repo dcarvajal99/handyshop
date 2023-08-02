@@ -1,21 +1,18 @@
 import React from 'react';
-import SignInModal from '../../views/SignInModal';
 import { Dropdown, Navbar, Avatar } from 'flowbite-react';
 import { NavLink } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext} from 'react';
 import Context from '../../context/ContextProvider';
 import CartItem from '../cart/CartItem';
 import { Link } from 'react-router-dom';
+import ModalContent from '../Modal/ModalContent';
 
 export default function NavbarWithDropdown() {
     const { usuarios, cart } = useContext(Context);
 
 
-    /*let temporal = undefined;
-
-    let temporal = usuarios.nombre;*/
-
-    let temporal = usuarios.nombre;
+    let temporal = undefined;
+    /*   let temporal = usuarios.nombre; */
 
     return (
         <Navbar fluid rounded >
@@ -27,9 +24,8 @@ export default function NavbarWithDropdown() {
                 />
             </Navbar.Brand>
             {/* ...otros contenidos de la aplicación... */}
-            {temporal === undefined ?
-                <></>
-                :
+            {usuariologeadotest ?
+                
                 <div className="flex md:order-1">
                     <Dropdown inline label={<Avatar alt="User settings" img={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} rounded />} >
                         <Dropdown.Header>
@@ -51,38 +47,39 @@ export default function NavbarWithDropdown() {
                             </NavLink>
                         </Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item>
+                        <Dropdown.Item onClick={handleClickUsuarioLogeadoTest}>
                             Sign out
                         </Dropdown.Item>
                     </Dropdown>
                 </div>
+                :<></>
             }
             <Navbar.Toggle />
             <Navbar.Collapse>
                 <NavLink to="/">
-                    <p>
                         Inicio
-                    </p>
                 </NavLink>
                 <NavLink to="/quienes-somos">
                     ¿Quienes Somos?
                 </NavLink>
-                <Link  to={"/carrito"}>
-                    🛒
-                    <CartItem />
-                    {/*{cart.length > 0 ? <CartItem /> : null}*/}
-                </Link>
-                {temporal === undefined ?
+                
+                {usuariologeadotest  ?
+                    <></>
+                    :
                     <>
                         <NavLink to="/register-users">
                             Crear Cuenta
                         </NavLink>
-                      <SignInModal />
+                        <SignInModal />
                     </>
-                    :
-                    <></>
                 }
+                <Link to={"/carrito"}>
+                    🛒
+                    <CartItem />
+                    {/*{cart.length > 0 ? <CartItem /> : null}*/}
+                </Link>
             </Navbar.Collapse>
+            
         </Navbar>
     )
 }

@@ -1,20 +1,28 @@
 import { createContext, useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
-
 const Context = createContext();
 
 const ContextProvider = ({ children }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { id } = useParams();
     const [servicios, setServicios] = useState([]);
     const [servicioDetails, setServicioDetails] = useState(null);
     const [usuarios, setUsuarios] = useState({});
     const [cart, setCart] = useState([]);
-    const [userLogin, setUserLogin] = useState(false)
     const [scrollVisible, setScrollVisible] = useState(false);
     const [total, setTotal] = useState(0); // Agrega el estado 'total'
+    const [usuariologeadotest, setUsuariologeadotest] = useState(true);
+    const [favoritos, setFavoritos] = useState([]);
 
+    // Funciones para agregar y remover productos de favoritos
+    const marcarFavorito = (servicioId) => {
+        if (favoritos.includes(servicioId)) {
+            setFavoritos((prevFavoritos) =>
+                prevFavoritos.filter((id) => id !== servicioId)
+            );
+        } else {
+            setFavoritos((prevFavoritos) => [...prevFavoritos, servicioId]);
+        }
+    };
 
     // Funciones para obtener los datos
     const obtenerUsuario = async () => {
@@ -23,29 +31,31 @@ const ContextProvider = ({ children }) => {
         setUsuarios(dataUsuarios.usuario[0]);
     };
 
+    // Funciones para obtener los datos
     const obtenerServicios = async () => {
         const data = await fetch('/servicios.json');
         const dataServicios = await data.json();
         setServicios(dataServicios.servicios);
     };
 
+    // Funciones para calcular la cantidad total de productos en el carrito
     const calcularCantidadTotal = () => {
         const cantidadTotal = cart.reduce((acc, ele) => acc + ele.cantidad, 0);
         return cantidadTotal;
-      };
-    
-      const cantidadTotal = calcularCantidadTotal();
-    
-      useEffect(() => {
+    };
+
+    const cantidadTotal = calcularCantidadTotal();
+
+    useEffect(() => {
         // Si la cantidad total es cero, oculta el valor
         if (cantidadTotal === 0) {
-          return setTotal("");
+            return setTotal("");
         }
-    
+
         // Si la cantidad total no es cero, actualiza el estado 'total' con el valor calculado
         setTotal(cantidadTotal);
-      }, [cantidadTotal]);
-    
+    }, [cantidadTotal]);
+
 
 
     const handleMouseEnter = () => {
@@ -62,9 +72,11 @@ const ContextProvider = ({ children }) => {
     const logout = () => {
         setUserLogin(false)
     }
+
+
     const handleToggleModal = () => {
         setIsModalOpen(!isModalOpen);
-      };
+    };
 
 
     // Función para calcular el monto total del carrito
@@ -76,7 +88,6 @@ const ContextProvider = ({ children }) => {
 
     // Función para añadir un producto al carrito
     const anadirProducto = (servicio) => {
-        console.log(servicio);
         setCart([...cart, servicio]);
         calcularTotal(); // Recalcula el total cuando se añade un producto
     };
@@ -111,8 +122,10 @@ const ContextProvider = ({ children }) => {
         calcularTotal(); // Calcula el total cuando se monta el componente
     }, [calcularTotal]);
 
-    console.log(usuarios.nombre);
-    console.log(servicios);
+
+    const handleClickUsuarioLogeadoTest = () => {
+        setUsuariologeadotest(!usuariologeadotest);
+    }
     return (
         <Context.Provider value={{
             usuarios,
@@ -125,10 +138,6 @@ const ContextProvider = ({ children }) => {
             removerProducto,
             total,
             setTotal,
-            userLogin,
-            setUserLogin,
-            login,
-            logout,
             scrollVisible,
             setScrollVisible,
             handleMouseEnter,

@@ -4,28 +4,29 @@ import CartTotal from "./CartTotal";
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
+import ModalContent from '../Modal/ModalContent';
 
 const Cart = () => {
 
     const navigate = useNavigate()
     const { cart,
-        userLogin,
         removerProducto,
         scrollVisible,
         handleMouseEnter,
         handleMouseLeave,
+        usuariologeadotest,
+        isModalOpen,
+        handleToggleModal,
+        favoritos,
+        marcarFavorito,
     } = useContext(Context);
 
     const clickRedireccion = () => {
-        if (userLogin) {
-            console.log("Usuario logueado, redirigiendo a /contratoexitoso");
+        if (usuariologeadotest) {
+
             navigate("/contratoexitoso");
         } else {
-            console.log("Usuario no logueado, mostrando mensaje");
-            // Aquí puedes implementar la lógica para mostrar el mensaje o abrir un modal
-            //alert("Debes iniciar sesión para contratar.");
-            navigate("/form-elements")
-            
+            handleToggleModal();
         }
     };
 
@@ -33,8 +34,8 @@ const Cart = () => {
 
     /*const userLogin = false;  const userLogin = true;*/
 
-    
-    
+
+
     return (
         <div className="flex items-center justify-center h-screen bg-gray-100">
             <div className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 dark:bg-gray-900 dark:text-gray-100">
@@ -80,16 +81,25 @@ const Cart = () => {
                                                 >
                                                     🗑️ remove
                                                 </Button>
-                                                {userLogin && (
+                                                {usuariologeadotest ? (
                                                     <Link>
-                                                        <Button to="/favoritos"
+                                                        <Button
+                                                            onClick={() => marcarFavorito(servicio.id)}
                                                             type="button"
-                                                            className="flex items-center px-2 py-1 space-x-1"
-                                                        >
-                                                            ❤️ Favoritos
+                                                            className="flex items-center px-2 py-1 space-x-1">
+                                                            {favoritos.includes(servicio.id) ? 
+                                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fillRule="evenodd" d="M10 3.162l-1.545-1.545a5.5 5.5 0 00-7.778 7.778L10 18.94l9.323-9.545a5.5 5.5 0 00-7.778-7.778L10 3.162z" clipRule="evenodd" />
+                                                            </svg>
+                                                            :
+                                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fillRule="evenodd" d="M10 3.162l-1.545-1.545a5.5 5.5 0 00-7.778 7.778L10 18.94l9.323-9.545a5.5 5.5 0 00-7.778-7.778L10 3.162z" clipRule="evenodd" />
+                                                            </svg>
+                                                            } {/* Corazón lleno o vacío */}
+                                                            Favorito
                                                         </Button>
                                                     </Link>
-                                                )}
+                                                ) : <></>}
                                             </div>
                                         </div>
                                     </div>
@@ -107,16 +117,17 @@ const Cart = () => {
                     </p>
                 </div>
                 <div className="flex justify-end space-x-4">
-                    {userLogin && (
+                    {usuariologeadotest ? (
                         <Link to="/">
-                            <Button 
+                            <Button
                                 type="button"
                                 className="flex items-center px-2 py-1 space-x-1"
                             >
                                 Volver al inicio
                             </Button>
                         </Link>
-                    )}
+                    ) : <></>}
+
                     <Button
                         className="w-24 px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none"
                         onClick={clickRedireccion}
@@ -125,8 +136,8 @@ const Cart = () => {
                     </Button>
                 </div>
             </div>
-        </div >
-
+            <ModalContent isOpen={isModalOpen} onClose={handleToggleModal} />
+        </div>
     );
 };
 
