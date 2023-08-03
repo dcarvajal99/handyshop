@@ -29,11 +29,11 @@ const ProductCard = () => {
             <img className="w-8 h-8 rounded-full" src={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} alt="avatar" />
           </div>
           <a href="/">
-            <img className="p-8 rounded-t-lg" src={process.env.PUBLIC_URL + '../img/Cards/contructor.jpg'} alt="product imagen" />
+            <img className="p-8 rounded-t-lg" src={servicio.img_url} alt="product imagen" />
           </a>
           <div className="px-5 pb-5">
             <a href="/">
-              <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{servicio.servicio}</h5>
+              <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{servicio.nombre_servicio}</h5>
             </a>
             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{servicio.descripcion}</p>
             <div className="flex items-center mt-2.5 mb-5">

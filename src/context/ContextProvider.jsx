@@ -1,5 +1,7 @@
+import axios from "axios";
 import { createContext, useEffect, useState, useCallback } from "react";
 const Context = createContext();
+
 
 const ContextProvider = ({ children }) => {
 
@@ -10,8 +12,12 @@ const ContextProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
     const [scrollVisible, setScrollVisible] = useState(false);
     const [total, setTotal] = useState(0); // Agrega el estado 'total'
-    const [usuariologeadotest, setUsuariologeadotest] = useState(true);
+    const [usuariologeadotest, setUsuariologeadotest] = useState(false);
     const [favoritos, setFavoritos] = useState([]);
+    const [error, setError] = useState(null);
+
+    const PORT = process.env.PORT || 3001;
+    const URL = `http://localhost:${PORT}/servicios`;
 
     // Funciones para agregar y remover productos de favoritos
     const marcarFavorito = (servicioId) => {
@@ -24,6 +30,7 @@ const ContextProvider = ({ children }) => {
         }
     };
 
+
     // Funciones para obtener los datos
     const obtenerUsuario = async () => {
         const data = await fetch('/usuarios.json');
@@ -31,12 +38,23 @@ const ContextProvider = ({ children }) => {
         setUsuarios(dataUsuarios.usuario[0]);
     };
 
-    // Funciones para obtener los datos
-    const obtenerServicios = async () => {
-        const data = await fetch('/servicios.json');
-        const dataServicios = await data.json();
-        setServicios(dataServicios.servicios);
-    };
+    // Funciones para obtener los datos de servicios a traves de la ruta GET localhost:3001/servicios
+    useEffect(() => {
+        const obtenerServicios = async () => {
+            try {
+                const response = await axios.get(URL);
+                const dataServicios = response.data.mensaje.result;
+                console.log(dataServicios);
+                setServicios(dataServicios);
+                setError(null); // Limpiar el error si la solicitud es exitosa
+            } catch (error) {
+                console.error('Error al obtener servicios:', error);
+                setError('Error al obtener servicios. Por favor, inténtelo de nuevo más tarde.'); // Establecer el mensaje de error
+            }
+        };
+
+        obtenerServicios();
+    }, []);
 
     // Funciones para calcular la cantidad total de productos en el carrito
     const calcularCantidadTotal = () => {
@@ -108,7 +126,6 @@ const ContextProvider = ({ children }) => {
     // Llamar a las funciones para obtener los datos en el montaje del componente
     useEffect(() => {
         obtenerUsuario();
-        obtenerServicios();
 
     }, []);
 
@@ -142,7 +159,8 @@ const ContextProvider = ({ children }) => {
             usuariologeadotest,
             handleClickUsuarioLogeadoTest,
             favoritos,
-            marcarFavorito
+            marcarFavorito,
+            error
         }}>
             {children}
         </Context.Provider>
