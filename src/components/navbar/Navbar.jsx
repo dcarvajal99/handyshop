@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import ModalContent from '../Modal/ModalContent';
 
 export default function NavbarWithDropdown() {
-    const { usuarios, isModalOpen, handleToggleModal, usuariologeadotest, handleClickUsuarioLogeadoTest } = useContext(Context);
+    const { usuarios, isModalOpen, handleToggleModal,usuariologeadotest,handleClickUsuarioLogeadoTest } = useContext(Context);
 
     return (
         <Navbar fluid rounded >
@@ -82,14 +82,13 @@ export default function NavbarWithDropdown() {
                             <button onClick={handleToggleModal}>Iniciar Sesión</button>
                             <ModalContent isOpen={isModalOpen} onClose={handleToggleModal} />
                         </div>
-                        <Link to={"/carrito"}>
-                            🛒
-                            <CartItem />
-                            {/*{cart.length > 0 ? <CartItem /> : null}*/}
-                        </Link>
                     </>
                 }
-
+                <Link to={"/carrito"}>
+                    🛒
+                    <CartItem />
+                    {/*{cart.length > 0 ? <CartItem /> : null}*/}
+                </Link>
             </Navbar.Collapse>
         </Navbar>
     )

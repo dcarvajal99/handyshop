@@ -83,12 +83,18 @@ const ContextProvider = ({ children }) => {
     const handleMouseLeave = () => {
         setScrollVisible(false);
     };
+    const login = () => {
+        setUserLogin(true);
+    };
+
+    const logout = () => {
+        setUserLogin(false)
+    }
 
 
     const handleToggleModal = () => {
         setIsModalOpen(!isModalOpen);
     };
-
 
 
     // Función para calcular el monto total del carrito
@@ -153,14 +159,13 @@ const ContextProvider = ({ children }) => {
             setScrollVisible,
             handleMouseEnter,
             handleMouseLeave,
-            isModalOpen,
+            isModalOpen, 
             handleToggleModal,
             cantidadTotal,
             usuariologeadotest,
             handleClickUsuarioLogeadoTest,
             favoritos,
-            marcarFavorito,
-            error
+            marcarFavorito
         }}>
             {children}
         </Context.Provider>

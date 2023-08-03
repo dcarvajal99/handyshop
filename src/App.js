@@ -14,6 +14,7 @@ import RecoverPassword from "./views/RecoverPassword";
 import ContratoExitoso from "./components/contratoExitoso/ContratoExitoso";
 import Micuenta from "./views/Micuenta";
 
+
 function App() {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -23,7 +24,6 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/quienes-somos" element={<QuienesSomos />} />
-          <Route path="/subir-servicios" element={<SubirServicios />} />
           <Route path="/subir-servicios" element={<SubirServicios />} />
           <Route path="/quienes-somos" element={<QuienesSomos />} />
           <Route path="/service-detail/:id" element={<ServiceDetail />} />

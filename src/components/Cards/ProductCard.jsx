@@ -6,7 +6,7 @@ import { Button } from 'flowbite-react';
 
 const ProductCard = () => {
 
-  const { usuarios, servicios,
+  const { /* usuarios, */ servicios,
     setServicioDetails, usuariologeadotest,
     favoritos, marcarFavorito,
     handleToggleModal
@@ -24,7 +24,7 @@ const ProductCard = () => {
       {servicios.map((servicio) => (
         <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={servicio.id}>
           <div className="flex items-center justify-between px-5 py-3" >
-            <span className="text-sm font-light text-gray-600 dark:text-gray-400">{usuarios.nombre} {usuarios.apellido} </span>
+            <span className="text-sm font-light text-gray-600 dark:text-gray-400">{/* usuarios.nombre usuarios.apellido */} </span>
 
             <img className="w-8 h-8 rounded-full" src={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} alt="avatar" />
           </div>
@@ -48,7 +48,7 @@ const ProductCard = () => {
                 {usuariologeadotest ?
                   (
                     <Button
-                      onClick={() => marcarFavorito(servicio.id)}
+                      onClick={() => marcarFavorito(servicio.id_servicio)}
                       className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500">
                       {favoritos.includes(servicio.id) ?
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-red-500" viewBox="0 0 20 20" fill="currentColor">
@@ -72,7 +72,7 @@ const ProductCard = () => {
               focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
               text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
               dark:focus:ring-blue-800"
-                  onClick={() => handleClick(servicio.id)}
+                  onClick={() => handleClick(servicio.id_servicio)}
                 >Más Detalles</p>
               </div>
               {/* <button

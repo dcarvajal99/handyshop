@@ -26,11 +26,12 @@ const responsive = {
 };
 
 const ContainerLittleCard = () => {
-  const { servicios, usuarios } = useContext(Context);
+  const { servicios, usuarios,setServicioDetails } = useContext(Context);
   const navigate = useNavigate();
 
   const handleClick = (id) => {
-    navigate(`/details/${id}`);
+    setServicioDetails(id)
+    navigate(`/service-detail/${id}`);
   };
 
   return (
@@ -40,16 +41,16 @@ const ContainerLittleCard = () => {
           {servicios.map((servicio) => (
             <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={servicio.id}>
               <div className="flex items-center justify-between px-5 py-3" >
-                <span className="text-sm font-light text-gray-600 dark:text-gray-400">{usuarios.nombre} {usuarios.apellido} </span>
+                <span className="text-sm font-light text-gray-600 dark:text-gray-400">{/* {usuarios.nombre} {usuarios.apellido} */} </span>
 
                 <img className="w-8 h-8 rounded-full" src={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} alt="avatar" />
               </div>
               <a href="/">
-                <img className="p-8 rounded-t-lg" src={process.env.PUBLIC_URL + '../img/Cards/contructor.jpg'} alt="product imagen" />
+                <img className="p-8 rounded-t-lg" src={servicio.img_url} alt="product imagen" />
               </a>
               <div className="px-5 pb-5">
                 <a href="/">
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{servicio.servicio}</h5>
+                  <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{servicio.nombre_servicio}</h5>
                 </a>
                 <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{servicio.descripcion}</p>
                 <div className="flex items-center mt-2.5 mb-5">
@@ -64,7 +65,7 @@ const ContainerLittleCard = () => {
               focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
               text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
               dark:focus:ring-blue-800"
-                    onClick={() => handleClick(servicio.id)}
+                    onClick={() => handleClick(servicio.id_servicio)}
                   >Más Detalles</p>
                   {/* <button
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
