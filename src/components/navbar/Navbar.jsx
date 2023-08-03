@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 import ModalContent from '../Modal/ModalContent';
 
 export default function NavbarWithDropdown() {
-    const { usuarios, isModalOpen, handleToggleModal,usuariologeadotest,handleClickUsuarioLogeadoTest } = useContext(Context);
-
+    const { usuario, isModalOpen, handleToggleModal,usuariologeado,handleClickUsuarioLogeado } = useContext(Context);
+    
     return (
         <Navbar fluid rounded >
             <Navbar.Brand  >
@@ -21,7 +21,7 @@ export default function NavbarWithDropdown() {
             </Navbar.Brand>
             {/* ...otros contenidos de la aplicación... */}
            
-            {usuariologeadotest ?
+            {usuariologeado ?
 
                 <div className="flex items-center md:order-2 space-x-5">
                     <Link to={"/carrito"}>
@@ -32,10 +32,10 @@ export default function NavbarWithDropdown() {
                     <Dropdown inline label={<Avatar alt="User settings" img={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} rounded />} >
                         <Dropdown.Header>
                             <span className="block text-sm">
-                                {usuarios.nombre} {usuarios.apellido}
+                                {usuario.nombre} {usuario.apellido}
                             </span>
                             <span className="block truncate text-sm font-medium">
-                                {usuarios.email}
+                                {usuario.email}
                             </span>
                         </Dropdown.Header>
                         <Dropdown.Item>
@@ -54,7 +54,7 @@ export default function NavbarWithDropdown() {
                             </NavLink>
                         </Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item onClick={handleClickUsuarioLogeadoTest}>
+                        <Dropdown.Item onClick={handleClickUsuarioLogeado}>
                             Sign out
                         </Dropdown.Item>
                     </Dropdown>
@@ -71,7 +71,7 @@ export default function NavbarWithDropdown() {
                     <p>¿Quienes Somos?</p>
                 </NavLink>
 
-                {usuariologeadotest ?
+                {usuariologeado ?
                     <></>
                     :
                     <>

@@ -6,7 +6,6 @@ const Carrito = () => {
     return (
         <>
             <Cart />
-            <CartTotal />
         </>
     )
 }

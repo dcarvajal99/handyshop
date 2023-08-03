@@ -1,34 +1,60 @@
-import { useContext } from 'react';
-import Context from '../../context/ContextProvider';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import { Button } from 'flowbite-react';
 import ModalContent from '../Modal/ModalContent';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import Context from '../../context/ContextProvider';
 
 export default function DetailsServices() {
     const { id } = useParams();
-    const { servicios, anadirProducto,
-        usuariologeadotest, isModalOpen, handleToggleModal,
+    const {  anadirProducto,
+        usuariologeado, isModalOpen, handleToggleModal,
+        favoritos, marcarFavorito } = useContext(Context);
+
+    const [servicio, setServicioLocal] = useState({});
+
+    const getServicioId = async () => {
+        const urlServer = "http://localhost:3001";
+        const endpoint = "/servicios/" + id;
+        try {
+            //obtener servicio por id sin token
+            const { data } = await axios.get(urlServer + endpoint);
+            console.log(data);
+            setServicioLocal(data[0]);
+        } catch ({ response: { data: message } }) {
+          alert(message + " 🙁");
+          console.log(message);
+        }
+      };
+
+      useEffect(() => {
+        getServicioId();
+        }, [id]);
+
+/*     const { servicios, anadirProducto,
+        usuariologeado, isModalOpen, handleToggleModal,
         favoritos, marcarFavorito } = useContext(Context);
     const servicio = servicios.find((servicio) => servicio.id === parseInt(id));
 
     const ImagenUrl = 'https://www.oikos.com.co/constructora/images/website/Noticias_2019_/funciones-de-los-constructores.jpg';
-
+ */
     if (!servicio) {
         return <p>Servicio no encontrado</p>;
     }
     return (
-        <section className="text-gray-700 body-font overflow-hidden bg-white">
+        <section className="dark:bg-gray-900 py-10 px-12">
             <div className="container px-5 py-24 mx-auto">
                 <div className="lg:w-4/5 mx-auto flex flex-wrap">
                     <img
-                        src={ImagenUrl}
+                        src={servicio.img_url}
                         alt="ecommerce"
                         className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
                     />
                     <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                         <h2 className="text-sm title-font text-gray-500 tracking-widest">{servicio.ubicacion}</h2>
-                        <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{servicio.servicio}</h1>
+                        <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{servicio.nombre_servicio}</h1>
                         <div className="flex mb-4">
                             <span className="flex items-center">
                                 <svg
@@ -60,12 +86,12 @@ export default function DetailsServices() {
                                     </Button>
                                 </Link>
 
-                                {usuariologeadotest ?
+                                {usuariologeado ?
                                     (
                                         <Button
-                                            onClick={() => marcarFavorito(servicio.id)}
+                                            onClick={() => marcarFavorito(servicio.id_servicio)}
                                             className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500">
-                                            {favoritos.includes(servicio.id) ?
+                                            {favoritos.includes(servicio.id_servicio) ?
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-red-500" viewBox="0 0 20 20" fill="currentColor">
                                                     <path fillRule="evenodd" d="M10 3.162l-1.545-1.545a5.5 5.5 0 00-7.778 7.778L10 18.94l9.323-9.545a5.5 5.5 0 00-7.778-7.778L10 3.162z" clipRule="evenodd" />
                                                 </svg>

@@ -8,11 +8,10 @@ const ContextProvider = ({ children }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [servicios, setServicios] = useState([]);
     const [servicioDetails, setServicioDetails] = useState(null);
-    const [usuarios, setUsuarios] = useState({});
+    const [usuario, setUsuario] = useState({});
     const [cart, setCart] = useState([]);
-    const [scrollVisible, setScrollVisible] = useState(false);
     const [total, setTotal] = useState(0); // Agrega el estado 'total'
-    const [usuariologeadotest, setUsuariologeadotest] = useState(false);
+    const [usuariologeado, setUsuariologeado] = useState(false);
     const [favoritos, setFavoritos] = useState([]);
     const [error, setError] = useState(null);
 
@@ -32,11 +31,13 @@ const ContextProvider = ({ children }) => {
 
 
     // Funciones para obtener los datos
-    const obtenerUsuario = async () => {
-        const data = await fetch('/usuarios.json');
-        const dataUsuarios = await data.json();
-        setUsuarios(dataUsuarios.usuario[0]);
-    };
+    /*     const obtenerUsuario = async () => {
+            const data = await fetch('/usuario.json');
+            const dataUsuario = await data.json();
+            setUsuario(dataUsuario.usuario[0]);
+        };
+    
+     */
 
     // Funciones para obtener los datos de servicios a traves de la ruta GET localhost:3001/servicios
     useEffect(() => {
@@ -74,24 +75,6 @@ const ContextProvider = ({ children }) => {
         setTotal(cantidadTotal);
     }, [cantidadTotal]);
 
-
-
-    const handleMouseEnter = () => {
-        setScrollVisible(true);
-    };
-
-    const handleMouseLeave = () => {
-        setScrollVisible(false);
-    };
-    const login = () => {
-        setUserLogin(true);
-    };
-
-    const logout = () => {
-        setUserLogin(false)
-    }
-
-
     const handleToggleModal = () => {
         setIsModalOpen(!isModalOpen);
     };
@@ -105,47 +88,65 @@ const ContextProvider = ({ children }) => {
     }, [cart]);
 
     // Función para añadir un producto al carrito
-    const anadirProducto = (servicio) => {
-        setCart([...cart, servicio]);
-        calcularTotal(); // Recalcula el total cuando se añade un producto
-    };
-
-    const removerProducto = (id) => {
-        // Encuentra el índice del producto en el carrito
-        const index = cart.findIndex((producto) => producto.id === id);
-
+    const anadirProducto = (producto) => {
+        // Comprueba si el producto ya está en el carrito
+        const index = cart.findIndex((ele) => ele.id_servicio === producto.id_servicio);
 
         if (index !== -1) {
-            // Obtiene el monto del producto que se eliminará
-            const montoEliminado = cart[index].monto;
-
-            // Actualiza el carrito eliminando el producto usando el índice
+            // Si el producto ya está en el carrito, actualiza la cantidad
             const newCart = [...cart];
-            newCart.splice(index, 1);
+            newCart[index].cantidad += 1;
             setCart(newCart);
-
-            // Actualiza el total restando el monto del producto eliminado
-            setTotal(total - montoEliminado);
+        } else {
+            // Si el producto no está en el carrito, añade el producto
+            const newCart = [...cart, { ...producto, cantidad: 1 }];
+            setCart(newCart);
         }
     };
 
-    // Llamar a las funciones para obtener los datos en el montaje del componente
-    useEffect(() => {
-        obtenerUsuario();
+    // Función para remover un producto del carrito si hay uno repetido o si la cantidad es 0 (cero)
+    const removerProducto = (producto) => {
+        // Comprueba si el producto ya está en el carrito
+        const index = cart.findIndex((ele) => ele.id_servicio === producto.id_servicio);
 
-    }, []);
+        if (index !== -1) {
+            // Si el producto ya está en el carrito, actualiza la cantidad
+            const newCart = [...cart];
+            newCart[index].cantidad -= 1;
+            if (newCart[index].cantidad === 0) {
+                newCart.splice(index, 1);
+            }
+            setCart(newCart);
+        }
+    };
+
+
+    // Llamar a las funciones para obtener los datos en el montaje del componente
+    /*  useEffect(() => {
+        obtenerUsuario();
+     }, []); */
 
     useEffect(() => {
         calcularTotal(); // Calcula el total cuando se monta el componente
     }, [calcularTotal]);
 
 
-    const handleClickUsuarioLogeadoTest = () => {
-        setUsuariologeadotest(!usuariologeadotest);
+    //si el usuario contiene informacion se cambia el estado de usuariologeado a true
+    useEffect(() => {
+        if (usuario.nombre) {
+            setUsuariologeado(true);
+        }
+    }, [usuario]);
+    
+    const handleClickUsuarioLogeado = () => {
+        setUsuariologeado(!usuariologeado);
     }
+
+
     return (
         <Context.Provider value={{
-            usuarios,
+            usuario,
+            setUsuario,
             servicios,
             servicioDetails,
             setServicioDetails,
@@ -155,17 +156,14 @@ const ContextProvider = ({ children }) => {
             removerProducto,
             total,
             setTotal,
-            scrollVisible,
-            setScrollVisible,
-            handleMouseEnter,
-            handleMouseLeave,
-            isModalOpen, 
+            isModalOpen,
             handleToggleModal,
             cantidadTotal,
-            usuariologeadotest,
-            handleClickUsuarioLogeadoTest,
+            usuariologeado,
+            handleClickUsuarioLogeado,
             favoritos,
-            marcarFavorito
+            marcarFavorito,
+            error,
         }}>
             {children}
         </Context.Provider>
