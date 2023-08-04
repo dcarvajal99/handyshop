@@ -9,7 +9,7 @@ import Context from '../../context/ContextProvider';
 
 export default function DetailsServices() {
     const { id } = useParams();
-    const {  anadirProducto,
+    const { anadirProducto,
         usuariologeado, isModalOpen, handleToggleModal,
         favoritos, marcarFavorito } = useContext(Context);
 
@@ -24,22 +24,23 @@ export default function DetailsServices() {
             console.log(data);
             setServicioLocal(data[0]);
         } catch ({ response: { data: message } }) {
-          alert(message + " 🙁");
-          console.log(message);
+            alert(message + " 🙁");
+            console.log(message);
         }
-      };
+    };
 
-      useEffect(() => {
+    useEffect(() => {
         getServicioId();
-        }, [id]);
+    }, [id]);
 
-/*     const { servicios, anadirProducto,
-        usuariologeado, isModalOpen, handleToggleModal,
-        favoritos, marcarFavorito } = useContext(Context);
-    const servicio = servicios.find((servicio) => servicio.id === parseInt(id));
 
-    const ImagenUrl = 'https://www.oikos.com.co/constructora/images/website/Noticias_2019_/funciones-de-los-constructores.jpg';
- */
+    /*     const { servicios, anadirProducto,
+            usuariologeado, isModalOpen, handleToggleModal,
+            favoritos, marcarFavorito } = useContext(Context);
+        const servicio = servicios.find((servicio) => servicio.id === parseInt(id));
+    
+        const ImagenUrl = 'https://www.oikos.com.co/constructora/images/website/Noticias_2019_/funciones-de-los-constructores.jpg';
+     */
     if (!servicio) {
         return <p>Servicio no encontrado</p>;
     }
@@ -53,28 +54,28 @@ export default function DetailsServices() {
                         className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
                     />
                     <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                        <h2 className="text-sm title-font text-gray-500 tracking-widest">{servicio.ubicacion}</h2>
+                        <h2 className="text-sm title-font text-gray-500 tracking-widest">{servicio.region + ", " + servicio.comuna}</h2>
                         <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{servicio.nombre_servicio}</h1>
                         <div className="flex mb-4">
                             <span className="flex items-center">
-                                <svg
-                                    fill="currentColor"
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    className="w-4 h-4 text-red-500"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                </svg>
+                                <div className="flex items-center mt-2 mb-3">
+                                    <svg className="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                    </svg>
+                                    <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">4.5</span>
+                                </div>
                                 {/* Resto del código para las estrellas */}
                             </span>
                             {/* Resto del código para los íconos de acciones */}
                         </div>
-                        <p className="leading-relaxed">
-                            {servicio.descripcion}
-                        </p>
+                        <div className="flex mb-4">
+                            <span className="flex items-center mt-2 mb-3">
+                                <p className="text-base text-gray-900 dark:text-white">
+                                    {servicio.descripcion}
+                                </p>
+                            </span>
+                        </div>
+
                         <div className="flex items-center justify-between">
                             <span className="title-font font-medium text-2xl text-gray-900">${servicio.monto}</span>
                             <div className="flex items-center space-x-4">
@@ -110,6 +111,17 @@ export default function DetailsServices() {
                                     </Button>
                                     )}
 
+                            </div>
+                        </div>
+
+                        <div className="flex flex-row items-center justify-between">
+                        <div className="flex-initial">
+                            <img className="w-10 h-10 rounded-full" src={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} alt="avatar" />
+
+                            <div className="flex flex-col">
+                                <span className="text-xl text-gray-900 dark:text-white">{servicio.nombre + " " + servicio.apellido}</span>
+                                <span className="text-base text-gray-900 dark:text-white">{servicio.telefono}</span>
+                        </div>
                             </div>
                         </div>
                     </div>

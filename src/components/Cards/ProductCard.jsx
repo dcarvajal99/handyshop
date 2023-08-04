@@ -24,8 +24,11 @@ const ProductCard = () => {
       {servicios.map((servicio) => (
         <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={servicio.id}>
           <div className="flex items-center justify-between px-5 py-3" >
-            <span className="text-sm font-light text-gray-600 dark:text-gray-400">{/* usuarios.nombre usuarios.apellido */} </span>
-
+          {/* mostrar dos titulos en columna y el segundo en negrita */}
+            <div className="flex flex-col">
+            <span className="text-sm font-light text-gray-600 dark:text-gray-400">{servicio.nombre +" "+ servicio.apellido} </span>
+            <span className="text-sm font-light text-gray-600 dark:text-gray-400"><b>{servicio.region +", "+ servicio.comuna} </b></span>
+            </div>
             <img className="w-8 h-8 rounded-full" src={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} alt="avatar" />
           </div>
           <a href="/">
