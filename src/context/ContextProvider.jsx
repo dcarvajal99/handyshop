@@ -29,7 +29,7 @@ const ContextProvider = ({ children }) => {
         const obtenerServicios = async () => {
             try {
                 const response = await axios.get(`${urlPagination}?page=${currentPage}`);
-                console.log(response);
+
                 const dataServicios = response.data.mensaje.result;
                 setServicios(dataServicios);
                 const paginationLinks = response.data.mensaje.hateoas;
