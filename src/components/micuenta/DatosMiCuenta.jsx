@@ -1,8 +1,13 @@
 import React from "react";
 import Context from "../../context/ContextProvider";
-import { useContext } from "react";
+import { useContext,useEffect } from "react";
 const DatosMiCuenta = () => {
-    const { usuarios } = useContext(Context);
+    const { usuarios,port } = useContext(Context);
+
+    useEffect(() => {
+        console.log(usuarios);
+    }, [usuarios]);
+
 
     return (
         <>

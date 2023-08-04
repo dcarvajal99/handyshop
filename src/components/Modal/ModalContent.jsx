@@ -1,13 +1,11 @@
 import React from 'react';
 import Context from '../../context/ContextProvider';
-import { useContext,useState } from 'react';
+import { useContext, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; 
 
 const ModalContent = ({ isOpen, onClose }) => {
 
   const { setUsuario } = useContext(Context);
-  const navigate = useNavigate()
   const [usuario, setUsuarioLocal] = useState({});
   const handleSetUsuario = ({ target: { value, name } }) => {
     const field = {};
@@ -21,11 +19,13 @@ const ModalContent = ({ isOpen, onClose }) => {
     const { email, password } = usuario;
     try {
       if (!email || !password) return alert("Email y password obligatorias");
-      const {data} = await axios.post(urlServer + endpoint, usuario);
+      const { data } = await axios.post(urlServer + endpoint, usuario);
       console.log(data.usuario);
       alert("Usuario identificado con éxito 😀");
       localStorage.setItem("token", data.token);
+      localStorage.setItem("usuario", JSON.stringify(data.usuario));
       setUsuario(data.usuario);
+
     } catch ({ response: { data: message } }) {
       alert(message + " 🙁");
       console.log(message);
@@ -85,9 +85,12 @@ const ModalContent = ({ isOpen, onClose }) => {
             />
           </div>
           <div className="registro">
-            <button className="bg-blue-700 hover:bg-blue-800 text-2xl text-white px-4 py-3 rounded-lg mb-5" onClick={iniciarSesion}>
+            <button className="bg-blue-700 hover:bg-blue-800 text-2xl text-white px-4 py-3 rounded-lg mb-5" onClick={() => {
+              iniciarSesion();
+              onClose();
+            }}>
               Ingresar
-              </button>
+            </button>
             <div className="text">
               <a href="/recover-password" className="text-gray-900 text-sm m-3">
                 ¿Recuperar Contraseña?
