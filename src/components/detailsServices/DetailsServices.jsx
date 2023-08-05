@@ -11,7 +11,7 @@ export default function DetailsServices() {
     const { id } = useParams();
     const { anadirProducto,
         usuariologeado, isModalOpen, handleToggleModal,
-        favoritos, marcarFavorito } = useContext(Context);
+        favoritos, marcarFavorito,usuario } = useContext(Context);
 
     const [servicio, setServicioLocal] = useState({});
 
@@ -31,7 +31,7 @@ export default function DetailsServices() {
 
     useEffect(() => {
         getServicioId();
-    }, [id]);
+    }, [usuario]);
 
 
     /*     const { servicios, anadirProducto,

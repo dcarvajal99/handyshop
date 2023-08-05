@@ -1,16 +1,17 @@
-import React from 'react';
-import { useContext } from 'react';
+import React, { useEffect } from 'react';
+import { useContext, useState } from 'react';
 import Context from '../../../context/ContextProvider';
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'flowbite-react';
+import axios from 'axios';
 
 const MyProductCard = () => {
 
-  const { usuarios, servicios,
+  const { usuario, servicios,
     setServicioDetails, usuariologeadotest,
     favoritos, marcarFavorito,
     handleToggleModal
   } = useContext(Context);
+  const [misServicios, setMisServicios] = useState([]);
   const navigate = useNavigate();
 
   const handleClick = (id) => {
@@ -18,13 +19,103 @@ const MyProductCard = () => {
     navigate(`/service-detail/${id}`);
   };
 
+  const handleClickEdit = (id) => {
+    setServicioDetails(id)
+    navigate(`/editar-servicios/${id}`);
+  };
+
+  useEffect(() => {
+    
+    const obtenerMisServicios = async () => {
+      const urlServer = "http://localhost:3001";
+      const endpoint = `/servicios/usuario/${usuario.id_usuario}`;
+      // si no existe usuario logeado mandar a inicio
+      try {
+        const { data } = await axios.get(urlServer + endpoint, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        console.log(data);
+        setMisServicios(data);
+      } catch ({ response: { data: message } }) {
+        alert(message + " 🙁");
+        console.log(message);
+      }
+    };
+
+    // ejecutar esta funcion luego de 0.5 segundos
+
+    obtenerMisServicios();
+
+  }, [usuario]);
+
+  
+
+  // guardar la informacion del servicio a editar en un estado y enviarlo a la ruta PUT localhost:3001/servicios/:id
+ /*  const [servicioAEditar, setServicioAEditar] = useState({
+    nombre_servicio: "",
+    descripcion: "",
+    precio: "",
+    id_categoria: "",
+    id_usuario: "",
+  });
+
+  const handleChange = (e) => {
+    setServicioAEditar({
+      ...servicioAEditar,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const urlServer = "http://localhost:3001";
+    const endpoint = `/servicios/${servicioAEditar.id_servicio}`;
+    try {
+      const { data } = await axios.put(urlServer + endpoint, servicioAEditar, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      console.log(data);
+      alert("Servicio editado correctamente");
+      navigate("/micuenta");
+    } catch ({ response: { data: message } }) {
+      alert(message + " 🙁");
+      console.log(message);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const urlServer = "http://localhost:3001";
+    const endpoint = `/servicios/${id}`;
+    try {
+      const { data } = await axios.delete(urlServer + endpoint, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      console.log(data);
+      alert("Servicio eliminado correctamente");
+      navigate("/micuenta");
+    } catch ({ response: { data: message } }) {
+      alert(message + " 🙁");
+      console.log(message);
+    }
+  };
+
+ */
+  
+  
+
 
   return (
     <>
-      {servicios.map((servicio) => (
-        <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={servicio.id}>
+      {misServicios.map((servicio) => (
+        <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={servicio.id_servicio}>
           <div className="flex items-center justify-between px-5 py-3" >
-            <span className="text-sm font-light text-gray-600 dark:text-gray-400">{usuarios.nombre} {usuarios.apellido} </span>
+            <span className="text-sm font-light text-gray-600 dark:text-gray-400">{servicio.nombre} {servicio.apellido} </span>
 
             <img className="w-8 h-8 rounded-full" src={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} alt="avatar" />
           </div>
@@ -33,7 +124,7 @@ const MyProductCard = () => {
           </a>
           <div className="px-5 pb-5">
             <a href="/">
-              <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{servicio.servicio}</h5>
+              <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{servicio.nombre_servicio}</h5>
             </a>
             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{servicio.descripcion}</p>
             <div className="flex items-center mt-2.5 mb-5">
@@ -63,25 +154,31 @@ const MyProductCard = () => {
               focus:outline-none focus:ring-blue-300 font-medium rounded-lg
               text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700
               dark:focus:ring-blue-800"
-                  onClick={() => marcarFavorito(servicio.id)}
+                  onClick={() => marcarFavorito(servicio.id_servicio)}
                 >
-                  {favoritos.includes(servicio.id) ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+                  {favoritos.includes(servicio.id_servicio) ? 'Quitar de favoritos' : 'Agregar a favoritos'}
                 </Button>
 
                 <p className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
               focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
               text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
               dark:focus:ring-blue-800"
-                  onClick={() => handleClick(servicio.id)}
+                  onClick={() => handleClick(servicio.id_servicio)}
                 >Más Detalles</p>
                 */}
-              </div> 
-              {/* <button
+                <button
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                onClick={() => handleClick(servicio.id)}
+                onClick={() => handleClickEdit(servicio.id_servicio)}
+                >
+                Editar
+              </button>
+              </div> 
+              <button
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                onClick={() => handleClick(servicio.id_servicio)}
               >
                 Más Detalles
-              </button> */}
+              </button>
             </div>
           </div>
 
