@@ -13,6 +13,8 @@ import FormElements from "./views/FormElements";
 import RecoverPassword from "./views/RecoverPassword";
 import ContratoExitoso from "./components/contratoExitoso/ContratoExitoso";
 import Micuenta from "./views/Micuenta";
+import EditarServicios from "./views/EditarServicios";
+
 
 
 function App() {
@@ -33,6 +35,7 @@ function App() {
           <Route path="/recover-password" element={<RecoverPassword />} />
           <Route path="/contratoexitoso" element={<ContratoExitoso />} />
           <Route path="/micuenta" element={<Micuenta />} />
+          <Route path="/editar-servicios/:id" element={<EditarServicios />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
         <FooterApp />

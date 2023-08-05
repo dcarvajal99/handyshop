@@ -15,6 +15,15 @@ const ContextProvider = ({ children }) => {
     const [favoritos, setFavoritos] = useState([]);
     const [error, setError] = useState(null);
 
+    // consultar cada vez que se cargue la pagina si el usuario esta logeado y existe dentro del localstorage
+    useEffect(() => {
+        if (localStorage.getItem("token") && localStorage.getItem("usuario")) {
+            setUsuariologeado(true);
+            setUsuario(JSON.parse(localStorage.getItem("usuario")));
+        }
+    }, []);
+
+
 
     // Funciones para obtener los datos de servicios a traves de la ruta GET localhost:3001/servicios
     const PORT = process.env.PORT || 3001;
@@ -49,7 +58,7 @@ const ContextProvider = ({ children }) => {
 
 
     // Funcion para obtener los datos de un servicio a traves de la ruta GET localhost:3001/servicios/:id
-    useEffect(() => {
+   /*  useEffect(() => {
         const obtenerFavoritos = async () => {
             const urlServer = "http://localhost:3001";
             const endpoint = `/favoritos/${localStorage.getItem("id_usuario")}`;
@@ -67,7 +76,7 @@ const ContextProvider = ({ children }) => {
             }
         };
         obtenerFavoritos();
-    }, [usuariologeado]);
+    }, [usuariologeado]); */
 
    /* const [eliminarFavorito, setEliminarFavorito] = useState(false);
     // funcion para eliminar los favoritos a traves de la ruta DELETE localhost:3001/favoritos/:id_servicio/:id_usuario
@@ -200,6 +209,7 @@ const ContextProvider = ({ children }) => {
         return (
             <Context.Provider value={{
                 usuario,
+                setUsuariologeado,
                 setUsuario,
                 servicios,
                 servicioDetails,

@@ -8,8 +8,16 @@ import { Link } from 'react-router-dom';
 import ModalContent from '../Modal/ModalContent';
 
 export default function NavbarWithDropdown() {
-    const { usuario, isModalOpen, handleToggleModal,usuariologeado,handleClickUsuarioLogeado } = useContext(Context);
-    
+    const { usuario, isModalOpen, handleToggleModal, usuariologeado, handleClickUsuarioLogeado, setUsuariologeado, setUsuario } = useContext(Context);
+
+    //funcion para que cuando se presione el boton log out se cierre la sesion y borre los datos del usuario en el local storage , estado y contexto
+    const handleClickUsuarioLogOut = () => {
+        setUsuariologeado(!usuariologeado);
+        localStorage.removeItem('usuario');
+        setUsuario({});
+    }
+
+
     return (
         <Navbar fluid rounded >
             <Navbar.Brand  >
@@ -20,7 +28,6 @@ export default function NavbarWithDropdown() {
                 />
             </Navbar.Brand>
             {/* ...otros contenidos de la aplicación... */}
-           
             {usuariologeado ?
 
                 <div className="flex items-center md:order-2 space-x-5">
@@ -54,18 +61,18 @@ export default function NavbarWithDropdown() {
                             </NavLink>
                         </Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item onClick={handleClickUsuarioLogeado}>
+                        <Dropdown.Item onClick={handleClickUsuarioLogOut}>
                             Sign out
                         </Dropdown.Item>
                     </Dropdown>
-                    <Navbar.Toggle/>
+                    <Navbar.Toggle />
                 </div>
                 : <><Navbar.Toggle /></>
             }
-            
+
             <Navbar.Collapse>
                 <NavLink to="/">
-                     <p>Inicio</p>
+                    <p>Inicio</p>
                 </NavLink>
                 <NavLink to="/quienes-somos">
                     <p>¿Quienes Somos?</p>
@@ -76,19 +83,20 @@ export default function NavbarWithDropdown() {
                     :
                     <>
                         <NavLink to="/register-users">
-                                Crear Cuenta
+                            Crear Cuenta
                         </NavLink>
                         <div>
                             <button onClick={handleToggleModal}>Iniciar Sesión</button>
                             <ModalContent isOpen={isModalOpen} onClose={handleToggleModal} />
                         </div>
+                        <Link to={"/carrito"}>
+                            🛒
+                            <CartItem />
+                            {/*{cart.length > 0 ? <CartItem /> : null}*/}
+                        </Link>
                     </>
                 }
-                <Link to={"/carrito"}>
-                    🛒
-                    <CartItem />
-                    {/*{cart.length > 0 ? <CartItem /> : null}*/}
-                </Link>
+
             </Navbar.Collapse>
         </Navbar>
     )

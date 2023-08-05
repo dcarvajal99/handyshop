@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const ProductFavCard = () => {
 
-  const { usuarios, setFavoritos, favoritos, setServicioDetails } = useContext(Context);
+  const { usuario, setFavoritos, favoritos, setServicioDetails } = useContext(Context);
 
   const navigate = useNavigate();
 
@@ -19,7 +19,25 @@ const ProductFavCard = () => {
       favoritos.includes(servicio.id)
     ); */
 
-
+    useEffect(() => {
+      const obtenerFavoritos = async () => {
+          const urlServer = "http://localhost:3001";
+          const endpoint = `/favoritos/${usuario.id_usuario}`;
+          try {
+              const { data } = await axios.get(urlServer + endpoint, {
+                  headers: {
+                      Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+              });
+              console.log(data);
+              setFavoritos(data.mensaje);
+          } catch ({ response: { data: message } }) {
+              alert(message + " 🙁");
+              console.log(message);
+          }
+      };
+      obtenerFavoritos();
+  }, []);
 
 
   return (
