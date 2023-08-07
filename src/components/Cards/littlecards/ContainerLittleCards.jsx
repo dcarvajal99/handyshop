@@ -39,7 +39,7 @@ const ContainerLittleCard = () => {
       <section className="dark:bg-gray-900 py-10 px-12">
         <Carousel responsive={responsive} className='space-x-4'>
           {servicios.map((servicio) => (
-            <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={servicio.id}>
+            <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={servicio.id_servicio}>
               <div className="flex items-center justify-between px-5 py-3" >
                 <div className="flex flex-col">
                   <span className="text-sm font-light text-gray-600 dark:text-gray-400">{servicio.nombre + " " + servicio.apellido}</span>

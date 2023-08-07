@@ -8,6 +8,10 @@ import CartTotal from "../cart/CartTotal";
 const ContratoExitoso = () => {
 
     const { cart } = useContext(Context)
+    const obtenerFechaActual = () => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date().toLocaleDateString('es-ES', options);
+    };
 
     return (
         <div className="flex items-center justify-center h-screen">
@@ -15,14 +19,14 @@ const ContratoExitoso = () => {
                 <Card className="p-4 border">
                     <div className="text-center">
                         <h1 className="text-2xl font-bold">Factura de compra</h1>
-                        <p className="text-gray-600">Fecha: 20 de julio de 2023</p>
+                        <p className="text-gray-600">Fecha: {obtenerFechaActual()}</p>
                     </div>
                     <div className="mt-4">
                         {/* Aquí utilizamos el mapeo para mostrar los productos del carrito */}
                         {cart.map((servicio) => (
-                            <div key={servicio.id}>
+                            <div key={servicio.id_servicio}>
                                 <div className="flex justify-between">
-                                    <span>{servicio.servicio}</span>
+                                    <span>{servicio.nombre_servicio}</span>
                                     <span>${servicio.monto}</span>
                                 </div>
                             </div>

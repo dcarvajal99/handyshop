@@ -23,9 +23,9 @@ export default function DetailsServices() {
             const { data } = await axios.get(urlServer + endpoint);
             console.log(data);
             setServicioLocal(data[0]);
-        } catch ({ response: { data: message } }) {
-            alert(message + " 🙁");
-            console.log(message);
+        } catch ({ response: { data: mensaje } }) {
+            alert(mensaje + " 🙁");
+            console.log(mensaje);
         }
     };
 

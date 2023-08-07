@@ -26,9 +26,9 @@ const ModalContent = ({ isOpen, onClose }) => {
       localStorage.setItem("usuario", JSON.stringify(data.usuario));
       setUsuario(data.usuario);
 
-    } catch ({ response: { data: message } }) {
-      alert(message + " 🙁");
-      console.log(message);
+    } catch ({ response: { data: mensaje } }) {
+      alert(mensaje + " 🙁");
+      console.log(mensaje);
     }
   };
 

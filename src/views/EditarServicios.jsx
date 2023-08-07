@@ -51,9 +51,9 @@ const EditarServicios = () => {
             });
             console.log(data);
             setServicioLocal(data[0]);
-        } catch ({ response: { data: message } }) {
-            alert(message + " 🙁");
-            console.log(message);
+        } catch ({ response: { data: mensaje } }) {
+            alert(mensaje + " 🙁");
+            console.log(mensaje);
         }
     };
 
@@ -90,7 +90,7 @@ const EditarServicios = () => {
             alert("servicio registrado con éxito");
             navigate("/");
         } catch (error) {
-            alert(error.response.data.message);
+            alert(error.response.data.mensaje);
             console.log(error);
         }
     };
@@ -103,7 +103,8 @@ const EditarServicios = () => {
     return (
         <section className="bg-white dark:bg-gray-900">
             <div className="max-w-2xl px-4 py-8 mx-auto lg:py-5">
-                <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Editar nuevo servicio</h2>
+                <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Editar servicio: {servicioLocal.nombre_servicio}</h2>
+                <h3 className="mb-3 text-xl font-bold text-gray-900 dark:text-white">ID: {id}</h3>   
                 <form>
                     <div className="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
                         <div className="sm:col-span-2">
