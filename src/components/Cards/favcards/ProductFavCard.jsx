@@ -31,9 +31,9 @@ const ProductFavCard = () => {
               });
               console.log(data);
               setFavoritos(data.mensaje);
-          } catch ({ response: { data: message } }) {
-              alert(message + " 🙁");
-              console.log(message);
+          } catch ({ response: { data: mensaje } }) {
+              alert(mensaje + " 🙁");
+              console.log(mensaje);
           }
       };
       obtenerFavoritos();

@@ -14,6 +14,7 @@ const ContextProvider = ({ children }) => {
     const [usuariologeado, setUsuariologeado] = useState(false);
     const [favoritos, setFavoritos] = useState([]);
     const [error, setError] = useState(null);
+    const [servicio_eliminado, setServicio_eliminado] = useState(false);
 
     // consultar cada vez que se cargue la pagina si el usuario esta logeado y existe dentro del localstorage
     useEffect(() => {
@@ -70,9 +71,9 @@ const ContextProvider = ({ children }) => {
                 });
                 console.log(data);
                 setFavoritos(data.mensaje);
-            } catch ({ response: { data: message } }) {
-                alert(message + " 🙁");
-                console.log(message);
+            } catch ({ response: { data: mensaje } }) {
+                alert(mensaje + " 🙁");
+                console.log(mensaje);
             }
         };
         obtenerFavoritos();
@@ -91,9 +92,9 @@ const ContextProvider = ({ children }) => {
                     },
                 });
                 console.log(data);
-            } catch ({ response: { data: message } }) {
-                alert(message + " 🙁");
-                console.log(message);
+            } catch ({ response: { data: mensaje } }) {
+                alert(mensaje + " 🙁");
+                console.log(mensaje);
             }
         };
         eliminarFavorito();
@@ -111,9 +112,9 @@ const ContextProvider = ({ children }) => {
                     },
                 });
                 console.log(data);
-            } catch ({ response: { data: message } }) {
-                alert(message + " 🙁");
-                console.log(message);
+            } catch ({ response: { data: mensaje } }) {
+                alert(mensaje + " 🙁");
+                console.log(mensaje);
             }
         };
         agregarFavorito();
@@ -155,7 +156,7 @@ const ContextProvider = ({ children }) => {
         const anadirProducto = (producto) => {
             // Comprueba si el producto ya está en el carrito
             const index = cart.findIndex((ele) => ele.id_servicio === producto.id_servicio);
-
+        
             if (index !== -1) {
                 // Si el producto ya está en el carrito, actualiza la cantidad
                 const newCart = [...cart];
@@ -164,14 +165,17 @@ const ContextProvider = ({ children }) => {
             } else {
                 // Si el producto no está en el carrito, añade el producto
                 const newCart = [...cart, { ...producto, cantidad: 1 }];
+                setCart(newCart); // Agrega esta línea para actualizar el estado del carrito
             }
-        };
+            guardarCarritoEnLocalStorage(cart);
 
+        };
+        
         // Función para remover un producto del carrito si hay uno repetido o si la cantidad es 0 (cero)
         const removerProducto = (producto) => {
             // Comprueba si el producto ya está en el carrito
             const index = cart.findIndex((ele) => ele.id_servicio === producto.id_servicio);
-
+        
             if (index !== -1) {
                 // Si el producto ya está en el carrito, actualiza la cantidad
                 const newCart = [...cart];
@@ -180,6 +184,36 @@ const ContextProvider = ({ children }) => {
                     newCart.splice(index, 1);
                 }
                 setCart(newCart);
+            }
+            guardarCarritoEnLocalStorage(cart);
+
+        };
+        const guardarCarritoEnLocalStorage = (carrito) => {
+            try {
+                const carritoJSON = JSON.stringify(carrito);
+                localStorage.setItem('carrito', carritoJSON);
+                console.log('Carrito guardado en el localStorage');
+            } catch (error) {
+                console.error('Error al guardar el carrito en el localStorage:', error);
+            }
+        };
+    
+        // Función para cargar el carrito desde el localStorage al cargar el componente
+        useEffect(() => {
+            const carritoGuardado = cargarCarritoDesdeLocalStorage();
+            if (carritoGuardado) {
+                setCart(carritoGuardado);
+            }
+        }, []);
+    
+        // Función para cargar el carrito desde el localStorage
+        const cargarCarritoDesdeLocalStorage = () => {
+            try {
+                const carritoJSON = localStorage.getItem('carrito');
+                return carritoJSON ? JSON.parse(carritoJSON) : [];
+            } catch (error) {
+                console.error('Error al cargar el carrito desde el localStorage:', error);
+                return [];
             }
         };
 

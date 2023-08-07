@@ -37,7 +37,6 @@ const DatosMiCuenta = () => {
         // setear los datos del usuario en el formulario
 
         setUsuarioLocal({
-            email: usuario.email,
             nombre: usuario.nombre,
             apellido: usuario.apellido,
             password: "•••••••••",
@@ -52,6 +51,7 @@ const DatosMiCuenta = () => {
 
     return (
         <>
+        
             <section className="bg-white dark:bg-gray-900">
                 <div className="max-w-2xl px-4 py-8 mx-auto lg:py-5">
                     <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Mis datos</h2>
@@ -66,14 +66,12 @@ const DatosMiCuenta = () => {
                                     type="email"
                                     name="email"
                                     id="email"
-                                    className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
-                                        formEnabled ? "" : "pointer-events-none"
+                                    className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 "" : "pointer-events-none"
                                     }`}
                                     value={usuarioLocal.email}
                                     placeholder={usuario.email}
                                     required=""
-                                    readOnly={!formEnabled}
-                                    onChange={handleSetUsuario}
+                                    readOnly
                                 />
                             </div>
                             <div className="w-full">

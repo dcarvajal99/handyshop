@@ -3,13 +3,14 @@ import { useContext, useState } from 'react';
 import Context from '../../../context/ContextProvider';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import ConfirmacionModalDelete from '../../Modal/ConfirmacionModalDelete';  
 
 const MyProductCard = () => {
 
   const { usuario, servicios,
     setServicioDetails, usuariologeadotest,
     favoritos, marcarFavorito,
-    handleToggleModal
+    handleToggleModal, servicio_eliminado 
   } = useContext(Context);
   const [misServicios, setMisServicios] = useState([]);
   const navigate = useNavigate();
@@ -24,8 +25,13 @@ const MyProductCard = () => {
     navigate(`/editar-servicios/${id}`);
   };
 
+  const handleToggleModalDelete = () => {
+    setIsModalDeleteOpen(!isModalDeleteOpen);
+  };
+  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
+
   useEffect(() => {
-    
+
     const obtenerMisServicios = async () => {
       const urlServer = "http://localhost:3001";
       const endpoint = `/servicios/usuario/${usuario.id_usuario}`;
@@ -38,9 +44,9 @@ const MyProductCard = () => {
         });
         console.log(data);
         setMisServicios(data);
-      } catch ({ response: { data: message } }) {
-        alert(message + " 🙁");
-        console.log(message);
+      } catch ({ response: { data: mensaje } }) {
+        alert(mensaje + " 🙁");
+        console.log(mensaje);
       }
     };
 
@@ -48,66 +54,66 @@ const MyProductCard = () => {
 
     obtenerMisServicios();
 
-  }, [usuario]);
+  }, [usuario, servicio_eliminado]);
 
-  
+
 
   // guardar la informacion del servicio a editar en un estado y enviarlo a la ruta PUT localhost:3001/servicios/:id
- /*  const [servicioAEditar, setServicioAEditar] = useState({
-    nombre_servicio: "",
-    descripcion: "",
-    precio: "",
-    id_categoria: "",
-    id_usuario: "",
-  });
+  /*  const [servicioAEditar, setServicioAEditar] = useState({
+     nombre_servicio: "",
+     descripcion: "",
+     precio: "",
+     id_categoria: "",
+     id_usuario: "",
+   });
+ 
+   const handleChange = (e) => {
+     setServicioAEditar({
+       ...servicioAEditar,
+       [e.target.name]: e.target.value,
+     });
+   };
+ 
+   const handleSubmit = async (e) => {
+     e.preventDefault();
+     const urlServer = "http://localhost:3001";
+     const endpoint = `/servicios/${servicioAEditar.id_servicio}`;
+     try {
+       const { data } = await axios.put(urlServer + endpoint, servicioAEditar, {
+         headers: {
+           Authorization: `Bearer ${localStorage.getItem("token")}`,
+         },
+       });
+       console.log(data);
+       alert("Servicio editado correctamente");
+       navigate("/micuenta");
+     } catch ({ response: { data: mensaje } }) {
+       alert(mensaje + " 🙁");
+       console.log(mensaje);
+     }
+   };
+ 
+   const handleDelete = async (id) => {
+     const urlServer = "http://localhost:3001";
+     const endpoint = `/servicios/${id}`;
+     try {
+       const { data } = await axios.delete(urlServer + endpoint, {
+         headers: {
+           Authorization: `Bearer ${localStorage.getItem("token")}`,
+         },
+       });
+       console.log(data);
+       alert("Servicio eliminado correctamente");
+       navigate("/micuenta");
+     } catch ({ response: { data: mensaje } }) {
+       alert(mensaje + " 🙁");
+       console.log(mensaje);
+     }
+   };
+ 
+  */
 
-  const handleChange = (e) => {
-    setServicioAEditar({
-      ...servicioAEditar,
-      [e.target.name]: e.target.value,
-    });
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const urlServer = "http://localhost:3001";
-    const endpoint = `/servicios/${servicioAEditar.id_servicio}`;
-    try {
-      const { data } = await axios.put(urlServer + endpoint, servicioAEditar, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      console.log(data);
-      alert("Servicio editado correctamente");
-      navigate("/micuenta");
-    } catch ({ response: { data: message } }) {
-      alert(message + " 🙁");
-      console.log(message);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    const urlServer = "http://localhost:3001";
-    const endpoint = `/servicios/${id}`;
-    try {
-      const { data } = await axios.delete(urlServer + endpoint, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      console.log(data);
-      alert("Servicio eliminado correctamente");
-      navigate("/micuenta");
-    } catch ({ response: { data: message } }) {
-      alert(message + " 🙁");
-      console.log(message);
-    }
-  };
-
- */
-  
-  
 
 
   return (
@@ -115,8 +121,10 @@ const MyProductCard = () => {
       {misServicios.map((servicio) => (
         <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={servicio.id_servicio}>
           <div className="flex items-center justify-between px-5 py-3" >
-            <span className="text-sm font-light text-gray-600 dark:text-gray-400">{servicio.nombre} {servicio.apellido} </span>
-
+            <div className="flex flex-col">
+              <span className="text-sm font-light text-gray-600 dark:text-gray-400">{servicio.nombre + " " + servicio.apellido} </span>
+              <span className="text-sm font-light text-gray-600 dark:text-gray-400"><b>{servicio.region + ", " + servicio.comuna} </b></span>
+            </div>
             <img className="w-8 h-8 rounded-full" src={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} alt="avatar" />
           </div>
           <a href="/">
@@ -136,7 +144,7 @@ const MyProductCard = () => {
             <div className="flex items-center justify-between">
               <span className="text-3xl font-bold text-gray-900 dark:text-white">${servicio.monto}</span>
               <div className="flex items-center space-x-2">
-              
+
                 {/* {usuariologeadotest ?
                   <Button
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4
@@ -167,18 +175,14 @@ const MyProductCard = () => {
                 >Más Detalles</p>
                 */}
                 <button
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                onClick={() => handleClickEdit(servicio.id_servicio)}
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  onClick={() => handleClickEdit(servicio.id_servicio)}
                 >
-                Editar
-              </button>
-              </div> 
-              <button
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                onClick={() => handleClick(servicio.id_servicio)}
-              >
-                Más Detalles
-              </button>
+                  Editar
+                </button>
+              <ConfirmacionModalDelete  id_servicio={servicio.id_servicio} />
+              </div>
+              
             </div>
           </div>
 

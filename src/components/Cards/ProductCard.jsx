@@ -22,7 +22,7 @@ const ProductCard = () => {
   return (
     <>
       {servicios.map((servicio) => (
-        <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={servicio.id}>
+        <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={servicio.id_servicio}>
           <div className="flex items-center justify-between px-5 py-3" >
           {/* mostrar dos titulos en columna y el segundo en negrita */}
             <div className="flex flex-col">

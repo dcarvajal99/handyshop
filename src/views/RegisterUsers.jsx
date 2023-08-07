@@ -35,7 +35,7 @@ const RegisterUsers = () => {
       alert("Usuario registrado con éxito");
       navigate("/");
     } catch (error) {
-      alert(error.response.data.message);
+      alert(error.response.data.mensaje);
       console.log(error);
     }
   };
