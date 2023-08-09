@@ -1,6 +1,7 @@
 import React from 'react';
 import Context from '../../context/ContextProvider';
 import { useContext, useState } from 'react';
+import Swal from 'sweetalert2';
 import axios from 'axios';
 
 const ModalContent = ({ isOpen, onClose }) => {
@@ -18,16 +19,28 @@ const ModalContent = ({ isOpen, onClose }) => {
     const endpoint = "/login";
     const { email, password } = usuario;
     try {
-      if (!email || !password) return alert("Email y password obligatorias");
+      if (!email || !password) return Swal.fire(
+        'Oooops!',
+        `Email y Password son Obligatorias`,
+        'warning'
+      )
       const { data } = await axios.post(urlServer + endpoint, usuario);
       console.log(data.usuario);
-      alert("Usuario identificado con éxito 😀");
+      Swal.fire(
+        '¡Usuario Logueado con Exito!',
+        'Haz Clic para Continuar!',
+        'success'
+      )
       localStorage.setItem("token", data.token);
       localStorage.setItem("usuario", JSON.stringify(data.usuario));
       setUsuario(data.usuario);
 
     } catch ({ response: { data: mensaje } }) {
-      alert(mensaje + " 🙁");
+      Swal.fire(
+        'Usuario o Contraseña Incorrectos!',
+        'Intentalo Nuevamente!',
+        'danger'
+      )
       console.log(mensaje);
     }
   };
