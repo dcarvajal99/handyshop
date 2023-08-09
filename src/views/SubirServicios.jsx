@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,7 +29,11 @@ const SubirServicios = () => {
         const id_usuario = localStorage.getItem("id_usuario");
         for (const key in servicio) {
             if (servicio[key] === '') {
-                alert(`El campo ${key} es obligatorio`);
+                Swal.fire(
+                    'Oooops!',
+                    `El campo ${key} es obligatorio`,
+                    'warning'
+                  )
                 return;
             }
         }
@@ -47,10 +52,18 @@ const SubirServicios = () => {
                     id_usuario: id_usuario
                 },
             });
-            alert("servicio registrado con éxito");
+            Swal.fire(
+                '¡Servicio Registrado con Exito!',
+                'Haz Clic para Continuar!',
+                'success'
+              )
             navigate("/");
         } catch (error) {
-            alert(error.response.data.mensaje);
+            Swal.fire(
+                (error.response.data.mensaje),
+                'You clicked the button!',
+                'danger'
+              )
             console.log(error);
         }
     };
