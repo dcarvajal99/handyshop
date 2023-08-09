@@ -13,6 +13,10 @@ const SubirServicios = () => {
         region: '',
         comuna: '',
     });
+    const PORT = process.env.PORT || 3001;
+    const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
+
+
     const navigate = useNavigate()
     const handleSetServicio = ({ target: { value, name } }) => {
         const field = {};
@@ -21,33 +25,33 @@ const SubirServicios = () => {
         console.log(servicio);
     };
 
-    const registrarUsuario = async () => {
-        const urlServer = "http://localhost:3001";
+    const SubirServicios = async () => {
         const endpoint = "/servicios";
         const token = localStorage.getItem("token");
         const id_usuario = localStorage.getItem("id_usuario");
+
         for (const key in servicio) {
             if (servicio[key] === '') {
                 alert(`El campo ${key} es obligatorio`);
                 return;
             }
         }
+
         try {
-            console.log({
-                headers: {
-                    Authorization: "Bearer " + token,
+            const response = await axios.post(
+                URL + endpoint,
+                {
                     servicio: servicio,
                     id_usuario: id_usuario
                 },
-            });
-            await axios.post(urlServer + endpoint, {
-                headers: {
-                    Authorization: "Bearer " + token,
-                    servicio: servicio,
-                    id_usuario: id_usuario
-                },
-            });
-            alert("servicio registrado con éxito");
+                {
+                    headers: {
+                        Authorization: "Bearer " + token
+                    }
+                }
+            );
+
+            alert("Servicio registrado con éxito");
             navigate("/");
         } catch (error) {
             alert(error.response.data.mensaje);
@@ -202,7 +206,7 @@ const SubirServicios = () => {
                             <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
                                 focus:ring-blue-300 focus:outline-none focus:ring-primary-300 font-medium rounded-lg 
                                 text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                onClick={registrarUsuario}>
+                                onClick={SubirServicios}>
                                 Agregar datos
                             </button>
                             {/* <button type="button" className="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">

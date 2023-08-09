@@ -14,6 +14,8 @@ const MyProductCard = () => {
   } = useContext(Context);
   const [misServicios, setMisServicios] = useState([]);
   const navigate = useNavigate();
+  const PORT = process.env.PORT || 3001;
+  const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
 
   const handleClick = (id) => {
     setServicioDetails(id)
@@ -33,17 +35,17 @@ const MyProductCard = () => {
   useEffect(() => {
 
     const obtenerMisServicios = async () => {
-      const urlServer = "http://localhost:3001";
       const endpoint = `/servicios/usuario/${usuario.id_usuario}`;
+      console.log(endpoint)
       // si no existe usuario logeado mandar a inicio
       try {
-        const { data } = await axios.get(urlServer + endpoint, {
+        const { data } = await axios.get(URL + endpoint, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
         console.log(data);
-        setMisServicios(data);
+        setMisServicios(data.mensaje);
       } catch ({ response: { data: mensaje } }) {
         alert(mensaje + " 🙁");
         console.log(mensaje);

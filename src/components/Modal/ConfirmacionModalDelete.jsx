@@ -8,17 +8,17 @@ import { useNavigate } from 'react-router-dom';
 export default function ConfirmacionModalDelete({id_servicio}) {
 
   const { usuario,setServicio_eliminado } = useContext(Context);
-
+  const PORT = process.env.PORT || 3001;
+  const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
   const [openModal, setOpenModal] = useState();
   const props = { openModal, setOpenModal };
   const navigate = useNavigate();
 
   const handleClickDelete = async (id) => {
-    const urlServer = "http://localhost:3001";
-    const endpoint = `/servicios/${id}/${usuario.id_usuario}`;
+    const endpoint = `/servicios/${usuario.id_usuario}/${id}`;
     console.log(endpoint);
     try {
-      const data = await axios.delete(urlServer + endpoint, {
+      const data = await axios.delete(URL + endpoint, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

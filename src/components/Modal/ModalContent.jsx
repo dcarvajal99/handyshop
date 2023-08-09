@@ -13,17 +13,20 @@ const ModalContent = ({ isOpen, onClose }) => {
     setUsuarioLocal({ ...usuario, ...field });
   };
 
+  const PORT = process.env.PORT || 3001;
+  const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
+
   const iniciarSesion = async () => {
-    const urlServer = "http://localhost:3001";
-    const endpoint = "/login";
+    const endpoint = "/usuarios/login";
     const { email, password } = usuario;
     try {
       if (!email || !password) return alert("Email y password obligatorias");
-      const { data } = await axios.post(urlServer + endpoint, usuario);
+      const { data } = await axios.post(URL + endpoint, usuario);
       console.log(data.usuario);
       alert("Usuario identificado con éxito 😀");
       localStorage.setItem("token", data.token);
       localStorage.setItem("usuario", JSON.stringify(data.usuario));
+      localStorage.setItem("id_usuario", data.usuario.id_usuario);
       setUsuario(data.usuario);
 
     } catch ({ response: { data: mensaje } }) {

@@ -19,12 +19,14 @@ const ProductFavCard = () => {
       favoritos.includes(servicio.id)
     ); */
 
+    const PORT = process.env.PORT || 3001;
+    const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
+
     useEffect(() => {
       const obtenerFavoritos = async () => {
-          const urlServer = "http://localhost:3001";
           const endpoint = `/favoritos/${usuario.id_usuario}`;
           try {
-              const { data } = await axios.get(urlServer + endpoint, {
+              const { data } = await axios.get(URL + endpoint, {
                   headers: {
                       Authorization: `Bearer ${localStorage.getItem("token")}`,
                   },

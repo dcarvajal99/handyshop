@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router';
@@ -8,10 +8,10 @@ import Context from '../context/ContextProvider';
 
 
 const EditarServicios = () => {
-    
+
     const { id } = useParams();
     const { usuario } = useContext(Context);
-    
+
     const [servicioLocal, setServicioLocal] = useState({});
     const [servicio, setServicio] = useState({
         nombre_servicio: '',
@@ -32,19 +32,22 @@ const EditarServicios = () => {
         setServicio({ ...servicio, ...field });
         console.log(servicio);
     };
+    const PORT = process.env.PORT || 3001;
+    const URL = process.env.REACT_APP_BACKEND_URL   || `http://localhost:${PORT}`;
+
 
     const getServicioId = async () => {
-        const urlServer = "http://localhost:3001";
+
 
         // si usuario.id_usuario no existe entonces darle el valor desde el localStorage 
         const idusuario = usuario.id_usuario === undefined ? localStorage.getItem("id_usuario") : usuario.id_usuario;
 
-        
-        const endpoint = "/servicios/usuario/"+idusuario+"/"+id;
+
+        const endpoint = "/servicios/usuario/" + idusuario + "/" + id;
         console.log(endpoint);
         try {
             //obtener servicio por id sin token
-            const { data } = await axios.get(urlServer + endpoint, {
+            const { data } = await axios.get(URL + endpoint, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
@@ -61,11 +64,9 @@ const EditarServicios = () => {
         getServicioId();
     }, [usuario]);
 
-    const registrarUsuario = async () => {
-        const urlServer = "http://localhost:3001";
-        const endpoint = "/servicios";
+    const EditarServicios = async () => {
         const token = localStorage.getItem("token");
-        const id_usuario = localStorage.getItem("id_usuario");
+        const endpoint = "/servicios/" + servicioLocal.id_servicio;
         for (const key in servicio) {
             if (servicio[key] === '') {
                 alert(`El campo ${key} es obligatorio`);
@@ -73,21 +74,31 @@ const EditarServicios = () => {
             }
         }
         try {
-            console.log({
-                headers: {
-                    Authorization: "Bearer " + token,
-                    servicio: servicio,
-                    id_usuario: id_usuario
+            console.log(
+                URL + endpoint,
+                {
+                    servicio: servicio
                 },
-            });
-            await axios.post(urlServer + endpoint, {
-                headers: {
-                    Authorization: "Bearer " + token,
-                    servicio: servicio,
-                    id_usuario: id_usuario
+                {
+                    headers: {
+                        Authorization: "Bearer " + token,
+                    },
+                }
+            );
+            const response = await axios.put(
+                URL + endpoint,
+                {
+                    servicio: servicio
                 },
-            });
-            alert("servicio registrado con éxito");
+                {
+                    headers: {
+                        Authorization: "Bearer " + token,
+                    },
+                }
+            );
+            
+            console.log(response);
+            alert("Servicio editado con éxito");
             navigate("/");
         } catch (error) {
             alert(error.response.data.mensaje);
@@ -99,12 +110,12 @@ const EditarServicios = () => {
     };
 
 
-    
+
     return (
         <section className="bg-white dark:bg-gray-900">
             <div className="max-w-2xl px-4 py-8 mx-auto lg:py-5">
                 <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Editar servicio: {servicioLocal.nombre_servicio}</h2>
-                <h3 className="mb-3 text-xl font-bold text-gray-900 dark:text-white">ID: {id}</h3>   
+                <h3 className="mb-3 text-xl font-bold text-gray-900 dark:text-white">ID: {servicioLocal.id_servicio}</h3>
                 <form>
                     <div className="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
                         <div className="sm:col-span-2">
@@ -249,7 +260,7 @@ const EditarServicios = () => {
                             <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
                                 focus:ring-blue-300 focus:outline-none focus:ring-primary-300 font-medium rounded-lg 
                                 text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                onClick={registrarUsuario}>
+                                onClick={EditarServicios}>
                                 Agregar datos
                             </button>
                             <button

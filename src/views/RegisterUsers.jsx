@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterUsers = () => {
+  const PORT = process.env.PORT || 3001;
+  const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
 
   const [usuario, setUsuario] = useState({
     email: '',
@@ -22,7 +24,7 @@ const RegisterUsers = () => {
   };
 
   const registrarUsuario = async () => {
-    const urlServer = "http://localhost:3001";
+
     const endpoint = "/usuarios";
     for (const key in usuario) {
       if (usuario[key] === '') {
@@ -31,7 +33,7 @@ const RegisterUsers = () => {
       }
     }
     try {
-      await axios.post(urlServer + endpoint, usuario);
+      await axios.post(URL + endpoint, usuario);
       alert("Usuario registrado con éxito");
       navigate("/");
     } catch (error) {

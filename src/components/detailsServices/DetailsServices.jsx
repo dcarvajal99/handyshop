@@ -14,15 +14,17 @@ export default function DetailsServices() {
         favoritos, marcarFavorito,usuario } = useContext(Context);
 
     const [servicio, setServicioLocal] = useState({});
+    const PORT = process.env.PORT || 3001;
+    const URL = process.env.REACT_APP_BACKEND_URL;
 
     const getServicioId = async () => {
-        const urlServer = "http://localhost:3001";
         const endpoint = "/servicios/" + id;
+        console.log(endpoint)
         try {
             //obtener servicio por id sin token
-            const { data } = await axios.get(urlServer + endpoint);
+            const { data } = await axios.get(URL + endpoint);
             console.log(data);
-            setServicioLocal(data[0]);
+            setServicioLocal(data.mensaje[0]);
         } catch ({ response: { data: mensaje } }) {
             alert(mensaje + " 🙁");
             console.log(mensaje);
@@ -31,7 +33,7 @@ export default function DetailsServices() {
 
     useEffect(() => {
         getServicioId();
-    }, [usuario]);
+    }, []);
 
 
     /*     const { servicios, anadirProducto,

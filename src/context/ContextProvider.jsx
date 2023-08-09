@@ -28,18 +28,20 @@ const ContextProvider = ({ children }) => {
 
     // Funciones para obtener los datos de servicios a traves de la ruta GET localhost:3001/servicios
     const PORT = process.env.PORT || 3001;
+    const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
 
-    const [urlPagination, setUrlPagination] = useState(`http://localhost:${PORT}/servicios`);
+    const [urlPagination, setUrlPagination] = useState(`${process.env.REACT_APP_BACKEND_URL}/servicios`);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const [totalRecords, setTotalRecords] = useState(0);
+    console.log(urlPagination);
 
     useEffect(() => {
 
         const obtenerServicios = async () => {
             try {
                 const response = await axios.get(`${urlPagination}?page=${currentPage}`);
-
+                console.log(response);
                 const dataServicios = response.data.mensaje.result;
                 setServicios(dataServicios);
                 const paginationLinks = response.data.mensaje.hateoas;
@@ -267,6 +269,7 @@ const ContextProvider = ({ children }) => {
                 setCurrentPage,
                 totalPages,
                 totalRecords,
+                URL
                 //eliminarFavorito, 
                 //setEliminarFavorito,
             }}>
