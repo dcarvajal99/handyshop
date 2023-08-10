@@ -1,17 +1,13 @@
-import React from 'react';
-import { useState,useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router';
-import { useContext } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Context from '../context/ContextProvider';
-
+import Swal from 'sweetalert2';
 
 const EditarServicios = () => {
-    
     const { id } = useParams();
     const { usuario } = useContext(Context);
-    
+
     const [servicioLocal, setServicioLocal] = useState({});
     const [servicio, setServicio] = useState({
         nombre_servicio: '',
@@ -23,36 +19,78 @@ const EditarServicios = () => {
         comuna: '',
     });
 
-    console.log(servicio);
-    const navigate = useNavigate()
+    const [errors, setErrors] = useState({
+        nombre_servicio: '',
+        img_url: '',
+        categoria: '',
+        descripcion: '',
+        monto: '',
+        region: '',
+        comuna: '',
+    });
+
+    const validateForm = () => {
+        const newErrors = {};
+
+        if (!servicio.nombre_servicio.trim()) {
+            newErrors.nombre_servicio = 'El Nombre del Servicio es requerido';
+        }
+
+        if (!servicio.img_url.trim()) {
+            newErrors.img_url = 'La URL de la imagen es requerida';
+        }
+
+        if (!servicio.categoria.trim()) {
+            newErrors.categoria = 'Debe Seleccionar una Categoria';
+        }
+
+        if (!servicio.descripcion.trim()) {
+            newErrors.descripcion = 'Debe colocar una Descripción del servicio';
+        }
+
+        if (!servicio.monto.trim()) {
+            newErrors.monto = 'El Monto es Requerido';
+        }
+
+        if (!servicio.region.trim()) {
+            newErrors.region = 'Debe seleccionar una Región';
+        }
+
+        if (!servicio.comuna.trim()) {
+            newErrors.comuna = 'Debe seleccionar una Comuna';
+        }
+
+        return newErrors;
+    };
+
+    const navigate = useNavigate();
 
     const handleSetServicio = ({ target: { value, name } }) => {
-        const field = {};
-        field[name] = value;
-        setServicio({ ...servicio, ...field });
-        console.log(servicio);
+        setServicio((prevServicio) => ({
+            ...prevServicio,
+            [name]: value,
+        }));
     };
 
     const getServicioId = async () => {
         const urlServer = "http://localhost:3001";
+        const id_usuario = usuario.id_usuario || localStorage.getItem("id_usuario");
 
-        // si usuario.id_usuario no existe entonces darle el valor desde el localStorage 
-        const idusuario = usuario.id_usuario === undefined ? localStorage.getItem("id_usuario") : usuario.id_usuario;
+        const endpoint = "/servicios/usuario/" + id_usuario + "/" + id;
 
-        
-        const endpoint = "/servicios/usuario/"+idusuario+"/"+id;
-        console.log(endpoint);
         try {
-            //obtener servicio por id sin token
             const { data } = await axios.get(urlServer + endpoint, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
-            console.log(data);
             setServicioLocal(data[0]);
         } catch ({ response: { data: mensaje } }) {
-            alert(mensaje + " 🙁");
+            Swal.fire(
+                'Token Invalido!',
+                'Intentalo Nuevamente!',
+                'error'
+            );
             console.log(mensaje);
         }
     };
@@ -62,29 +100,24 @@ const EditarServicios = () => {
     }, [usuario]);
 
     const registrarUsuario = async () => {
+        const newErrors = validateForm();
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
         const urlServer = "http://localhost:3001";
         const endpoint = "/servicios";
         const token = localStorage.getItem("token");
         const id_usuario = localStorage.getItem("id_usuario");
-        for (const key in servicio) {
-            if (servicio[key] === '') {
-                alert(`El campo ${key} es obligatorio`);
-                return;
-            }
-        }
+
         try {
-            console.log({
-                headers: {
-                    Authorization: "Bearer " + token,
-                    servicio: servicio,
-                    id_usuario: id_usuario
-                },
-            });
             await axios.post(urlServer + endpoint, {
+                servicio: servicio,
+                id_usuario: id_usuario,
+            }, {
                 headers: {
                     Authorization: "Bearer " + token,
-                    servicio: servicio,
-                    id_usuario: id_usuario
                 },
             });
             alert("servicio registrado con éxito");
@@ -94,17 +127,16 @@ const EditarServicios = () => {
             console.log(error);
         }
     };
+
     const handleCancelar = () => {
         navigate("/micuenta");
     };
 
-
-    
     return (
         <section className="bg-white dark:bg-gray-900">
             <div className="max-w-2xl px-4 py-8 mx-auto lg:py-5">
                 <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Editar servicio: {servicioLocal.nombre_servicio}</h2>
-                <h3 className="mb-3 text-xl font-bold text-gray-900 dark:text-white">ID: {id}</h3>   
+                <h3 className="mb-3 text-xl font-bold text-gray-900 dark:text-white">ID: {id}</h3>
                 <form>
                     <div className="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
                         <div className="sm:col-span-2">
@@ -115,6 +147,7 @@ const EditarServicios = () => {
                                 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
                                 dark:focus:border-primary-500" value={servicio.nombre_servicio} placeholder={servicioLocal.nombre_servicio} required
                                 onChange={handleSetServicio} />
+                                {errors.nombre_servicio && <div className="text-red-600 text-s font-medium" >{errors.nombre_servicio}</div>}
                         </div>
                         <div className="w-full">
                             <label for="brand" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">URL de la imagen</label>
@@ -123,8 +156,8 @@ const EditarServicios = () => {
                             focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 
                             dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
                             dark:focus:border-primary-500" value={servicio.img_url} placeholder={servicioLocal.img_url} required
-                                onChange={handleSetServicio}
-                            />
+                                onChange={handleSetServicio}/>
+                                {errors.img_url && <div className="text-red-600 text-s font-medium" >{errors.img_url}</div>}
                         </div>
                         <div className="w-full">
                             <label for="categoria" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoria</label>
@@ -143,6 +176,7 @@ const EditarServicios = () => {
                                 <option value="Transporte">Transporte</option>
                                 <option value="Otros">Otros</option>
                             </select>
+                            {errors.categoria && <div className="text-red-600 text-s font-medium" >{errors.categoria}</div>}
                         </div>
                         <div className="sm:col-span-2">
                             <label for="descripcion" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripcion</label>
@@ -151,8 +185,8 @@ const EditarServicios = () => {
                                 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 
                                 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 value={servicio.descripcion} placeholder={servicioLocal.descripcion} required
-                                onChange={handleSetServicio}
-                            />
+                                onChange={handleSetServicio}/>
+                                {errors.descripcion && <div className="text-red-600 text-s font-medium" >{errors.descripcion}</div>}
                         </div>
                         <div className="sm:col-span-2">
                             <label for="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
@@ -163,9 +197,10 @@ const EditarServicios = () => {
                                 focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 
                                 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
                                 dark:focus:border-primary-500" value={servicio.monto} placeholder={servicioLocal.monto} pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required
-                                    onChange={handleSetServicio}
-                                />
+                                    onChange={handleSetServicio}/>
+                                    
                             </div>
+                            {errors.monto && <div className="text-red-600 text-s font-medium" >{errors.monto}</div>}
                         </div>
                         <div className="w-full">
                             <label for="region" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Región</label>
@@ -181,6 +216,7 @@ const EditarServicios = () => {
                                 <option value="Valparaiso">Valparaíso</option>
                                 <option value="Biobio">Biobío</option>
                             </select>
+                            {errors.region && <div className="text-red-600 text-s font-medium" >{errors.region}</div>}
                         </div>
                         <div className="w-full">
                             <label for="comuna" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Comuna</label>
@@ -244,6 +280,7 @@ const EditarServicios = () => {
                                     </>
                                 )}
                             </select>
+                            {errors.comuna && <div className="text-red-600 text-s font-medium" >{errors.comuna}</div>}
                         </div>
                         <div className="flex items-center space-x-4">
                             <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
@@ -274,5 +311,3 @@ const EditarServicios = () => {
 };
 
 export default EditarServicios;
-
-
