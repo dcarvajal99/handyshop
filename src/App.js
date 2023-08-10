@@ -14,6 +14,7 @@ import RecoverPassword from "./views/RecoverPassword";
 import ContratoExitoso from "./components/contratoExitoso/ContratoExitoso";
 import Micuenta from "./views/Micuenta";
 import EditarServicios from "./views/EditarServicios";
+import NotFoundPage from "./views/NotFoundPage";
 
 
 
@@ -36,7 +37,7 @@ function App() {
           <Route path="/contratoexitoso" element={<ContratoExitoso />} />
           <Route path="/micuenta" element={<Micuenta />} />
           <Route path="/editar-servicios/:id" element={<EditarServicios />} />
-          <Route path="*" element={<h1>Not Found</h1>} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <FooterApp />
       </ContextProvider>
