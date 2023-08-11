@@ -24,7 +24,6 @@ const ProductCard = () => {
       {servicios.map((servicio) => (
         <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={servicio.id_servicio}>
           <div className="flex items-center justify-between px-5 py-3" >
-          {/* mostrar dos titulos en columna y el segundo en negrita */}
             <div className="flex flex-col">
             <span className="text-sm font-light text-gray-600 dark:text-gray-400">{servicio.nombre +" "+ servicio.apellido} </span>
             <span className="text-sm font-light text-gray-600 dark:text-gray-400"><b>{servicio.region +", "+ servicio.comuna} </b></span>
@@ -54,7 +53,7 @@ const ProductCard = () => {
                       onClick={() => marcarFavorito(servicio.id_servicio)}
                       className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500">
                       {favoritos.includes(servicio.id) ?
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.oikos.com.co%2Fconstructora%2Fnoticias-constructora%2Flabores-del-constructor&psig=AOvVaw0XVoOw_Sx8Cl41DCTsF_6a&ust=1691779667200000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCLCVxcHg0oADFQAAAAAdAAAAABAJ" className="h-3 w-3 text-red-500" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M10 3.162l-1.545-1.545a5.5 5.5 0 00-7.778 7.778L10 18.94l9.323-9.545a5.5 5.5 0 00-7.778-7.778L10 3.162z" clipRule="evenodd" />
                         </svg>
                         :

@@ -17,23 +17,23 @@ const CarouselMain = () => {
       <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
         {/* Item 1 */}
         <div className={activeIndex === 1 ? "duration-700 ease-in-out" : "hidden"} data-carousel-item>
-          <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+          <img src="https://www.anypsa.com.pe/aplication/webroot/imgs/catalogo/180511022839pintura%20acrilica%20y%20sintetica.jpg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
         </div>
         {/* Item 2 */}
         <div className={activeIndex === 2 ? "duration-700 ease-in-out" : "hidden"} data-carousel-item="active">
-          <img src="https://flowbite.com/docs/images/carousel/carousel-2.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+          <img src="https://webstatic.patumovil.com/wp-content/uploads/2023/07/cerradurasinteligentespatumovil.jpg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
         </div>
         {/* Item 3 */}
         <div className={activeIndex === 3 ? "duration-700 ease-in-out" : "hidden"} data-carousel-item>
-          <img src="https://flowbite.com/docs/images/carousel/carousel-3.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+          <img src="https://2.bp.blogspot.com/-oDcmj1PfpYY/W9W-lcbhhMI/AAAAAAAADF8/UhpBG8eZZ-Qnr4QXINZVKOkx8iPhLP3YgCLcBGAs/s1600/clasificacion%2Bresiduos.jpg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
         </div>
         {/* Item 4 */}
         <div className={activeIndex === 4 ? "duration-700 ease-in-out" : "hidden"} data-carousel-item>
-          <img src="https://flowbite.com/docs/images/carousel/carousel-4.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+          <img src="https://www.lamudi.com.mx/journal/wp-content//uploads/2022/02/ARQUTECTURA-SOSTENIBLE-1.png" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
         </div>
         {/* Item 5 */}
         <div className={activeIndex === 5 ? "duration-700 ease-in-out" : "hidden"} data-carousel-item>
-          <img src="https://flowbite.com/docs/images/carousel/carousel-5.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+          <img src="https://www.bettinafrumboli.com/wp-content/uploads/2023/05/Tendencias-de-color-y-corte-de-cabello-oton%CC%83o-invierno-2023-01-3.jpg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
         </div>
       </div>
       {/* Slider controls */}
