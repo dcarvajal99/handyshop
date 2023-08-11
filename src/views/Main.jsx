@@ -8,7 +8,6 @@ const Main = () => {
     return (
         <>
         <CarouselMain />
-        <Filtros/>
         <ContainerCards/>
         <PaginationApp/>
         </>
