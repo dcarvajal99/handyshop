@@ -123,31 +123,15 @@ const EditarServicios = () => {
             }
         }
         try {
-            console.log(
-                URL + endpoint,
-                {
-                    servicio: servicio
+            await axios.post(urlServer + endpoint, {
+                servicio: servicio,
+                id_usuario: id_usuario,
+            }, {
+                headers: {
+                    Authorization: "Bearer " + token,
                 },
-                {
-                    headers: {
-                        Authorization: "Bearer " + token,
-                    },
-                }
-            );
-            const response = await axios.put(
-                URL + endpoint,
-                {
-                    servicio: servicio
-                },
-                {
-                    headers: {
-                        Authorization: "Bearer " + token,
-                    },
-                }
-            );
-            
-            console.log(response);
-            alert("Servicio editado con éxito");
+            });
+            alert("servicio registrado con éxito");
             navigate("/");
         } catch (error) {
             alert(error.response.data.mensaje);
