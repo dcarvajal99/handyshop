@@ -26,7 +26,7 @@ const ModalContent = ({ isOpen, onClose }) => {
         `Email y Password son Obligatorias`,
         'warning'
       )
-      const { data } = await axios.post(urlServer + endpoint, usuario);
+      const { data } = await axios.post(URL + endpoint, usuarioLocal);
       console.log(data.usuario);
       Swal.fire(
         '¡Usuario Logueado con Exito!',
