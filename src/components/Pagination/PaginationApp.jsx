@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Pagination } from 'flowbite-react';
 import { useContext } from 'react';
 import Context from '../../context/ContextProvider';
@@ -9,9 +9,6 @@ const PaginationApp = () => {
 
 
 
-  const onPageChange = (page) => {
-    setCurrentPage(page);
-  };
   return (
     <div className="flex items-center justify-center text-center">
       <Pagination

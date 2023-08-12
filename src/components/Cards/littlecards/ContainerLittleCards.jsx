@@ -26,7 +26,7 @@ const responsive = {
 };
 
 const ContainerLittleCard = () => {
-  const { servicios, usuarios, setServicioDetails } = useContext(Context);
+  const { servicios, setServicioDetails } = useContext(Context);
   const navigate = useNavigate();
 
   const handleClick = (id) => {
