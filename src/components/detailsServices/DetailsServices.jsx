@@ -11,38 +11,36 @@ export default function DetailsServices() {
     const { id } = useParams();
     const { anadirProducto,
         usuariologeado, isModalOpen, handleToggleModal,
-        favoritos, marcarFavorito, usuario } = useContext(Context);
+        favoritos, eliminarFavorito,
+        agregarFavorito } = useContext(Context);
 
     const [servicio, setServicioLocal] = useState({});
-    const PORT = process.env.PORT || 3001;
     const URL = process.env.REACT_APP_BACKEND_URL;
 
     const getServicioId = async () => {
         const endpoint = "/servicios/" + id;
-        console.log(endpoint)
         try {
             //obtener servicio por id sin token
             const { data } = await axios.get(URL + endpoint);
-            console.log(data);
             setServicioLocal(data.mensaje[0]);
         } catch ({ response: { data: mensaje } }) {
             alert(mensaje + " 🙁");
-            console.log(mensaje);
         }
     };
 
     useEffect(() => {
         getServicioId();
-    }, []);
+    }, [id]);
 
+    let existe = false;
 
-    /*     const { servicios, anadirProducto,
-            usuariologeado, isModalOpen, handleToggleModal,
-            favoritos, marcarFavorito } = useContext(Context);
-        const servicio = servicios.find((servicio) => servicio.id === parseInt(id));
-    
-        const ImagenUrl = 'https://www.oikos.com.co/constructora/images/website/Noticias_2019_/funciones-de-los-constructores.jpg';
-     */
+    for (const key in favoritos) {
+        if (favoritos[key].id_servicio === servicio.id_servicio) {
+            existe = true;
+            break;
+        }
+    }
+
     if (!servicio) {
         return <p>Servicio no encontrado</p>;
     }
@@ -93,14 +91,16 @@ export default function DetailsServices() {
                                     {usuariologeado ?
                                         (
                                             <Button
-                                                onClick={() => marcarFavorito(servicio.id_servicio)}
+                                                //onClick={() => marcarFavorito(servicio.id_servicio)}
                                                 className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500">
-                                                {favoritos.includes(servicio.id_servicio) ?
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                                                {existe ?
+                                                    <svg onClick={() => eliminarFavorito(servicio.id_servicio)}
+                                                        xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-red-500" viewBox="0 0 20 20" fill="currentColor">
                                                         <path fillRule="evenodd" d="M10 3.162l-1.545-1.545a5.5 5.5 0 00-7.778 7.778L10 18.94l9.323-9.545a5.5 5.5 0 00-7.778-7.778L10 3.162z" clipRule="evenodd" />
                                                     </svg>
                                                     :
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                                                    <svg onClick={() => agregarFavorito(servicio.id_servicio)}
+                                                        xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
                                                         <path fillRule="evenodd" d="M10 3.162l-1.545-1.545a5.5 5.5 0 00-7.778 7.778L10 18.94l9.323-9.545a5.5 5.5 0 00-7.778-7.778L10 3.162z" clipRule="evenodd" />
                                                     </svg>
                                                 }
