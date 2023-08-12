@@ -6,25 +6,27 @@ import axios from 'axios';
 
 const ModalContent = ({ isOpen, onClose }) => {
 
-  const { setUsuario } = useContext(Context);
-  const [usuario, setUsuarioLocal] = useState({});
+  const { setUsuario} = useContext(Context);
+  const [usuarioLocal, setUsuarioLocal] = useState({});
   const handleSetUsuario = ({ target: { value, name } }) => {
     const field = {};
     field[name] = value;
-    setUsuarioLocal({ ...usuario, ...field });
+    setUsuarioLocal({ ...usuarioLocal, ...field });
   };
 
+  const PORT = process.env.PORT || 3001;
+  const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
+
   const iniciarSesion = async () => {
-    const urlServer = "http://localhost:3001";
-    const endpoint = "/login";
-    const { email, password } = usuario;
+    const endpoint = "/usuarios/login";
+    const { email, password } = usuarioLocal;
     try {
       if (!email || !password) return Swal.fire(
         'Oooops!',
         `Email y Password son Obligatorias`,
         'warning'
       )
-      const { data } = await axios.post(urlServer + endpoint, usuario);
+      const { data } = await axios.post(URL + endpoint, usuarioLocal);
       console.log(data.usuario);
       Swal.fire(
         '¡Usuario Logueado con Exito!',
@@ -33,8 +35,8 @@ const ModalContent = ({ isOpen, onClose }) => {
       )
       localStorage.setItem("token", data.token);
       localStorage.setItem("usuario", JSON.stringify(data.usuario));
+      localStorage.setItem("id_usuario", data.usuario.id_usuario);
       setUsuario(data.usuario);
-
     } catch ({ response: { data: mensaje } }) {
       Swal.fire(
         'Usuario o Contraseña Incorrectos!',
@@ -72,7 +74,7 @@ const ModalContent = ({ isOpen, onClose }) => {
               type="email"
               name="email"
               id="email"
-              value={usuario.email}
+              value={usuarioLocal.email}
               onChange={handleSetUsuario}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               placeholder="name@Handyshop.com"
@@ -87,7 +89,7 @@ const ModalContent = ({ isOpen, onClose }) => {
               Ingrese su Contraseña:
             </label>
             <input
-              value={usuario.password}
+              value={usuarioLocal.password}
               type="password"
               name="password"
               id="password"

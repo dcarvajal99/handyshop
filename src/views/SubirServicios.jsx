@@ -14,6 +14,10 @@ const SubirServicios = () => {
         comuna: '',
     });
 
+    const PORT = process.env.PORT || 3001;
+    const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
+
+
     const [errors, setErrors] = useState({
         nombre_servicio: '',
         img_url: '',
@@ -67,8 +71,7 @@ const SubirServicios = () => {
         setErrors({ ...errors, [name]: '' });
     };
 
-    const registrarUsuario = async () => {
-        const urlServer = "http://localhost:3001";
+    const SubirServicios = async () => {
         const endpoint = "/servicios";
         const token = localStorage.getItem("token");
         const id_usuario = localStorage.getItem("id_usuario");
@@ -81,21 +84,24 @@ const SubirServicios = () => {
         }
 
         try {
-            await axios.post(urlServer + endpoint, {
-                servicio: servicio,
-                id_usuario: id_usuario
-            }, {
-                headers: {
-                    Authorization: "Bearer " + token,
+            const response = await axios.post(
+                URL + endpoint,
+                {
+                    servicio: servicio,
+                    id_usuario: id_usuario
                 },
-            });
+                {
+                    headers: {
+                        Authorization: "Bearer " + token
+                    }
+                }
+            );
 
             Swal.fire(
                 '¡Servicio Registrado con Éxito!',
                 'Haz Clic para Continuar!',
                 'success'
             );
-
             navigate("/");
         } catch (error) {
             Swal.fire(
@@ -259,7 +265,7 @@ const SubirServicios = () => {
                             <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
                                 focus:ring-blue-300 focus:outline-none focus:ring-primary-300 font-medium rounded-lg 
                                 text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                onClick={registrarUsuario}>
+                                onClick={SubirServicios}>
                                 Agregar datos
                             </button>
                             {/* <button type="button" className="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">

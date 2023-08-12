@@ -4,6 +4,9 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterUsers = () => {
+  const PORT = process.env.PORT || 3001;
+  const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
+
   const [usuario, setUsuario] = useState({
     email: '',
     nombre: '',
@@ -65,17 +68,15 @@ const RegisterUsers = () => {
 
   const registrarUsuario = async () => {
     const newErrors = validateForm();
-
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    const urlServer = "http://localhost:3001";
     const endpoint = "/usuarios";
 
     try {
-      await axios.post(urlServer + endpoint, usuario);
+      await axios.post(URL + endpoint, usuario);
       Swal.fire(
         '¡Usuario Registrado con Éxito!',
         'Haz Clic para Continuar!',

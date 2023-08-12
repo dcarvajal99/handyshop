@@ -6,15 +6,18 @@ import Context from '../../context/ContextProvider';
 import CartItem from '../cart/CartItem';
 import { Link } from 'react-router-dom';
 import ModalContent from '../Modal/ModalContent';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavbarWithDropdown() {
+    
     const { usuario, isModalOpen, handleToggleModal, usuariologeado, handleClickUsuarioLogeado, setUsuariologeado, setUsuario } = useContext(Context);
-
+    const navigate = useNavigate();
     //funcion para que cuando se presione el boton log out se cierre la sesion y borre los datos del usuario en el local storage , estado y contexto
     const handleClickUsuarioLogOut = () => {
         setUsuariologeado(!usuariologeado);
         localStorage.removeItem('usuario');
         setUsuario({});
+        navigate('/');
     }
 
 
@@ -61,7 +64,7 @@ export default function NavbarWithDropdown() {
                             </NavLink>
                         </Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item onClick={handleClickUsuarioLogOut}>
+                        <Dropdown.Item onClick={handleClickUsuarioLogOut} >
                             Sign out
                         </Dropdown.Item>
                     </Dropdown>
