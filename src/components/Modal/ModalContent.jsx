@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const ModalContent = ({ isOpen, onClose }) => {
 
-  const { setUsuario} = useContext(Context);
+  const { setUsuario,obtenerFavoritos} = useContext(Context);
   const [usuarioLocal, setUsuarioLocal] = useState({});
   const handleSetUsuario = ({ target: { value, name } }) => {
     const field = {};
@@ -37,6 +37,7 @@ const ModalContent = ({ isOpen, onClose }) => {
       localStorage.setItem("usuario", JSON.stringify(data.usuario));
       localStorage.setItem("id_usuario", data.usuario.id_usuario);
       setUsuario(data.usuario);
+      obtenerFavoritos();
     } catch ({ response: { data: mensaje } }) {
       Swal.fire(
         'Usuario o Contraseña Incorrectos!',

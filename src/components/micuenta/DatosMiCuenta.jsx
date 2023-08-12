@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const DatosMiCuenta = () => {
-    const { usuario, port, URL, setUsuario } = useContext(Context);
+    const { usuario, URL, setUsuario } = useContext(Context);
     const [formEnabled, setFormEnabled] = useState(false);
     const [PassEnabled, setPassEnabled] = useState(false);
     const [passwordErrors, setPasswordErrors] = useState({});

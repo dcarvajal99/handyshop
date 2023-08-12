@@ -1,10 +1,6 @@
 import React, { useContext } from "react";
 import Context from "../../context/ContextProvider";
-import CartTotal from "./CartTotal";
-import { Link } from "react-router-dom";
-import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
-import ModalContent from '../Modal/ModalContent';
 
 const Cart = () => {
 
@@ -15,7 +11,6 @@ const Cart = () => {
         usuariologeado,
         handleToggleModal,
         favoritos,
-        marcarFavorito,
         anadirProducto
         
     } = useContext(Context);

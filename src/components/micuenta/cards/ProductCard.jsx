@@ -9,9 +9,7 @@ import HiOutlineExclamationCircle from '@meronex/icons/hi/HiOutlineExclamationCi
 const MyProductCard = () => {
 
   const { usuario, servicios,
-    setServicioDetails, usuariologeadotest,
-    favoritos, marcarFavorito,
-    handleToggleModal, servicio_eliminado
+    setServicioDetails, servicio_eliminado
   } = useContext(Context);
   const [misServicios, setMisServicios] = useState([]);
   const navigate = useNavigate();
@@ -44,7 +42,6 @@ const MyProductCard = () => {
   // ejecutar esta funcion luego de 0.5 segundos
   useEffect(() => {
     obtenerMisServicios();
-
   }, [usuario, servicio_eliminado]);
 
   const [openModal, setOpenModal] = useState();
@@ -61,6 +58,7 @@ const MyProductCard = () => {
       });
       console.log(data);
       alert("Servicio eliminado correctamente");
+      obtenerMisServicios();
       navigate(`/micuenta`);
     } catch ({ response: { data: mensaje } }) {
       alert(mensaje + " 🙁");
@@ -151,7 +149,6 @@ const MyProductCard = () => {
                             <Button color="failure" onClick={() => {
                               handleClickDelete(servicio.id_servicio);
                               props.setOpenModal(undefined);
-                              obtenerMisServicios();
                             }}>
                               Yes, I'm sure
                             </Button>
