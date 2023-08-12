@@ -33,7 +33,7 @@ const ProductCard = () => {
             <img className="w-8 h-8 rounded-full" src={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} alt="avatar" />
           </div>
           <a href="/">
-            <img className="p-8 rounded-t-lg" src={servicio.img_url} alt="product imagen" />
+            <img className="p-5 object-fill rounded-t-lg" src={servicio.img_url} alt="product imagen" />
           </a>
           <div className="px-5 pb-5">
             <a href="/">
