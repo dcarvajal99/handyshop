@@ -9,9 +9,7 @@ import HiOutlineExclamationCircle from '@meronex/icons/hi/HiOutlineExclamationCi
 const MyProductCard = () => {
 
   const { usuario, servicios,
-    setServicioDetails, usuariologeadotest,
-    favoritos, marcarFavorito,
-    handleToggleModal, servicio_eliminado
+    setServicioDetails, servicio_eliminado
   } = useContext(Context);
   const [misServicios, setMisServicios] = useState([]);
   const navigate = useNavigate();

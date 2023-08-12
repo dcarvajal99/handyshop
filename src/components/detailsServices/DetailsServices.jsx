@@ -12,23 +12,19 @@ export default function DetailsServices() {
     const { anadirProducto,
         usuariologeado, isModalOpen, handleToggleModal,
         favoritos, eliminarFavorito,
-        agregarFavorito, usuario } = useContext(Context);
+        agregarFavorito } = useContext(Context);
 
     const [servicio, setServicioLocal] = useState({});
-    const PORT = process.env.PORT || 3001;
     const URL = process.env.REACT_APP_BACKEND_URL;
 
     const getServicioId = async () => {
         const endpoint = "/servicios/" + id;
-        console.log(endpoint)
         try {
             //obtener servicio por id sin token
             const { data } = await axios.get(URL + endpoint);
-            console.log(data);
             setServicioLocal(data.mensaje[0]);
         } catch ({ response: { data: mensaje } }) {
             alert(mensaje + " 🙁");
-            console.log(mensaje);
         }
     };
 
@@ -45,13 +41,6 @@ export default function DetailsServices() {
         }
     }
 
-    /*     const { servicios, anadirProducto,
-            usuariologeado, isModalOpen, handleToggleModal,
-            favoritos, marcarFavorito } = useContext(Context);
-        const servicio = servicios.find((servicio) => servicio.id === parseInt(id));
-    
-        const ImagenUrl = 'https://www.oikos.com.co/constructora/images/website/Noticias_2019_/funciones-de-los-constructores.jpg';
-     */
     if (!servicio) {
         return <p>Servicio no encontrado</p>;
     }

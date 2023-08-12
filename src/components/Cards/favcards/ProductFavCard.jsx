@@ -1,12 +1,11 @@
 import React from 'react';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import Context from '../../../context/ContextProvider';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 const ProductFavCard = () => {
 
-  const { usuario, setFavoritos, favoritos, setServicioDetails, eliminarFavorito } = useContext(Context);
+  const { favoritos, setServicioDetails, eliminarFavorito } = useContext(Context);
 
   const navigate = useNavigate();
 
@@ -14,32 +13,6 @@ const ProductFavCard = () => {
     setServicioDetails(id)
     navigate(`/service-detail/${id}`);
   };
-
-  /*   const serviciosFavoritos = servicios.filter((servicio) =>
-      favoritos.includes(servicio.id)
-    ); */
-
-  const PORT = process.env.PORT || 3001;
-  const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
-
-  /*  useEffect(() => {
-     const obtenerFavoritos = async () => {
-         const endpoint = `/favoritos/${usuario.id_usuario}`;
-         try {
-             const { data } = await axios.get(URL + endpoint, {
-                 headers: {
-                     Authorization: `Bearer ${localStorage.getItem("token")}`,
-                 },
-             });
-             console.log(data);
-             setFavoritos(data.mensaje);
-         } catch ({ response: { data: mensaje } }) {
-             alert(mensaje + " 🙁");
-             console.log(mensaje);
-         }
-     };
-     obtenerFavoritos();
- }, []); */
 
   return (
     <>

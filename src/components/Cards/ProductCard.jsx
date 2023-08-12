@@ -3,11 +3,10 @@ import { useContext } from 'react';
 import Context from '../../context/ContextProvider';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'flowbite-react';
-import { useState, useEffect } from 'react';
 
 const ProductCard = () => {
 
-  const { /* usuarios, */ servicios,
+  const {  servicios,
     setServicioDetails, usuariologeado,
     favoritos, eliminarFavorito, 
     agregarFavorito,
