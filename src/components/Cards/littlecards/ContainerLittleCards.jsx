@@ -26,7 +26,7 @@ const responsive = {
 };
 
 const ContainerLittleCard = () => {
-  const { servicios, setServicioDetails } = useContext(Context);
+  const { servicios, setServicioDetails, formatPrice } = useContext(Context);
   const navigate = useNavigate();
 
   const handleClick = (id) => {
@@ -62,7 +62,7 @@ const ContainerLittleCard = () => {
                   <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">4.5</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-3xl font-bold text-gray-900 dark:text-white">${servicio.monto}</span>
+                  <span className="text-3xl font-bold text-gray-900 dark:text-white">{formatPrice(servicio.monto)}</span>
                  {/*  <p className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
               focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
               text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
