@@ -102,6 +102,7 @@ const SubirServicios = () => {
                 'Haz Clic para Continuar!',
                 'success'
             );
+            console.log(response);
             navigate("/");
         } catch (error) {
             Swal.fire(

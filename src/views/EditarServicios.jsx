@@ -31,7 +31,7 @@ const EditarServicios = () => {
         comuna: '',
     });
 
-    const validateForm = () => {
+   /*  const validateForm = () => {
         const newErrors = {};
 
         if (!servicio.nombre_servicio.trim()) {
@@ -64,7 +64,7 @@ const EditarServicios = () => {
 
         return newErrors;
     };
-
+ */
     const navigate = useNavigate();
 
     const handleSetServicio = ({ target: { value, name } }) => {

@@ -106,6 +106,7 @@ const ContextProvider = ({ children }) => {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
+            console.log(data);
             obtenerFavoritos();
         } catch ({ response: { data: mensaje } }) {
             alert(mensaje + " 🙁");
