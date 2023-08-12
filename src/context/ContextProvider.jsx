@@ -26,7 +26,7 @@ const ContextProvider = ({ children }) => {
     // Funciones para obtener los datos de servicios a traves de la ruta GET localhost:3001/servicios
     // Funciones para obtener los datos de servicios a traves de la ruta GET localhost:3001/servicios
     const PORT = process.env.PORT || 3001;
-    const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
+    const URL = process.env.REACT_APP_BACKEND_URL;
     const urlPagination = `${process.env.REACT_APP_BACKEND_URL}/servicios`
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
