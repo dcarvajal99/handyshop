@@ -44,7 +44,6 @@ const MyProductCard = () => {
   // ejecutar esta funcion luego de 0.5 segundos
   useEffect(() => {
     obtenerMisServicios();
-
   }, [usuario, servicio_eliminado]);
 
   const [openModal, setOpenModal] = useState();
@@ -61,6 +60,7 @@ const MyProductCard = () => {
       });
       console.log(data);
       alert("Servicio eliminado correctamente");
+      obtenerMisServicios();
       navigate(`/micuenta`);
     } catch ({ response: { data: mensaje } }) {
       alert(mensaje + " 🙁");
@@ -151,7 +151,6 @@ const MyProductCard = () => {
                             <Button color="failure" onClick={() => {
                               handleClickDelete(servicio.id_servicio);
                               props.setOpenModal(undefined);
-                              obtenerMisServicios();
                             }}>
                               Yes, I'm sure
                             </Button>
