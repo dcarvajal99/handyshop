@@ -68,7 +68,7 @@ const RegisterUsers = () => {
 
   const isValidEmail = (email) => {
     const lowerCaseEmail = email.toLowerCase();
-    return lowerCaseEmail.includes('@') && lowerCaseEmail.endsWith('.');
+    return lowerCaseEmail.includes('@') && lowerCaseEmail.endsWith('.' || '.cl' || '.com');
   };
 
   const handleKeyPress = (event) => {

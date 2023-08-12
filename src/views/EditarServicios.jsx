@@ -116,12 +116,15 @@ const EditarServicios = () => {
     const EditarServicios = async () => {
         const token = localStorage.getItem("token");
         const endpoint = "/servicios/" + servicioLocal.id_servicio;
-        for (const key in servicio) {
+
+        const urlServer = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
+        const id_usuario = usuario.id_usuario === undefined ? localStorage.getItem("id_usuario") : usuario.id_usuario;
+       /* for (const key in servicio) {
             if (servicio[key] === '') {
                 alert(`El campo ${key} es obligatorio`);
                 return;
             }
-        }
+        }*/
         try {
             await axios.post(urlServer + endpoint, {
                 servicio: servicio,
