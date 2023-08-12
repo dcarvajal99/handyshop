@@ -74,9 +74,9 @@ const ContextProvider = ({ children }) => {
         }
     };
     //funcion para guardar los favoritos en el localstorage
-    const saveFavoritos = useCallback(() => {
+    /* const saveFavoritos = useCallback(() => {
         localStorage.setItem("favoritos", JSON.stringify(favoritos));
-    }, [favoritos]);
+    }, [favoritos]); */
 
 
     //funcion para cargar los favoritos del localstorage
