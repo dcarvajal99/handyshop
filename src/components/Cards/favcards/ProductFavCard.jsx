@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const ProductFavCard = () => {
 
-  const { usuario, setFavoritos, favoritos, setServicioDetails } = useContext(Context);
+  const { usuario, setFavoritos, favoritos, setServicioDetails, eliminarFavorito } = useContext(Context);
 
   const navigate = useNavigate();
 
@@ -19,33 +19,34 @@ const ProductFavCard = () => {
       favoritos.includes(servicio.id)
     ); */
 
-    const PORT = process.env.PORT || 3001;
-    const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
+  const PORT = process.env.PORT || 3001;
+  const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
 
-    useEffect(() => {
-      const obtenerFavoritos = async () => {
-          const endpoint = `/favoritos/${usuario.id_usuario}`;
-          try {
-              const { data } = await axios.get(URL + endpoint, {
-                  headers: {
-                      Authorization: `Bearer ${localStorage.getItem("token")}`,
-                  },
-              });
-              console.log(data);
-              setFavoritos(data.mensaje);
-          } catch ({ response: { data: mensaje } }) {
-              alert(mensaje + " 🙁");
-              console.log(mensaje);
-          }
-      };
-      obtenerFavoritos();
-  }, []);
-
+  /*  useEffect(() => {
+     const obtenerFavoritos = async () => {
+         const endpoint = `/favoritos/${usuario.id_usuario}`;
+         try {
+             const { data } = await axios.get(URL + endpoint, {
+                 headers: {
+                     Authorization: `Bearer ${localStorage.getItem("token")}`,
+                 },
+             });
+             console.log(data);
+             setFavoritos(data.mensaje);
+         } catch ({ response: { data: mensaje } }) {
+             alert(mensaje + " 🙁");
+             console.log(mensaje);
+         }
+     };
+     obtenerFavoritos();
+ }, []); */
 
   return (
     <>
       {favoritos.map((servicio) => (
-        <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={servicio.id}>
+    
+        
+        <div className = "w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key = { servicio.id } >
           <div className="flex items-center justify-between px-5 py-3" >
             {/* mostrar dos titulos en columna y el segundo en negrita */}
             <div className="flex flex-col">
@@ -55,7 +56,7 @@ const ProductFavCard = () => {
             <img className="w-8 h-8 rounded-full" src={process.env.PUBLIC_URL + '../img/navbar/icon-profile.png'} alt="avatar" />
           </div>
           <a href="/">
-            <img className="p-8 rounded-t-lg" src={process.env.PUBLIC_URL + '../img/Cards/contructor.jpg'} alt="product imagen" />
+            <img className="p-8 rounded-t-lg" src={servicio.img_url} alt="product imagen" />
           </a>
           <div className="px-5 pb-5">
             <a href="/">
@@ -73,17 +74,11 @@ const ProductFavCard = () => {
               <div className="flex items-center space-x-2">
                 
                     <button
-                      /*onClick={() => marcarFavorito(servicio.id_servicio)}*/
                       className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500">
-                      {favoritos.includes(servicio.id) ?
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                        <svg onClick={() => eliminarFavorito(servicio.id_servicio)}
+                        xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-red-500" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M10 3.162l-1.545-1.545a5.5 5.5 0 00-7.778 7.778L10 18.94l9.323-9.545a5.5 5.5 0 00-7.778-7.778L10 3.162z" clipRule="evenodd" />
                         </svg>
-                        :
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M10 3.162l-1.545-1.545a5.5 5.5 0 00-7.778 7.778L10 18.94l9.323-9.545a5.5 5.5 0 00-7.778-7.778L10 3.162z" clipRule="evenodd" />
-                        </svg>
-                      }
                     </button>
                   
                 <p className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
@@ -102,7 +97,7 @@ const ProductFavCard = () => {
             </div>
           </div>
 
-        </div>
+        </div >
       ))}
     </>
   );

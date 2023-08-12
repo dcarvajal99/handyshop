@@ -16,7 +16,6 @@ const LittleCard = () => {
     return (
         <>
                 {servicios.map((servicio) => (
-
                     <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={servicios.id}>
                         <a href="#">
                             <img class="border p-9 rounded-t-lg" src={process.env.PUBLIC_URL + '../img/Cards/electrico.jpg'} alt="product image" />
