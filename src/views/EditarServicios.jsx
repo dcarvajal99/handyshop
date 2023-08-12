@@ -125,7 +125,11 @@ const EditarServicios = () => {
                     Authorization: "Bearer " + token,
                 },
             });
-            alert("servicio registrado con éxito");
+            Swal.fire(
+                '¡Servicio Registrado con Éxito!',
+                'Haz Clic para Continuar!',
+                'success'
+              );
             navigate("/");
         } catch (error) {
             alert(error.response.data.mensaje);
