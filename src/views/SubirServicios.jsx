@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,16 +13,62 @@ const SubirServicios = () => {
         region: '',
         comuna: '',
     });
+
     const PORT = process.env.PORT || 3001;
     const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
 
 
-    const navigate = useNavigate()
+    const [errors, setErrors] = useState({
+        nombre_servicio: '',
+        img_url: '',
+        categoria: '',
+        descripcion: '',
+        monto: '',
+        region: '',
+        comuna: '',
+    });
+
+    const validateForm = () => {
+        const newErrors = {};
+
+        if (!servicio.nombre_servicio.trim()) {
+            newErrors.nombre_servicio = 'El Nombre del Servicio es requerido';
+        }
+
+        if (!servicio.img_url.trim()) {
+            newErrors.img_url = 'La URL de la imagen es requerida';
+        }
+
+        if (!servicio.categoria.trim()) {
+            newErrors.categoria = 'Debe Seleccionar una Categoria';
+        }
+
+        if (!servicio.descripcion.trim()) {
+            newErrors.descripcion = 'Debe colocar una Descripción del servicio';
+        }
+
+        if (!servicio.monto.trim()) {
+            newErrors.monto = 'El Monto es Requerido';
+        }
+
+        if (!servicio.region.trim()) {
+            newErrors.region = 'Debe seleccionar una Región';
+        }
+
+        if (!servicio.comuna.trim()) {
+            newErrors.comuna = 'Debe seleccionar una Comuna';
+        }
+
+        return newErrors;
+    };
+
+    const navigate = useNavigate();
+
     const handleSetServicio = ({ target: { value, name } }) => {
         const field = {};
         field[name] = value;
         setServicio({ ...servicio, ...field });
-        console.log(servicio);
+        setErrors({ ...errors, [name]: '' });
     };
 
     const SubirServicios = async () => {
@@ -30,11 +76,11 @@ const SubirServicios = () => {
         const token = localStorage.getItem("token");
         const id_usuario = localStorage.getItem("id_usuario");
 
-        for (const key in servicio) {
-            if (servicio[key] === '') {
-                alert(`El campo ${key} es obligatorio`);
-                return;
-            }
+        const newErrors = validateForm();
+        setErrors(newErrors);
+
+        if (Object.keys(newErrors).length > 0) {
+            return;
         }
 
         try {
@@ -51,10 +97,19 @@ const SubirServicios = () => {
                 }
             );
 
-            alert("Servicio registrado con éxito");
+            Swal.fire(
+                '¡Servicio Registrado con Éxito!',
+                'Haz Clic para Continuar!',
+                'success'
+            );
             navigate("/");
         } catch (error) {
-            alert(error.response.data.mensaje);
+            Swal.fire(
+                'Error',
+                error.response.data.mensaje,
+                'error'
+            );
+
             console.log(error);
         }
     };
@@ -73,6 +128,7 @@ const SubirServicios = () => {
                                 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
                                 dark:focus:border-primary-500" value={servicio.nombre_servicio} placeholder="Electricista con certificacion" required
                                 onChange={handleSetServicio} />
+                                {errors.nombre_servicio && <div className="text-red-600 text-s font-medium" >{errors.nombre_servicio}</div>}
                         </div>
                         <div className="w-full">
                             <label for="brand" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">URL de la imagen</label>
@@ -81,8 +137,8 @@ const SubirServicios = () => {
                             focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 
                             dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
                             dark:focus:border-primary-500" value={servicio.img_url} placeholder="https://www.ejemplo.cl/imagen" required
-                                onChange={handleSetServicio}
-                            />
+                                onChange={handleSetServicio}/>
+                                {errors.img_url && <div className="text-red-600 text-s font-medium" >{errors.img_url}</div>}
                         </div>
                         <div className="w-full">
                             <label for="categoria" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoria</label>
@@ -100,6 +156,7 @@ const SubirServicios = () => {
                                 <option>Transporte</option>
                                 <option>Otros</option>
                             </select>
+                            {errors.categoria && <div className="text-red-600 text-s font-medium" >{errors.categoria}</div>}
                         </div>
                         <div className="sm:col-span-2">
                             <label for="descripcion" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripcion</label>
@@ -108,8 +165,8 @@ const SubirServicios = () => {
                                 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 
                                 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 value={servicio.descripcion} placeholder="Ingrese una descripción" required
-                                onChange={handleSetServicio}
-                            />
+                                onChange={handleSetServicio} />
+                                {errors.descripcion && <div className="text-red-600 text-s font-medium" >{errors.descripcion}</div>}
                         </div>
                         <div className="sm:col-span-2">
                             <label for="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
@@ -120,9 +177,9 @@ const SubirServicios = () => {
                                 focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 
                                 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
                                 dark:focus:border-primary-500" value={servicio.monto} placeholder="0" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required
-                                    onChange={handleSetServicio}
-                                />
+                                    onChange={handleSetServicio}/>
                             </div>
+                            {errors.monto && <div className="text-red-600 text-s font-medium" >{errors.monto}</div>}
                         </div>
                         <div className="w-full">
                             <label for="region" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Región</label>
@@ -138,6 +195,7 @@ const SubirServicios = () => {
                                 <option value="Valparaiso">Valparaíso</option>
                                 <option value="Biobio">Biobío</option>
                             </select>
+                            {errors.region && <div className="text-red-600 text-s font-medium" >{errors.region}</div>}
                         </div>
                         <div className="w-full">
                             <label for="comuna" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Comuna</label>
@@ -201,6 +259,7 @@ const SubirServicios = () => {
                                     </>
                                 )}
                             </select>
+                            {errors.comuna && <div className="text-red-600 text-s font-medium" >{errors.comuna}</div>}
                         </div>
                         <div className="flex items-center space-x-4">
                             <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
@@ -222,5 +281,3 @@ const SubirServicios = () => {
 };
 
 export default SubirServicios;
-
-
