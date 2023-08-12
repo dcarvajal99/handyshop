@@ -27,52 +27,38 @@ const ContextProvider = ({ children }) => {
 
 
     // Funciones para obtener los datos de servicios a traves de la ruta GET localhost:3001/servicios
-    const PORT = process.env.PORT || 3001;
-    const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
-
-    const [urlPagination, setUrlPagination] = useState(`${process.env.REACT_APP_BACKEND_URL}/servicios`);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
-    const [totalRecords, setTotalRecords] = useState(0);
-    console.log(urlPagination);
-
-    useEffect(() => {
-        const obtenerServicios = async () => {
-            try {
-                const response = await axios.get(`${urlPagination}?page=${currentPage}`);
-                const dataServicios = response.data.mensaje.result;
-                setServicios(dataServicios);
-                const paginationLinks = response.data.mensaje.hateoas;
-                const totalPaginas = parseInt(paginationLinks.totalPaginas);
-                const totalRegistros = parseInt(paginationLinks.serviciosTotal);
-                setTotalPages(totalPaginas);
-                setTotalRecords(totalRegistros);
-                setError(null);
-
-                // Almacenar datos en localStorage
-                localStorage.setItem('serviciosData', JSON.stringify(dataServicios));
-                localStorage.setItem('totalPages', totalPaginas);
-                localStorage.setItem('totalRecords', totalRegistros);
-            } catch (error) {
-                console.error('Error al obtener servicios:', error);
-                setError('Error al obtener servicios. Por favor, inténtelo de nuevo más tarde.');
-            }
-        };
-
-        // Intentar obtener datos almacenados en localStorage
-        const storedData = localStorage.getItem('serviciosData');
-        const storedTotalPages = localStorage.getItem('totalPages');
-        const storedTotalRecords = localStorage.getItem('totalRecords');
-
-        if (storedData && storedTotalPages && storedTotalRecords) {
-            setServicios(JSON.parse(storedData));
-            setTotalPages(parseInt(storedTotalPages));
-            setTotalRecords(parseInt(storedTotalRecords));
-        } else {
-            obtenerServicios();
-        }
-    }, [urlPagination, currentPage]);
-
+     // Funciones para obtener los datos de servicios a traves de la ruta GET localhost:3001/servicios
+     const PORT = process.env.PORT || 3001;
+     const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
+ 
+     const [urlPagination, setUrlPagination] = useState(`${process.env.REACT_APP_BACKEND_URL}/servicios`);
+     const [currentPage, setCurrentPage] = useState(1);
+     const [totalPages, setTotalPages] = useState(0);
+     const [totalRecords, setTotalRecords] = useState(0);
+     console.log(urlPagination);
+ 
+     useEffect(() => {
+ 
+         const obtenerServicios = async () => {
+             try {
+                 const response = await axios.get(`${urlPagination}?page=${currentPage}`);
+                 console.log(response);
+                 const dataServicios = response.data.mensaje.result;
+                 setServicios(dataServicios);
+                 const paginationLinks = response.data.mensaje.hateoas;
+                 const totalPaginas = parseInt(paginationLinks.totalPaginas);
+                 const totalRegistros = parseInt(paginationLinks.serviciosTotal);
+                 // Actualizar estados en el contexto
+                 setTotalPages(totalPaginas);
+                 setTotalRecords(totalRegistros);
+                 setError(null); // Limpiar el error si la solicitud es exitosa
+             } catch (error) {
+                 console.error('Error al obtener servicios:', error);
+                 setError('Error al obtener servicios. Por favor, inténtelo de nuevo más tarde.'); // Establecer el mensaje de error
+             }
+         };
+         obtenerServicios();
+     }, [urlPagination, currentPage]);
 
     // Funcion para obtener los datos de un servicio a traves de la ruta GET localhost:3001/servicios/:id
     /*  useEffect(() => {
