@@ -26,6 +26,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "homepage": "https://shiny-pothos-e6b242.netlify.app",
   "eslintConfig": {
     "extends": [
       "react-app",
