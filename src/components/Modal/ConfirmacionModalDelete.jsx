@@ -4,6 +4,7 @@ import HiOutlineExclamationCircle from '@meronex/icons/hi/HiOutlineExclamationCi
 import Context from '../../context/ContextProvider';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export default function ConfirmacionModalDelete({id_servicio}) {
 
@@ -24,7 +25,11 @@ export default function ConfirmacionModalDelete({id_servicio}) {
         },
       });
       console.log(data);
-      alert("Servicio eliminado correctamente");
+      Swal.fire(
+        '¡Servicio Eliminado con Éxito!',
+        'Haz Clic para Continuar!',
+        'success'
+      );
       navigate(`/micuenta`);
     } catch ({ response: { data: mensaje } }) {
       alert(mensaje + " 🙁");
