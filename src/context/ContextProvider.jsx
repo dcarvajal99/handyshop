@@ -14,6 +14,7 @@ const ContextProvider = ({ children }) => {
     const [usuariologeado, setUsuariologeado] = useState(false);
     const [favoritos, setFavoritos] = useState([]);
     const [error, setError] = useState(null);
+    const [serviciosFiltrados, setServiciosFiltrados] = useState([]);
 
     // consultar cada vez que se cargue la pagina si el usuario esta logeado y existe dentro del localstorage
     useEffect(() => {
@@ -275,8 +276,11 @@ const ContextProvider = ({ children }) => {
                 URL,
                 obtenerFavoritos,
                 eliminarFavorito, 
-                agregarFavorito
+                agregarFavorito,
+                serviciosFiltrados, 
+                setServiciosFiltrados
             }}>
+
                 {children}
             </Context.Provider>
         );
