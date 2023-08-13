@@ -11,8 +11,8 @@ const Cart = () => {
         usuariologeado,
         handleToggleModal,
         favoritos,
-        anadirProducto
-        
+        anadirProducto,
+        formatPrice
     } = useContext(Context);
 
     const clickRedireccion = () => {
@@ -51,7 +51,7 @@ const Cart = () => {
                                         <span className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50" onClick={() => anadirProducto(servicio)}> + </span>
                                     </div>
                                     <div className="flex items-center space-x-4">
-                                        <h2 className="text-lg font-bold text-gray-900">${servicio.monto}</h2>
+                                        <h2 className="text-lg font-bold text-gray-900">{formatPrice(servicio.monto)}</h2>
                                         {favoritos.includes(servicio.id_servicio) ? 
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
                                                                 <path fillRule="evenodd" d="M10 3.162l-1.545-1.545a5.5 5.5 0 00-7.778 7.778L10 18.94l9.323-9.545a5.5 5.5 0 00-7.778-7.778L10 3.162z" clipRule="evenodd" />
