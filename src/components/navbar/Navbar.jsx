@@ -91,6 +91,9 @@ export default function NavbarWithDropdown() {
                 <NavLink to="/quienes-somos">
                     <p>¿Quienes Somos?</p>
                 </NavLink>
+                <NavLink to="/contacto">
+                    <p>Contacto</p>
+                </NavLink>
 
                 {usuariologeado ?
                     <></>

@@ -15,7 +15,7 @@ import Micuenta from "./views/Micuenta";
 import EditarServicios from "./views/EditarServicios";
 import NotFoundPage from "./views/NotFoundPage";
 import ServiciosFiltrados from "./views/ServiciosFiltrados";
-
+import Contacto from "./views/Contacto";
 
 
 function App() {
@@ -26,6 +26,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/favoritos" element={<Favoritos />} />
+          <Route path="/contacto" element={<Contacto />} />
           <Route path="/quienes-somos" element={<QuienesSomos />} />
           <Route path="/subir-servicios" element={<SubirServicios />} />
           <Route path="/quienes-somos" element={<QuienesSomos />} />
