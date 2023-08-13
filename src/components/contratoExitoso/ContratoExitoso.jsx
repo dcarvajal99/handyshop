@@ -2,12 +2,11 @@ import React from "react";
 import { Card, Button } from "flowbite-react";
 import { useContext } from "react";
 import Context from "../../context/ContextProvider";
-import CartTotal from "../cart/CartTotal";
 
 
 const ContratoExitoso = () => {
 
-    const { cart, formatPrice } = useContext(Context)
+    const { cart, formatPrice,total } = useContext(Context)
     const obtenerFechaActual = () => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date().toLocaleDateString('es-ES', options);
@@ -35,7 +34,7 @@ const ContratoExitoso = () => {
                     <div className="flex justify-between mt-4">
                         {/* Aquí puedes colocar el componente CartTotal */}
                         <span className="font-bold">
-                            <CartTotal />
+                            Total a pagar: {formatPrice(total + total*0.1)}
                         </span>
                     </div>
                     <div className="flex justify-end mt-4">

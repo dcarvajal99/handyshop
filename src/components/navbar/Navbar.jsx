@@ -9,7 +9,7 @@ import ModalContent from '../Modal/ModalContent';
 import { useNavigate } from 'react-router-dom';
 
 export default function NavbarWithDropdown() {
-    
+
     const { usuario, isModalOpen, handleToggleModal, usuariologeado, setUsuariologeado, setUsuario } = useContext(Context);
     const navigate = useNavigate();
     //funcion para que cuando se presione el boton log out se cierre la sesion y borre los datos del usuario en el local storage , estado y contexto
@@ -28,6 +28,7 @@ export default function NavbarWithDropdown() {
                     alt="HandyShop Logo"
                     className="mr-3 h-6 sm:h-9"
                     src={process.env.PUBLIC_URL + '../img/logo/logo.gif'}
+
                 />
             </Navbar.Brand>
             {/* ...otros contenidos de la aplicación... */}
@@ -70,10 +71,20 @@ export default function NavbarWithDropdown() {
                     </Dropdown>
                     <Navbar.Toggle />
                 </div>
-                : <><Navbar.Toggle /></>
+                : <>
+                    <div className="flex items-center md:order-2 space-x-5">
+                        <Link to={"/carrito"}>
+                            🛒
+                            <CartItem />
+                            {/*{cart.length > 0 ? <CartItem /> : null}*/}
+                        </Link>
+                        <Navbar.Toggle />
+                    </div>
+                </>
             }
 
             <Navbar.Collapse>
+
                 <NavLink to="/">
                     <p>Inicio</p>
                 </NavLink>
@@ -92,11 +103,7 @@ export default function NavbarWithDropdown() {
                             <button onClick={handleToggleModal}>Iniciar Sesión</button>
                             <ModalContent isOpen={isModalOpen} onClose={handleToggleModal} />
                         </div>
-                        <Link to={"/carrito"}>
-                            🛒
-                            <CartItem />
-                            {/*{cart.length > 0 ? <CartItem /> : null}*/}
-                        </Link>
+
                     </>
                 }
 

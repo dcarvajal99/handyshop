@@ -46,7 +46,7 @@ export default function DetailsServices() {
     return (
         <section className="dark:bg-gray-900 py-10 px-12">
             {servicio ? (<>
-                <div className="container px-5 py-24 mx-auto">
+                <div className="container px-5 py-24 mx-auto border border-gray-200  rounded-lg">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
                         <img
                             src={servicio.img_url}
