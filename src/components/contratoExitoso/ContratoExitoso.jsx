@@ -7,7 +7,7 @@ import CartTotal from "../cart/CartTotal";
 
 const ContratoExitoso = () => {
 
-    const { cart } = useContext(Context)
+    const { cart, formatPrice } = useContext(Context)
     const obtenerFechaActual = () => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date().toLocaleDateString('es-ES', options);
@@ -27,7 +27,7 @@ const ContratoExitoso = () => {
                             <div key={servicio.id_servicio}>
                                 <div className="flex justify-between">
                                     <span>{servicio.nombre_servicio}</span>
-                                    <span>${servicio.monto}</span>
+                                    <span>{formatPrice(servicio.monto)}</span>
                                 </div>
                             </div>
                         ))}
