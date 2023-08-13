@@ -150,6 +150,7 @@ const SubirServicios = () => {
                                 onChange={handleSetServicio}
                                 value={servicio.categoria}
                                 required>
+                                <option value="">Seleccione una Categoria</option>
                                 <option>Hogar</option>
                                 <option>Mano de obra</option>
                                 <option>Cuidado personal</option>
