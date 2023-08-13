@@ -94,7 +94,7 @@ const MyProductCard = () => {
                 <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">4.5</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">${servicio.monto}</span>
+                <span className="text-3xl font-bold text-gray-900 dark:text-white"></span>
                 <div className="flex items-center space-x-2">
 
                   {/* {usuariologeadotest ?
@@ -143,17 +143,17 @@ const MyProductCard = () => {
                         <div className="text-center">
                           <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
                           <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                            Are you sure you want to delete this product?
+                            ¿Estás seguro que deseas eliminar este producto?
                           </h3>
                           <div className="flex justify-center gap-4">
                             <Button color="failure" onClick={() => {
                               handleClickDelete(servicio.id_servicio);
                               props.setOpenModal(undefined);
                             }}>
-                              Yes, I'm sure
+                              Sí, estoy seguro
                             </Button>
                             <Button color="gray" onClick={() => { props.setOpenModal(undefined); }}>
-                              No, cancel
+                              No, cancelar
                             </Button>
                           </div>
                         </div>
