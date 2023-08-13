@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const RegisterUsers = () => {
   const PORT = process.env.PORT || 3001;
   const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
-
+  const [isValidEmail, setIsValid] = useState(false);
   const [usuario, setUsuario] = useState({
     email: '',
     nombre: '',
@@ -35,11 +35,12 @@ const RegisterUsers = () => {
   };
 
   const validateForm = () => {
+    setIsValid(validateEmail(usuario.email));
     const newErrors = {};
 
     if (!usuario.email) {
       newErrors.email = 'Correo electrónico es requerido';
-    } else if (!isValidEmail(usuario.email)) {
+    } else if (!isValidEmail) {
       newErrors.email = 'Correo electrónico inválido';
     }
 
@@ -66,11 +67,11 @@ const RegisterUsers = () => {
     return newErrors;
   };
 
-  const isValidEmail = (email) => {
-    const lowerCaseEmail = email.toLowerCase();
-    return lowerCaseEmail.includes('@') && lowerCaseEmail.endsWith('.' || '.cl' || '.com');
-  };
 
+  const validateEmail = (email) => {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
+  };
   const handleKeyPress = (event) => {
     const pattern = /[0-9]/;
     if (!pattern.test(event.key)) {
@@ -85,7 +86,6 @@ const RegisterUsers = () => {
       return;
     }
 
-    const urlServer = "http://localhost:3001";
     const endpoint = "/usuarios";
 
     try {
@@ -120,7 +120,7 @@ const RegisterUsers = () => {
               dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
               dark:focus:border-primary-500" value={usuario.email} placeholder="ejemplo@handyshop.cl" required=""
                 onChange={handleSetUsuario} />
-                 {errors.email && <div className="text-red-600 text-s font-medium" >{errors.email}</div>}
+              {errors.email && <div className="text-red-600 text-s font-medium" >{errors.email}</div>}
             </div>
             <div className="w-full">
               <label for="brand" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
@@ -129,8 +129,8 @@ const RegisterUsers = () => {
               focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 
               dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
               dark:focus:border-primary-500" value={usuario.nombre} placeholder="Nombre" required=""
-                onChange={handleSetUsuario}/>
-                {errors.nombre && <div className="text-red-600 text-s font-medium">{errors.nombre}</div>}
+                onChange={handleSetUsuario} />
+              {errors.nombre && <div className="text-red-600 text-s font-medium">{errors.nombre}</div>}
             </div>
             <div className="w-full">
               <label for="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido</label>
@@ -139,8 +139,8 @@ const RegisterUsers = () => {
                focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 
                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
                dark:focus:border-primary-500" value={usuario.apellido} placeholder="apellido" required=""
-                onChange={handleSetUsuario}/>
-                {errors.apellido && <div className="text-red-600 text-s font-medium">{errors.apellido}</div>}
+                onChange={handleSetUsuario} />
+              {errors.apellido && <div className="text-red-600 text-s font-medium">{errors.apellido}</div>}
             </div>
             <div className="sm:col-span-2">
               <label for="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
@@ -149,8 +149,8 @@ const RegisterUsers = () => {
               focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 
               dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
               dark:focus:border-primary-500" value={usuario.password} placeholder="•••••••••" required=""
-                onChange={handleSetUsuario}/>
-                {errors.password && <div className="text-red-600 text-s font-medium">{errors.password}</div>}
+                onChange={handleSetUsuario} />
+              {errors.password && <div className="text-red-600 text-s font-medium">{errors.password}</div>}
             </div>
             <div className="sm:col-span-2">
               <label for="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dirección</label>
@@ -159,8 +159,8 @@ const RegisterUsers = () => {
               focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 
               dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 
               dark:focus:border-primary-500" value={usuario.direccion} placeholder="Dirección" required=""
-                onChange={handleSetUsuario}/>
-                {errors.direccion && <div className="text-red-600 text-s font-medium">{errors.direccion}</div>}
+                onChange={handleSetUsuario} />
+              {errors.direccion && <div className="text-red-600 text-s font-medium">{errors.direccion}</div>}
             </div>
             <div className="sm:col-span-2">
               <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
