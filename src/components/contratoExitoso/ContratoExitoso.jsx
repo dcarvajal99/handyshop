@@ -14,9 +14,10 @@ const ContratoExitoso = () => {
     };
 
     return (
+
         <div className="flex items-center justify-center h-screen">
-            <div className="w-60 h-96 bg-gray-300 flex items-center justify-center flex-col">
-                <Card className="p-4 border">
+            <div className="w-60 h-96  flex items-center justify-center flex-col">
+                <Card className="p-4 border w-96"> {/* Ajusta el valor de "w-96" según tus necesidades */}
                     <div className="text-center">
                         <h1 className="text-2xl font-bold">Factura de compra</h1>
                         <p className="text-gray-600">Fecha: {obtenerFechaActual()}</p>
@@ -24,11 +25,10 @@ const ContratoExitoso = () => {
                     <div className="mt-4">
                         {/* Aquí utilizamos el mapeo para mostrar los productos del carrito */}
                         {cart.map((servicio) => (
-                            <div key={servicio.id_servicio}>
-                                <div className="flex justify-between">
-                                    <span>{servicio.nombre_servicio}</span>
-                                    <span>{formatPrice(servicio.monto)}</span>
-                                </div>
+                            <div key={servicio.id_servicio} className="flex justify-between items-center">
+                                <span className="w-1/2">{servicio.nombre_servicio}</span>
+                                <span className="w-1/4 text-center">{servicio.cantidad}</span>
+                                <span className="w-1/4 text-right">{formatPrice(servicio.monto)}</span>
                             </div>
                         ))}
                     </div>
@@ -44,6 +44,7 @@ const ContratoExitoso = () => {
                         </Button>
                     </div>
                 </Card>
+
                 <div className="mt-auto">
                     <h6 className="text-xl font-bold text-gray-900 dark:text-white">
                         Gracias por Preferirnos
