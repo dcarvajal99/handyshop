@@ -65,7 +65,7 @@ export default function NavbarWithDropdown() {
                         </Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item onClick={handleClickUsuarioLogOut} >
-                            Sign out
+                            Cerrar Sesión
                         </Dropdown.Item>
                     </Dropdown>
                     <Navbar.Toggle />

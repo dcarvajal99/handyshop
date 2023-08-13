@@ -16,6 +16,12 @@ const ContextProvider = ({ children }) => {
     const [error, setError] = useState(null);
     const [serviciosFiltrados, setServiciosFiltrados] = useState([]);
 
+    //fucntion para convertir a peso chileno
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(price);
+    };
+
+
     // consultar cada vez que se cargue la pagina si el usuario esta logeado y existe dentro del localstorage
     useEffect(() => {
         if (localStorage.getItem("token") && localStorage.getItem("usuario")) {
@@ -27,7 +33,7 @@ const ContextProvider = ({ children }) => {
     // Funciones para obtener los datos de servicios a traves de la ruta GET localhost:3001/servicios
     // Funciones para obtener los datos de servicios a traves de la ruta GET localhost:3001/servicios
     const PORT = process.env.PORT || 3001;
-    const URL = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
+    const URL = process.env.REACT_APP_BACKEND_URL;
     const urlPagination = `${process.env.REACT_APP_BACKEND_URL}/servicios`
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
@@ -278,7 +284,9 @@ const ContextProvider = ({ children }) => {
                 eliminarFavorito, 
                 agregarFavorito,
                 serviciosFiltrados, 
-                setServiciosFiltrados
+                setServiciosFiltrados,
+                formatPrice
+
             }}>
 
                 {children}

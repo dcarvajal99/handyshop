@@ -11,8 +11,8 @@ const Cart = () => {
         usuariologeado,
         handleToggleModal,
         favoritos,
-        anadirProducto
-        
+        anadirProducto,
+        formatPrice
     } = useContext(Context);
 
     const clickRedireccion = () => {
@@ -30,7 +30,7 @@ const Cart = () => {
 
         <section  className="dark:bg-gray-900 h-full w-full">
             
-            <h1 className="mb-10 text-center text-2xl font-bold">Cart Items</h1>
+            <h1 className="mb-10 text-center text-2xl font-bold">Carrito de compras</h1>
             
             <div   className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
             
@@ -51,7 +51,7 @@ const Cart = () => {
                                         <span className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50" onClick={() => anadirProducto(servicio)}> + </span>
                                     </div>
                                     <div className="flex items-center space-x-4">
-                                        <h2 className="text-lg font-bold text-gray-900">${servicio.monto}</h2>
+                                        <h2 className="text-lg font-bold text-gray-900">{formatPrice(servicio.monto)}</h2>
                                         {favoritos.includes(servicio.id_servicio) ? 
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
                                                                 <path fillRule="evenodd" d="M10 3.162l-1.545-1.545a5.5 5.5 0 00-7.778 7.778L10 18.94l9.323-9.545a5.5 5.5 0 00-7.778-7.778L10 3.162z" clipRule="evenodd" />
@@ -72,19 +72,19 @@ const Cart = () => {
                 <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
                     <div className="mb-2 flex justify-between">
                         <p className="text-gray-700">Subtotal</p>
-                        <p className="text-gray-700">${total}</p>
+                        <p className="text-gray-700">{formatPrice(total)}</p>
                     </div>
                     <div className="flex justify-between">
-                        <p className="text-gray-700">taxes</p>
-                        <p className="text-gray-700">$10</p>
+                        <p className="text-gray-700">Comisión</p>
+                        <p className="text-gray-700">{formatPrice(total*0.1)}</p>
                     </div>
                     <hr className="my-4" />
                     <div className="flex justify-between">
                         <p className="text-lg font-bold">Total</p>
                         <div className="">
-                            <p className="mb-1 text-lg font-bold">${total + 10}</p>
+                            <p className="mb-1 text-lg font-bold">{formatPrice(total + total*0.1)}</p>
                             {/* con cursivas decir que inclue taxes */}
-                            <p className="text-sm text-gray-700"><span className="italic">taxes included</span></p> 
+                            <p className="text-sm text-gray-700"><span className="italic">Comisión incluida</span></p> 
                         </div>
                     </div>
                     <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={clickRedireccion} >Pagar</button>

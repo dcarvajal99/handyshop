@@ -2,32 +2,39 @@ import React, { useContext, useEffect, useState } from "react";
 import Context from "../../context/ContextProvider";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 const DatosMiCuenta = () => {
     const { usuario, URL, setUsuario } = useContext(Context);
     const [formEnabled, setFormEnabled] = useState(false);
     const [PassEnabled, setPassEnabled] = useState(false);
     const [passwordErrors, setPasswordErrors] = useState({});
-
     const navigate = useNavigate();
 
-    console.log(usuario);
     const [usuarioLocal, setUsuarioLocal] = useState({
         nombre: "",
         apellido: "",
         direccion: "",
         telefono: "",
     });
+
     const [password, setPassword] = useState({
         password: "",
         confirmPassword: "",
     });
 
+    const [errors, setErrors] = useState({
+        nombre: "",
+        apellido: "",
+        direccion: "",
+        telefono: "",
+    });
 
     const handleSetPass = ({ target: { value, name } }) => {
         const field = {};
         field[name] = value;
         setPassword({ ...password, ...field });
+        setErrors({ ...errors, [name]: "" });
 
         if (name === 'confirmPassword') {
             setPasswordErrors({
@@ -37,16 +44,46 @@ const DatosMiCuenta = () => {
         }
     };
 
+    const validateForm = () => {
+        const newErrors = {};
+
+        if (!usuarioLocal.nombre.trim()) {
+            newErrors.nombre = 'Nombre es requerido';
+        }
+
+        if (!usuarioLocal.apellido.trim()) {
+            newErrors.apellido = 'Apellido es requerido';
+        }
+
+        if (!usuarioLocal.direccion.trim()) {
+            newErrors.direccion = 'Dirección es requerida';
+        }
+
+        if (!usuarioLocal.telefono.trim()) {
+            newErrors.telefono = 'Teléfono es requerido';
+        }
+
+        return newErrors;
+    };
+
+    const handleKeyPress = (event) => {
+        const pattern = /[0-9]/;
+        if (!pattern.test(event.key)) {
+          event.preventDefault();
+        }
+      };
+
     const handleSetUsuario = ({ target: { value, name } }) => {
         const field = {};
         field[name] = value;
         setUsuarioLocal({ ...usuarioLocal, ...field });
-        console.log(usuarioLocal);
+        setErrors({ ...errors, [name]: '' });
     };
 
     const handleEditar = () => {
         setFormEnabled(true);
     };
+
     const handleEditarPass = () => {
         setPassEnabled(true);
     };
@@ -55,33 +92,40 @@ const DatosMiCuenta = () => {
         if (password.password !== password.confirmPassword) {
             return;
         }
+
+        const newErrors = validateForm();
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
         setFormEnabled(false);
         setPassEnabled(false);
         if (check === 1) EditarDatosUsario();
         if (check === 2) EditarDatosPassword();
-        // Aquí podrías implementar la lógica para guardar los datos modificados.
     };
+
     const handleCancelar = () => {
         setFormEnabled(false);
         setPassEnabled(false);
-        // setear los datos del usuario en el formulario
         setUsuarioLocal({
             nombre: usuario.nombre,
             apellido: usuario.apellido,
             direccion: usuario.direccion,
             telefono: usuario.telefono,
         });
+
         setPassword({
             password: "•••••••••",
             confirmPassword: "•••••••••",
         });
+
         setPasswordErrors({});
     };
+
     useEffect(() => {
         console.log(usuario);
     }, [usuario]);
-
-
 
 
     const EditarDatosUsario = async () => {
@@ -110,7 +154,11 @@ const DatosMiCuenta = () => {
             );
 
             console.log(response);
-            alert("Usuario editado con éxito");
+            Swal.fire(
+                '¡Usuario Editado con Éxito!',
+                'Haz Clic para Continuar!',
+                'success'
+              );
 
             navigate("/micuenta");
         } catch (error) {
@@ -147,7 +195,11 @@ const DatosMiCuenta = () => {
                 }
             );
             console.log(response);
-            alert("Contraseña editada con éxito");
+            Swal.fire(
+                '¡Contraseña Editada con Éxito!',
+                'Haz Clic para Continuar!',
+                'success'
+              );
 
             navigate("/micuenta");
         } catch (error) {
@@ -177,11 +229,7 @@ const DatosMiCuenta = () => {
     };
 
     return (
-        <>
-
-            <section className="bg-white dark:bg-gray-900">
-                <div className="max-w-2xl px-4 py-8 mx-auto lg:py-5">
-                    <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Mis datos</h2>
+        <>                  
                     <section className="bg-white dark:bg-gray-900">
                         <div className="max-w-2xl px-4 py-8 mx-auto lg:py-5">
                             <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Mis datos</h2>
@@ -215,6 +263,7 @@ const DatosMiCuenta = () => {
                                             readOnly={!formEnabled}
                                             onChange={handleSetUsuario}
                                         />
+                                        {errors.nombre && <div className="text-red-600 text-s font-medium">{errors.nombre}</div>}
                                     </div>
                                     <div className="w-full">
                                         <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido</label>
@@ -230,6 +279,7 @@ const DatosMiCuenta = () => {
                                             readOnly={!formEnabled}
                                             onChange={handleSetUsuario}
                                         />
+                                        {errors.apellido && <div className="text-red-600 text-s font-medium">{errors.apellido}</div>}
                                     </div>
                                     <div className="sm:col-span-2">
                                         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
@@ -285,6 +335,7 @@ const DatosMiCuenta = () => {
                                             readOnly={!formEnabled}
                                             onChange={handleSetUsuario}
                                         />
+                                        {errors.direccion && <div className="text-red-600 text-s font-medium">{errors.direccion}</div>}
                                     </div>
                                     <div className="sm:col-span-2">
                                         <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de Telefono</label>
@@ -296,11 +347,14 @@ const DatosMiCuenta = () => {
                                                 }`}
                                             value={usuarioLocal.telefono}
                                             placeholder={usuario.telefono}
-                                            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                                            inputMode="numeric"
+                                            pattern="[0-9]{9}"
                                             required
-                                            readOnly={!formEnabled}
                                             onChange={handleSetUsuario}
+                                            onKeyPress={handleKeyPress}
+                                            readOnly={!formEnabled}
                                         />
+                                        {errors.telefono && <div className="text-red-600 text-s font-medium">{errors.telefono}</div>}
                                     </div>
                                 </div>
                                 <div className="flex items-center space-x-4">
@@ -367,8 +421,6 @@ const DatosMiCuenta = () => {
                                 </div>
                             </form>
                         </div>
-                    </section>
-                </div>
             </section>
         </>
     );
