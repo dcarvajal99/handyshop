@@ -30,7 +30,7 @@ const Cart = () => {
 
         <section  className="dark:bg-gray-900 h-full w-full">
             
-            <h1 className="mb-10 text-center text-2xl font-bold">Cart Items</h1>
+            <h1 className="mb-10 text-center text-2xl font-bold">Carrito de compras</h1>
             
             <div   className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
             
@@ -75,16 +75,16 @@ const Cart = () => {
                         <p className="text-gray-700">{formatPrice(total)}</p>
                     </div>
                     <div className="flex justify-between">
-                        <p className="text-gray-700">Comision</p>
-                        <p className="text-gray-700">$10</p>
+                        <p className="text-gray-700">Comisión</p>
+                        <p className="text-gray-700">{formatPrice(total*0.1)}</p>
                     </div>
                     <hr className="my-4" />
                     <div className="flex justify-between">
                         <p className="text-lg font-bold">Total</p>
                         <div className="">
-                            <p className="mb-1 text-lg font-bold">{formatPrice(total + 10)}</p>
+                            <p className="mb-1 text-lg font-bold">{formatPrice(total + total*0.1)}</p>
                             {/* con cursivas decir que inclue taxes */}
-                            <p className="text-sm text-gray-700"><span className="italic">Comision incluida</span></p> 
+                            <p className="text-sm text-gray-700"><span className="italic">Comisión incluida</span></p> 
                         </div>
                     </div>
                     <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={clickRedireccion} >Pagar</button>
