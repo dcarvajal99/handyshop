@@ -12,7 +12,7 @@ export default function DetailsServices() {
     const { anadirProducto,
         usuariologeado, isModalOpen, handleToggleModal,
         favoritos, eliminarFavorito,
-        agregarFavorito } = useContext(Context);
+        agregarFavorito,formatPrice } = useContext(Context);
 
     const [servicio, setServicioLocal] = useState({});
     const URL = process.env.REACT_APP_BACKEND_URL;
@@ -78,7 +78,7 @@ export default function DetailsServices() {
                             </div>
 
                             <div className="flex items-center justify-between">
-                                <span className="title-font font-medium text-2xl text-gray-900">${servicio.monto}</span>
+                                <span className="title-font font-medium text-2xl text-gray-900">{formatPrice(servicio.monto)}</span>
                                 <div className="flex items-center space-x-4">
                                     <Link>
                                         <Button

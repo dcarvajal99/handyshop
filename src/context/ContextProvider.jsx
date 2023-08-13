@@ -15,6 +15,12 @@ const ContextProvider = ({ children }) => {
     const [favoritos, setFavoritos] = useState([]);
     const [error, setError] = useState(null);
 
+    //fucntion para convertir a peso chileno
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(price);
+    };
+
+
     // consultar cada vez que se cargue la pagina si el usuario esta logeado y existe dentro del localstorage
     useEffect(() => {
         if (localStorage.getItem("token") && localStorage.getItem("usuario")) {
@@ -274,7 +280,8 @@ const ContextProvider = ({ children }) => {
                 URL,
                 obtenerFavoritos,
                 eliminarFavorito, 
-                agregarFavorito
+                agregarFavorito,
+                formatPrice
             }}>
                 {children}
             </Context.Provider>
