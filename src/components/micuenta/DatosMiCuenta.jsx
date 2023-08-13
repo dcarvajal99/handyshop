@@ -254,7 +254,7 @@ const DatosMiCuenta = () => {
                                         {/* Confirmar contraseña */}
                                         <div className="sm:col-span-2">
                                             <label htmlFor="confirmpassword" className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${PassEnabled ? "" : "hidden"
-                                                }`}>Contraseña</label>
+                                                }`}>Confirmar Contraseña</label>
                                             <input
                                                 type="password"
                                                 name="confirmPassword"

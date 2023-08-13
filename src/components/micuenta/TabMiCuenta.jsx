@@ -7,7 +7,7 @@ import ContainerMyCards from './cards/ContainerCards';
 
 export default function TabMiCuenta() {
     return (
-        <Tabs.Group aria-label="Default tabs" style="default">
+        <Tabs.Group aria-label="Default tabs">
             <Tabs.Item active icon={HiUserCircle} title="Mi Perfil">
                 <DatosMiCuenta />
             </Tabs.Item>

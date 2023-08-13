@@ -57,9 +57,9 @@ const RecoverPassword = () => {
       )}
       <p id="helper-text-explanation" className="mt-2 text-sm text-gray-900 dark:text-gray-400">
         Nunca compartiremos tus detalles. Lee nuestra{' '}
-        <a href="#" className="font-medium text-red-900 hover:underline dark:text-blue-500">
+        <p href="#" className="font-medium text-red-900 hover:underline dark:text-blue-500">
           Política de privacidad
-        </a>
+        </p>
         .
       </p>
         <Button

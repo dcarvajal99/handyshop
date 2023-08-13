@@ -14,6 +14,7 @@ const ContextProvider = ({ children }) => {
     const [usuariologeado, setUsuariologeado] = useState(false);
     const [favoritos, setFavoritos] = useState([]);
     const [error, setError] = useState(null);
+    const [serviciosFiltrados, setServiciosFiltrados] = useState([]);
 
     //fucntion para convertir a peso chileno
     const formatPrice = (price) => {
@@ -112,6 +113,7 @@ const ContextProvider = ({ children }) => {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
+            console.log(data);
             obtenerFavoritos();
         } catch ({ response: { data: mensaje } }) {
             alert(mensaje + " 🙁");
@@ -281,8 +283,12 @@ const ContextProvider = ({ children }) => {
                 obtenerFavoritos,
                 eliminarFavorito, 
                 agregarFavorito,
+                serviciosFiltrados, 
+                setServiciosFiltrados
                 formatPrice
+
             }}>
+
                 {children}
             </Context.Provider>
         );

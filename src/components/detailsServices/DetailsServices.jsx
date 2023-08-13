@@ -17,6 +17,7 @@ export default function DetailsServices() {
     const [servicio, setServicioLocal] = useState({});
     const URL = process.env.REACT_APP_BACKEND_URL;
 
+    useEffect(() => {
     const getServicioId = async () => {
         const endpoint = "/servicios/" + id;
         try {
@@ -27,10 +28,8 @@ export default function DetailsServices() {
             alert(mensaje + " 🙁");
         }
     };
-
-    useEffect(() => {
         getServicioId();
-    }, [id]);
+    }, [id,URL]);
 
     let existe = false;
 
