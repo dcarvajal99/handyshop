@@ -116,38 +116,25 @@ const EditarServicios = () => {
     const EditarServicios = async () => {
         const token = localStorage.getItem("token");
         const endpoint = "/servicios/" + servicioLocal.id_servicio;
-        for (const key in servicio) {
+
+        const urlServer = process.env.REACT_APP_BACKEND_URL || `http://localhost:${PORT}`;
+        const id_usuario = usuario.id_usuario === undefined ? localStorage.getItem("id_usuario") : usuario.id_usuario;
+       /* for (const key in servicio) {
             if (servicio[key] === '') {
                 alert(`El campo ${key} es obligatorio`);
                 return;
             }
-        }
+        }*/
         try {
-            console.log(
-                URL + endpoint,
-                {
-                    servicio: servicio
+            await axios.post(urlServer + endpoint, {
+                servicio: servicio,
+                id_usuario: id_usuario,
+            }, {
+                headers: {
+                    Authorization: "Bearer " + token,
                 },
-                {
-                    headers: {
-                        Authorization: "Bearer " + token,
-                    },
-                }
-            );
-            const response = await axios.put(
-                URL + endpoint,
-                {
-                    servicio: servicio
-                },
-                {
-                    headers: {
-                        Authorization: "Bearer " + token,
-                    },
-                }
-            );
-            
-            console.log(response);
-            alert("Servicio editado con éxito");
+            });
+            alert("servicio registrado con éxito");
             navigate("/");
         } catch (error) {
             alert(error.response.data.mensaje);
