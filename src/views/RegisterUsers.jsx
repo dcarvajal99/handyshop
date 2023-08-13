@@ -86,7 +86,6 @@ const RegisterUsers = () => {
       return;
     }
 
-
     const endpoint = "/usuarios";
 
     try {
@@ -112,8 +111,8 @@ const RegisterUsers = () => {
       <div className="max-w-2xl px-4 py-8 mx-auto lg:py-5">
         <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">Formulario de registro</h2>
         <form>
-        <div className="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
-            <div className="sm:col-span-2">
+          <div className="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+          <div className="sm:col-span-2">
               <label for="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
               <input type="email" name="email"
                 id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
@@ -182,7 +181,6 @@ const RegisterUsers = () => {
               />
               {errors.telefono && <div className="text-red-600 text-s font-medium">{errors.telefono}</div>}
             </div>
-            
           </div>
           <div className="flex items-center space-x-4">
             <button
