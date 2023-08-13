@@ -284,7 +284,7 @@ const ContextProvider = ({ children }) => {
                 eliminarFavorito, 
                 agregarFavorito,
                 serviciosFiltrados, 
-                setServiciosFiltrados
+                setServiciosFiltrados,
                 formatPrice
 
             }}>
