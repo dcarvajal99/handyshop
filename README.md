@@ -1,7 +1,7 @@
 ﻿# Handyshop Proyecto Final 
 
 ### Enlace de nuestra Pagina 
-url....
+[HANDYSHOP](https://shiny-pothos-e6b242.netlify.app/)
 
 ### Colaboradores
 * Larison Rivero
@@ -26,16 +26,16 @@ Una vez que los proveedores de servicios se registren, podrán crear un perfil d
 
 ### Favoritos
 En el perfil, los usuarios pueden ver una lista de los servicios que han marcado como favoritos. Esta función les permite guardar los servicios que más les interesan para acceder rápidamente a ellos en el futuro.
-* imagen 
+[![favortios.jpg](https://i.postimg.cc/B6sb4bLB/favortios.jpg)](https://postimg.cc/d7Hw9q9h) 
 
 ### Búsqueda y Filtrado de Servicios
 Los usuarios pueden buscar servicios específicos o categorías para encontrar proveedores que ofrezcan lo que necesitan. Además, la plataforma proporciona opciones de filtrado para refinar los resultados y facilitar la elección.
-* imagen
+[![busqueda-y-filtros.jpg](https://i.postimg.cc/65SQTY43/busqueda-y-filtros.jpg)](https://postimg.cc/dL2FxRBP)
 
 ### Selección de Servicios 
 Los usuarios pueden navegar por la plataforma y agregar los servicios que desean contratar a su carrito de compras. Esto les permite explorar diferentes opciones antes de tomar una decisión final. Para servicios que requieren selección de cantidad, los usuarios pueden especificar la cantidad exacta que desean contratar. Además, pueden ver detalles importantes, como el precio unitario, la duración del servicio y cualquier información adicional relevante.
 
-[![Selecci-n-de-Servicios.jpg](https://i.postimg.cc/261kRpQ0/Selecci-n-de-Servicios.jpg)](https://postimg.cc/VrcQnVHt)
+[![servicios.jpg](https://i.postimg.cc/c4KxqwkN/servicios.jpg)](https://postimg.cc/ppHbzht0)
 
 ### Carrito de Compras
 El carrito de compras es una funcionalidad esencial en nuestra plataforma de prestaciones de servicios. Proporcionamos a nuestros usuarios una forma sencilla y conveniente de seleccionar y gestionar los servicios que desean contratar antes de completar la compra. El carrito de compras es una herramienta central que agiliza el proceso de compra y brinda una experiencia de usuario fluida y eficiente.
