@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import Context from "../../context/ContextProvider";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
+import Swal from "sweetalert2";  
 const Cart = () => {
 
     const navigate = useNavigate()
@@ -12,17 +13,41 @@ const Cart = () => {
         handleToggleModal,
         favoritos,
         anadirProducto,
-        formatPrice
+        formatPrice, URL
     } = useContext(Context);
-
     const clickRedireccion = () => {
         if (usuariologeado) {
-
             navigate("/contratoexitoso");
         } else {
             handleToggleModal();
         }
     };
+
+    const serviciosIds = cart.map(servicio => servicio.id_servicio);
+
+    //enviar carrito a la base de datos en ruta /compras
+    const carritobbdd = async (id_servicio) => {
+        const endpoint = `/compras`;
+        try {
+            const { data } = await axios.post(URL + endpoint, {
+                servicios: serviciosIds,
+                id_usuario: localStorage.getItem("id_usuario"),
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            Swal.fire(
+                '¡Servicios contratados con exito!',
+                'los detalles serán enviado mediante correo electronico',
+                'success'
+              )
+            clickRedireccion();
+        } catch ({ response: { data: mensaje } }) {
+            alert(mensaje + " 🙁");
+            
+        }
+    };
+
 
 
 
@@ -87,7 +112,7 @@ const Cart = () => {
                             <p className="text-sm text-gray-700"><span className="italic">Comisión incluida</span></p> 
                         </div>
                     </div>
-                    <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={clickRedireccion} >Pagar</button>
+                    <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={carritobbdd} >Pagar</button>
                 </div>
             </div>
         </section>
