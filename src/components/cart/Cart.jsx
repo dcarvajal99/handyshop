@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Context from "../../context/ContextProvider";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";  
+import { useState } from "react";
 const Cart = () => {
 
     const navigate = useNavigate()
@@ -15,9 +16,11 @@ const Cart = () => {
         anadirProducto,
         formatPrice, URL,setCart
     } = useContext(Context);
-    const clickRedireccion = () => {
+    const [id_compra, setId_compra] = useState(0);
+
+    const clickRedireccion = (id_compra) => {
         if (usuariologeado) {
-            navigate("/contratoexitoso");
+            navigate(`/contratoexitoso/${id_compra}`);
         } else {
             handleToggleModal();
         }
@@ -29,7 +32,7 @@ const Cart = () => {
     const carritobbdd = async () => {
         const endpoint = `/compras`;
         try {
-            const { data } = await axios.post(URL + endpoint, {
+            const resultado = await axios.post(URL + endpoint, {
                 servicios: serviciosIds,
                 id_usuario: localStorage.getItem("id_usuario"),
                 headers: {
@@ -39,9 +42,10 @@ const Cart = () => {
             Swal.fire(
                 '¡Servicios contratados con exito!',
                 'los detalles serán enviado mediante correo electronico',
-                'success'
+                'success',
               )
-            clickRedireccion();
+              //redireccionar a la pagina de contrato exitoso siempre y cuando haya data en el resultado
+            setId_compra(resultado.data.mensaje.resultado);
             setCart([]);
             localStorage.removeItem('carrito');
         } catch ({ response: { data: mensaje } }) {
@@ -50,6 +54,11 @@ const Cart = () => {
         }
     };
 
+    useEffect(() => {
+        if(id_compra){
+            clickRedireccion(id_compra);
+        }
+    }, [id_compra]);
 
     const validarCarrito = () => {
         if (cart.length === 0) {

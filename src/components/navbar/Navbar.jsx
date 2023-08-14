@@ -10,12 +10,14 @@ import { useNavigate } from 'react-router-dom';
 
 export default function NavbarWithDropdown() {
 
-    const { usuario, isModalOpen, handleToggleModal, usuariologeado, setUsuariologeado, setUsuario } = useContext(Context);
+    const { usuario, isModalOpen, handleToggleModal, usuariologeado, setUsuariologeado, setUsuario,setCart } = useContext(Context);
     const navigate = useNavigate();
     //funcion para que cuando se presione el boton log out se cierre la sesion y borre los datos del usuario en el local storage , estado y contexto
     const handleClickUsuarioLogOut = () => {
         setUsuariologeado(!usuariologeado);
         localStorage.removeItem('usuario');
+        setCart([]);
+        localStorage.removeItem('carrito');
         setUsuario({});
         navigate('/');
     }
