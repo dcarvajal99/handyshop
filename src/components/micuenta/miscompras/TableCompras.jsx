@@ -10,7 +10,6 @@ const TableCompras = () => {
     useEffect(() => {
         const obtenerCompras = async () => {
             const endpoint = `/compras/${localStorage.getItem("id_usuario")}`;
-            console.log(endpoint);
             try {
                 const { data } = await axios.get(URL + endpoint, {
                     headers: {

@@ -31,9 +31,7 @@ const Filtros = () => {
         const field = {};
         field[name] = value;
         setFiltro({ ...filtro, ...field });
-        console.log(filtro);
     };
-    console.log(filtro);
 
 
 
@@ -45,7 +43,6 @@ const Filtros = () => {
             .join("&"); // Concatenar con el símbolo "&"
 
         const endpoint = `/servicios/filter?${parametrosNoVacios}`;
-        console.log(endpoint);
         if (endpoint === "/servicios/filter?") {
             return Swal.fire(
                 'Oooops!',
@@ -61,12 +58,10 @@ const Filtros = () => {
                     },
                 }
             );
-            console.log(data);
             setServiciosFiltrados(data);
             navigate("/filtro")
         } catch ({ response: { data: mensaje } }) {
             alert(mensaje);
-            console.log(mensaje);
         }
     };
     return (

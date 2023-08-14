@@ -90,7 +90,6 @@ const EditarServicios = () => {
 
 
         const endpoint = "/servicios/usuario/" + idusuario + "/" + id;
-        console.log(endpoint);
         try {
             //obtener servicio por id sin token
             const { data } = await axios.get(URL + endpoint, {
@@ -105,7 +104,6 @@ const EditarServicios = () => {
                 'Intentalo Nuevamente!',
                 'error'
             );
-            console.log(mensaje);
         }
     };
 
@@ -138,7 +136,6 @@ const EditarServicios = () => {
             navigate("/");
         } catch (error) {
             alert(error.response.data.mensaje);
-            console.log(error);
         }
     };
 

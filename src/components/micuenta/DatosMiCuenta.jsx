@@ -124,7 +124,6 @@ const DatosMiCuenta = () => {
     };
 
     useEffect(() => {
-        console.log(usuario);
     }, [usuario]);
 
 
@@ -153,7 +152,6 @@ const DatosMiCuenta = () => {
                 }
             );
 
-            console.log(response);
             Swal.fire(
                 '¡Usuario Editado con Éxito!',
                 'Haz Clic para Continuar!',
@@ -163,7 +161,6 @@ const DatosMiCuenta = () => {
             navigate("/micuenta");
         } catch (error) {
             alert(error.response.data.mensaje);
-            console.log(error);
         }
         obtenerUsuario();
     };
@@ -182,7 +179,6 @@ const DatosMiCuenta = () => {
             return;
         }
         try {
-            console.log(password.password);
             const response = await axios.put(
                 URL + endpoint,
                 {
@@ -194,7 +190,6 @@ const DatosMiCuenta = () => {
                     },
                 }
             );
-            console.log(response);
             Swal.fire(
                 '¡Contraseña Editada con Éxito!',
                 'Haz Clic para Continuar!',
@@ -204,7 +199,6 @@ const DatosMiCuenta = () => {
             navigate("/micuenta");
         } catch (error) {
             alert(error.response.data.mensaje);
-            console.log(error);
         }
         obtenerUsuario();
     };
@@ -218,13 +212,11 @@ const DatosMiCuenta = () => {
                     },
                 }
             );
-            console.log(data.usuario);
             localStorage.setItem("usuario", JSON.stringify(data.usuario));
             localStorage.setItem("id_usuario", data.usuario.id_usuario);
             setUsuario(data.usuario);
         } catch ({ response: { data: mensaje } }) {
             alert(mensaje);
-            console.log(mensaje);
         }
     };
 

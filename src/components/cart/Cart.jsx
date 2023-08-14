@@ -13,7 +13,7 @@ const Cart = () => {
         handleToggleModal,
         favoritos,
         anadirProducto,
-        formatPrice, URL
+        formatPrice, URL,setCart
     } = useContext(Context);
     const clickRedireccion = () => {
         if (usuariologeado) {
@@ -26,7 +26,7 @@ const Cart = () => {
     const serviciosIds = cart.map(servicio => servicio.id_servicio);
 
     //enviar carrito a la base de datos en ruta /compras
-    const carritobbdd = async (id_servicio) => {
+    const carritobbdd = async () => {
         const endpoint = `/compras`;
         try {
             const { data } = await axios.post(URL + endpoint, {
@@ -42,6 +42,8 @@ const Cart = () => {
                 'success'
               )
             clickRedireccion();
+            setCart([]);
+            localStorage.removeItem('carrito');
         } catch ({ response: { data: mensaje } }) {
             alert(mensaje + " 🙁");
             
@@ -49,6 +51,19 @@ const Cart = () => {
     };
 
 
+    const validarCarrito = () => {
+        if (cart.length === 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'No hay servicios en el carrito',
+                footer: '<a href="/">Ir a servicios</a>'
+                })
+        } else {
+            carritobbdd();
+
+        }
+    };
 
 
     return (
@@ -112,7 +127,7 @@ const Cart = () => {
                             <p className="text-sm text-gray-700"><span className="italic">Comisión incluida</span></p> 
                         </div>
                     </div>
-                    <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={carritobbdd} >Pagar</button>
+                    <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={validarCarrito} >Pagar</button>
                 </div>
             </div>
         </section>
