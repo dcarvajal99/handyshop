@@ -109,20 +109,26 @@ const Filtros = () => {
                     </select>
                 </div>
                 <div className="hidden md:flex md:text-white md:bg-blue-700 md:hover:bg-blue-800 md:focus:ring-4 md:focus:outline-none md:focus:ring-blue-300 md:font-medium md:rounded-lg md:text-sm md:px-4 md:py-2 md:text-center md:dark:bg-blue-600 md:dark:hover:bg-blue-700 md:dark:focus:ring-blue-800">
-                    <Button
+                    <p className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
+              focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
+              text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
+              dark:focus:ring-blue-800"
+                        onClick={() => obtenerFiltro()}
+                    >Buscar</p>
+                    {/* <Button
                         onClick={() => { obtenerFiltro() }}
-                    >Buscar</Button>
+                    >Buscar</Button> */}
                 </div>
             </div>
             <div className="md:hidden flex flex-row items-center justify-center">
                 <Button onClick={() => { setOpenModal('pop-up'); deleteData() }} className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-lg">Aplicar filtros y búsqueda</Button>
             </div>
-            <Modal show={openModal === 'pop-up'} size="sm" popup onClose={() => {setOpenModal(undefined); deleteData()}}>
+            <Modal show={openModal === 'pop-up'} size="sm" popup onClose={() => { setOpenModal(undefined); deleteData() }}>
                 <Modal.Header />
                 <Modal.Body>
                     <div className="flex flex-col items-center justify-center p-4 m-4 space-x-2 bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-500">
                         <div className="px-4 py-2 w-full rounded-lg">
-                            <input id="search" name="search" className="px-4 py-2 w-full rounded-lg" type="text" placeholder="Article name or keyword..." />
+                            <input id="search" name="search" className="px-4 py-2 w-full rounded-lg" type="text" placeholder="Busqueda avanzada pronto..." disabled />
                         </div>
                         <div className="flex px-4 py-2 text-gray-500 font-semibold cursor-pointer">
                             <select id="categoria" name="categoria" className="py-2 px-3 rounded-lg text-gray-500 font-semibold cursor-pointer"
@@ -145,7 +151,7 @@ const Filtros = () => {
                         <div className="px-4 py-2 flex w-full md:w-72 space-x-4">
                             <input id="monto_max" name="monto_max" className="px-4 py-2 w-full rounded-lg" type="number" placeholder="Monto máximo"
                                 value={filtro.monto_max}
-                                onChange={handdleSetFiltro} /> 
+                                onChange={handdleSetFiltro} />
                         </div>
                         <div className="flex px-4 py-2 text-gray-500 font-semibold cursor-pointer">
                             <select id="region" name="region" className="py-2 px-3 rounded-lg text-gray-500 font-semibold cursor-pointer"
@@ -158,7 +164,14 @@ const Filtros = () => {
                             </select>
                         </div>
                         <div className="px-4 py-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <Button onClick={() => { obtenerFiltro() }}>Buscar</Button>
+
+                            <p className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
+              focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
+              text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 
+              dark:focus:ring-blue-800"
+                                onClick={() => obtenerFiltro()}
+                            >Buscar</p>
+                            {/* <Button onClick={() => { obtenerFiltro() }}>Buscar</Button> */}
                         </div>
                     </div>
                 </Modal.Body>
