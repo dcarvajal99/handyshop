@@ -21,7 +21,6 @@ const ContratoExitoso = () => {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
-
                 setCompras(data.mensaje);
                 //save favorito in localstorage
                 localStorage.setItem("compras", JSON.stringify(data.mensaje));
@@ -31,6 +30,8 @@ const ContratoExitoso = () => {
         };
         obtenerCompras();
     }, []);
+
+    const totalcompra = compras.reduce((acc, el) => acc + el.monto, 0);
 
     return (
         <>
@@ -68,7 +69,7 @@ const ContratoExitoso = () => {
                         <div className="mb-52">Comentarios：--</div>
                         <div className="text-right">
                             <div>{obtenerFechaActual()}</div>
-                            <div className="font-bold text-sm">Total： {formatPrice(total + total*0.1)}</div>
+                            <div className="font-bold text-sm">Total： {formatPrice(totalcompra + totalcompra*0.1)}</div>
                         </div>
                     </div>
                 </div>
