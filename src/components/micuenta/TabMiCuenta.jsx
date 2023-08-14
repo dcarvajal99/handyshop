@@ -4,6 +4,7 @@ import { HiAdjustments, HiClipboardList, HiUserCircle } from 'react-icons/hi';
 import { MdDashboard } from 'react-icons/md';
 import DatosMiCuenta from './DatosMiCuenta';
 import ContainerMyCards from './cards/ContainerCards';
+import TableCompras from './miscompras/TableCompras';
 
 export default function TabMiCuenta() {
     return (
@@ -15,29 +16,10 @@ export default function TabMiCuenta() {
                 <ContainerMyCards />
             </Tabs.Item>
             <Tabs.Item icon={HiClipboardList} title="Mis compras">
-                <p>
-                    This is
-                    <span className="font-medium text-gray-800 dark:text-white">
-                        Dashboard tab's associated content
-                    </span>
-                    .
-                    Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
-                    control the content visibility and styling.
-                </p>
+                <TableCompras />
             </Tabs.Item>
             <Tabs.Item icon={HiAdjustments} disabled title="Configuración de cuenta">
-                <p>
-                    This is
-                    <span className="font-medium text-gray-800 dark:text-white">
-                        Settings tab's associated content
-                    </span>
-                    .
-                    Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
-                    control the content visibility and styling.
-                </p>
-            </Tabs.Item>
-            <Tabs.Item disabled title="Disabled">
-                <p>Disabled content</p>
+                <TableCompras />
             </Tabs.Item>
         </Tabs.Group>
     );

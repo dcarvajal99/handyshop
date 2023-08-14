@@ -6,54 +6,57 @@ import Context from "../../context/ContextProvider";
 
 const ContratoExitoso = () => {
 
-    const { cart, formatPrice,total } = useContext(Context)
+    const { cart, formatPrice, total,usuario } = useContext(Context)
     const obtenerFechaActual = () => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date().toLocaleDateString('es-ES', options);
     };
 
     return (
-        <div className="flex items-center justify-center h-screen">
-            <div className="w-60 h-96 bg-gray-300 flex items-center justify-center flex-col">
-                <Card className="p-4 border">
-                    <div className="text-center">
-                        <h1 className="text-2xl font-bold">Factura de compra</h1>
-                        <p className="text-gray-600">Fecha: {obtenerFechaActual()}</p>
+        <>
+
+            <div className="flex justify-center items-center h-screen bg-gray-200 text-gray-900">
+                <div className="rounded-md relative w-72 shadow-2xl p-3 bg-white">
+                    <div className="py-2">
+                        <div className="text-center text-xl font-bold">ORDEN</div>
+                        <div className="text-center text-xs font-bold">Detalles de la orden</div>
                     </div>
-                    <div className="mt-4">
-                        {/* Aquí utilizamos el mapeo para mostrar los productos del carrito */}
-                        {cart.map((servicio) => (
-                            <div key={servicio.id_servicio}>
-                                <div className="flex justify-between">
-                                    <span>{servicio.nombre_servicio}</span>
-                                    <span>{formatPrice(servicio.monto)}</span>
-                                </div>
+                    <div className="text-center text-xs font-bold mb-1">~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+                    <div className="text-xs pl-2">
+                        <div className="text-xs mb-1">Comprador：{usuario.nombre+" "+usuario.apellido}</div>
+                        <div className="text-xs mb-1">Telefono：{usuario.telefono}</div>
+                        <div>OrderNumber：17485554487748500</div>
+                    </div>
+                    <div className="border-double border-t-4 border-b-4 border-l-0 border-r-0 border-gray-900 my-3">
+                        <div className="flex text-sm pt-1 px-1">
+                            <span className="w-2/6">Nombre</span>
+                            <span className="w-2/6 text-right">Precio</span>
+                            <span className="w-2/6 text-right">Cantidad</span>
+                        </div>
+                        <div className="border-dashed border-t border-b border-l-0 border-r-0 border-gray-900 mt-1 my-2 py-2 px-1">
+                            {cart.map((servicio) => (
+                            <div className="flex justify-between text-sm" key={servicio.id}>
+                                <span className="w-2/6 truncate">{servicio.nombre_servicio}</span>
+                                <span className="w-2/6 text-right">{formatPrice(servicio.monto)}</span>
+                                <span className="w-2/6 text-right">{servicio.cantidad}</span>
                             </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                    <div className="flex justify-between mt-4">
-                        {/* Aquí puedes colocar el componente CartTotal */}
-                        <span className="font-bold">
-                            Total a pagar: {formatPrice(total + total*0.1)}
-                        </span>
+                    <div className="text-xs">
+                        <div className="mb-1">Discount：0</div>
+                        <div className="mb-52">Remark：--</div>
+                        <div className="text-right">
+                            <div>{obtenerFechaActual()}</div>
+                            <div className="font-bold text-sm">Total： {formatPrice(total + total*0.1)}</div>
+                        </div>
                     </div>
-                    <div className="flex justify-end mt-4">
-                        <Button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                            Imprimir factura
-                        </Button>
-                    </div>
-                </Card>
-                <div className="mt-auto">
-                    <h6 className="text-xl font-bold text-gray-900 dark:text-white">
-                        Gracias por Preferirnos
-                    </h6>
-                    <p className="text-gray-700 dark:text-gray-400">
-                        Enviaremos un Correo con los detalles de su Servicio
-                    </p>
                 </div>
             </div>
-        </div>
+
+        </>
     )
 }
 
 export default ContratoExitoso;
+
