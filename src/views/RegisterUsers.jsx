@@ -40,7 +40,10 @@ const RegisterUsers = () => {
         ...passwordErrors,
         confirmPassword: usuario.password !== value ? 'Las contraseñas no coinciden' : ''
       });
-    };
+    }
+    if (name === 'email') {
+      setIsValid(validateEmail(value));
+    }
   };
 
 
@@ -82,7 +85,7 @@ const RegisterUsers = () => {
 
 
       const validateEmail = (email) => {
-        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z]+\.[a-zA-Z]{2,4}$/;
         return emailPattern.test(email);
       };
       const handleKeyPress = (event) => {
