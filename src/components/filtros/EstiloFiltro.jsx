@@ -66,7 +66,7 @@ const Filtros = () => {
     };
     return (
         <div className="bg-white p-4 md:p-0">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-center p-4 m-4 space-x-2 bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-500">
+            <div className="hidden md:flex flex-col md:flex-row md:items-center md:justify-center p-4 m-4 space-x-2 bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-500">
                 <div className="hidden md:flex w-full md:w-72 space-x-4">
                     <input id="search1" name="search1" className="px-4 py-2 w-full rounded-lg" type="text" placeholder="Busqueda avanzada pronto..." disabled />
                 </div>
