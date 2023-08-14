@@ -34,7 +34,7 @@ function App() {
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/register-users" element={<RegisterUsers />} />
           <Route path="/recover-password" element={<RecoverPassword />} />
-          <Route path="/contratoexitoso" element={<ContratoExitoso />} />
+          <Route path="/contratoexitoso/:id" element={<ContratoExitoso />} />
           <Route path="/micuenta" element={<Micuenta />} />
           <Route path="/editar-servicios/:id" element={<EditarServicios />} />
           <Route path="/filtro" element={<ServiciosFiltrados />} />

@@ -23,7 +23,6 @@ const MyProductCard = () => {
 
   const obtenerMisServicios = async () => {
     const endpoint = `/servicios/usuario/${localStorage.getItem("id_usuario")}`;
-    console.log(endpoint)
     // si no existe usuario logeado mandar a inicio
     try {
       const { data } = await axios.get(URL + endpoint, {
@@ -31,11 +30,9 @@ const MyProductCard = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(data);
       setMisServicios(data.mensaje);
     } catch ({ response: { data: mensaje } }) {
       alert(mensaje + " 🙁");
-      console.log(mensaje);
     }
   };
 
@@ -49,20 +46,17 @@ const MyProductCard = () => {
 
   const handleClickDelete = async (id) => {
     const endpoint = `/servicios/${usuario.id_usuario}/${id}`;
-    console.log(endpoint);
     try {
       const data = await axios.delete(URL + endpoint, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(data);
       alert("Servicio eliminado correctamente");
       obtenerMisServicios();
       navigate(`/micuenta`);
     } catch ({ response: { data: mensaje } }) {
       alert(mensaje + " 🙁");
-      console.log(mensaje);
     }
   };
 

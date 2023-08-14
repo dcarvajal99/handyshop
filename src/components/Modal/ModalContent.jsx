@@ -27,7 +27,6 @@ const ModalContent = ({ isOpen, onClose }) => {
         'warning'
       )
       const { data } = await axios.post(URL + endpoint, usuarioLocal);
-      console.log(data.usuario);
       Swal.fire(
         '¡Usuario Logueado con Exito!',
         'Haz Clic para Continuar!',
@@ -44,7 +43,6 @@ const ModalContent = ({ isOpen, onClose }) => {
         'Intentalo Nuevamente!',
         'danger'
       )
-      console.log(mensaje);
     }
   };
 

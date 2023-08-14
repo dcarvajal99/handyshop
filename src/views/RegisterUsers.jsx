@@ -115,7 +115,6 @@ const RegisterUsers = () => {
             error.response.data.mensaje,
             'error'
           );
-          console.log(error);
         }
       };
 

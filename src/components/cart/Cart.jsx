@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Context from "../../context/ContextProvider";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";  
+import { useState } from "react";
 const Cart = () => {
 
     const navigate = useNavigate()
@@ -13,11 +14,13 @@ const Cart = () => {
         handleToggleModal,
         favoritos,
         anadirProducto,
-        formatPrice, URL
+        formatPrice, URL,setCart
     } = useContext(Context);
-    const clickRedireccion = () => {
+    const [id_compra, setId_compra] = useState(0);
+
+    const clickRedireccion = (id_compra) => {
         if (usuariologeado) {
-            navigate("/contratoexitoso");
+            navigate(`/contratoexitoso/${id_compra}`);
         } else {
             handleToggleModal();
         }
@@ -26,10 +29,10 @@ const Cart = () => {
     const serviciosIds = cart.map(servicio => servicio.id_servicio);
 
     //enviar carrito a la base de datos en ruta /compras
-    const carritobbdd = async (id_servicio) => {
+    const carritobbdd = async () => {
         const endpoint = `/compras`;
         try {
-            const { data } = await axios.post(URL + endpoint, {
+            const resultado = await axios.post(URL + endpoint, {
                 servicios: serviciosIds,
                 id_usuario: localStorage.getItem("id_usuario"),
                 headers: {
@@ -39,16 +42,37 @@ const Cart = () => {
             Swal.fire(
                 '¡Servicios contratados con exito!',
                 'los detalles serán enviado mediante correo electronico',
-                'success'
+                'success',
               )
-            clickRedireccion();
+              //redireccionar a la pagina de contrato exitoso siempre y cuando haya data en el resultado
+            setId_compra(resultado.data.mensaje.resultado);
+            setCart([]);
+            localStorage.removeItem('carrito');
         } catch ({ response: { data: mensaje } }) {
             alert(mensaje + " 🙁");
             
         }
     };
 
+    useEffect(() => {
+        if(id_compra){
+            clickRedireccion(id_compra);
+        }
+    }, [id_compra]);
 
+    const validarCarrito = () => {
+        if (cart.length === 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'No hay servicios en el carrito',
+                footer: '<a href="/">Ir a servicios</a>'
+                })
+        } else {
+            carritobbdd();
+
+        }
+    };
 
 
     return (
@@ -112,7 +136,7 @@ const Cart = () => {
                             <p className="text-sm text-gray-700"><span className="italic">Comisión incluida</span></p> 
                         </div>
                     </div>
-                    <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={carritobbdd} >Pagar</button>
+                    <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600" onClick={validarCarrito} >Pagar</button>
                 </div>
             </div>
         </section>

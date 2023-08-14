@@ -112,7 +112,6 @@ const ContextProvider = ({ children }) => {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
-            console.log(data);
             obtenerFavoritos();
         } catch ({ response: { data: mensaje } }) {
             alert(mensaje + " 🙁");
@@ -271,8 +270,7 @@ const ContextProvider = ({ children }) => {
                 usuariologeado,
                 handleClickUsuarioLogeado,
                 favoritos,
-                setFavoritos, // Agregar el estado 'favoritos' al contexto
-                //marcarFavorito,
+                setFavoritos,
                 error,
                 currentPage,
                 setCurrentPage,
@@ -285,7 +283,6 @@ const ContextProvider = ({ children }) => {
                 serviciosFiltrados, 
                 setServiciosFiltrados,
                 formatPrice
-
             }}>
 
                 {children}

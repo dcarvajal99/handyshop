@@ -28,13 +28,6 @@ const ProductCard = () => {
         isFavorito,
       };
     });
-
-
-  console.log("serviciosConFavoritos", serviciosConFavoritos)
-  console.log("favoritos", favoritos)
-  console.log("servicios", servicios)
-
-
   return (
     <>
       {servicios.length > 0 ? (

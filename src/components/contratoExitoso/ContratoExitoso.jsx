@@ -1,16 +1,36 @@
 import React from "react";
-import { Card, Button } from "flowbite-react";
 import { useContext } from "react";
 import Context from "../../context/ContextProvider";
-
-
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import axios from "axios";
 const ContratoExitoso = () => {
-
-    const { cart, formatPrice, total,usuario } = useContext(Context)
+    const { id } = useParams();
+    const { cart, formatPrice, total,usuario,URL } = useContext(Context)
+    const [compras, setCompras] = useState([]);
     const obtenerFechaActual = () => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date().toLocaleDateString('es-ES', options);
     };
+    useEffect(() => {
+        const obtenerCompras = async () => {
+            const endpoint = `/compras/${localStorage.getItem("id_usuario")}/${id}`;
+            try {
+                const { data } = await axios.get(URL + endpoint, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+
+                setCompras(data.mensaje);
+                //save favorito in localstorage
+                localStorage.setItem("compras", JSON.stringify(data.mensaje));
+            } catch ({ response: { data: mensaje } }) {
+                alert(mensaje + " 🙁");
+            }
+        };
+        obtenerCompras();
+    }, []);
 
     return (
         <>
@@ -34,7 +54,7 @@ const ContratoExitoso = () => {
                             <span className="w-2/6 text-right">Cantidad</span>
                         </div>
                         <div className="border-dashed border-t border-b border-l-0 border-r-0 border-gray-900 mt-1 my-2 py-2 px-1">
-                            {cart.map((servicio) => (
+                            {compras.map((servicio) => (
                             <div className="flex justify-between text-sm" key={servicio.id}>
                                 <span className="w-2/6 truncate">{servicio.nombre_servicio}</span>
                                 <span className="w-2/6 text-right">{formatPrice(servicio.monto)}</span>
@@ -44,8 +64,8 @@ const ContratoExitoso = () => {
                         </div>
                     </div>
                     <div className="text-xs">
-                        <div className="mb-1">Discount：0</div>
-                        <div className="mb-52">Remark：--</div>
+                        <div className="mb-1">Descuentos：$0</div>
+                        <div className="mb-52">Comentarios：--</div>
                         <div className="text-right">
                             <div>{obtenerFechaActual()}</div>
                             <div className="font-bold text-sm">Total： {formatPrice(total + total*0.1)}</div>

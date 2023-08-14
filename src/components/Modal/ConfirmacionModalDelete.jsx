@@ -17,14 +17,12 @@ export default function ConfirmacionModalDelete({id_servicio}) {
 
   const handleClickDelete = async (id) => {
     const endpoint = `/servicios/${usuario.id_usuario}/${id}`;
-    console.log(endpoint);
     try {
       const data = await axios.delete(URL + endpoint, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(data);
       Swal.fire(
         '¡Servicio Eliminado con Éxito!',
         'Haz Clic para Continuar!',
@@ -33,7 +31,6 @@ export default function ConfirmacionModalDelete({id_servicio}) {
       navigate(`/micuenta`);
     } catch ({ response: { data: mensaje } }) {
       alert(mensaje + " 🙁");
-      console.log(mensaje);
     }
   };
 

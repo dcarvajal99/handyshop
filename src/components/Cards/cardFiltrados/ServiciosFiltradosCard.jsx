@@ -27,13 +27,6 @@ const ServiciosFiltradosCard = () => {
         isFavorito,
       };
     });
-
-
-  console.log("serviciosConFavoritos", serviciosConFavoritos)
-  console.log("favoritos", favoritos)
-  console.log("servicios", serviciosFiltrados)
-
-
   return (
     <>
       {serviciosFiltrados.length > 0 ? (

@@ -32,7 +32,6 @@ const RecoverPassword = () => {
         navigate("/");
       });
     } else {
-      console.log('Formulario contiene errores');
     }
   };
 
