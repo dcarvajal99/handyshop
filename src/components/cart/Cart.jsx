@@ -69,12 +69,17 @@ const Cart = () => {
                 footer: '<a href="/">Ir a servicios</a>'
                 })
         } else {
-            carritobbdd();
+            if (usuariologeado) {
+                carritobbdd();
+            } else {
+            clickRedireccion()
+            }
+
 
         }
     };
 
-
+ 
     return (
 
         <section  className="dark:bg-gray-900 h-full w-full">
@@ -85,6 +90,7 @@ const Cart = () => {
             
                 <div  className="rounded-lg md:w-2/3">
                 {cart.map((servicio) => (
+            
                     <div key={servicio.id_servicio} className="rounded-lg md:w-2/3">
                         <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
                             <img src={servicio.img_url} alt={`img de producto ${servicio.id_servicio}`}  className="w-full rounded-lg sm:w-40" />
